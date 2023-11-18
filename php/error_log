@@ -1,0 +1,194 @@
+[30-Oct-2023 01:07:34 America/Chicago] PHP Warning:  Undefined array key "fno" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 3
+[30-Oct-2023 01:14:08 America/Chicago] PHP Warning:  Undefined array key "userDataJSON" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 3
+[30-Oct-2023 01:15:02 America/Chicago] PHP Warning:  Undefined array key "userDataJSON" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 3
+[30-Oct-2023 01:15:28 America/Chicago] PHP Warning:  Undefined array key "userDataJSON" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 3
+[30-Oct-2023 01:16:02 America/Chicago] PHP Warning:  Undefined array key "userDataJSON" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 3
+[30-Oct-2023 01:48:25 America/Chicago] PHP Warning:  Trying to access array offset on value of type null in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 01:49:02 America/Chicago] PHP Warning:  Trying to access array offset on value of type null in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 01:49:54 America/Chicago] PHP Warning:  Trying to access array offset on value of type null in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 01:51:15 America/Chicago] PHP Warning:  Undefined array key "userDataJSON" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 4
+[30-Oct-2023 01:51:40 America/Chicago] PHP Warning:  Undefined array key "userDataJSON" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 4
+[30-Oct-2023 02:36:45 America/Chicago] PHP Warning:  Array to string conversion in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 34
+[30-Oct-2023 02:42:49 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 3
+[30-Oct-2023 02:44:15 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 3
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "heatingSource" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:02:50 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "heatingSource" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:04:00 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "heatingSource" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:04:07 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "heatingSource" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:05:11 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "heatingSource" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:05:28 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $heatingSource in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $isHeatingSourceOld in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $propertyOwnership in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $benefit in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $property in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $bedroom in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $wall in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $firstName in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $lastName in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 25
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $email in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 26
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $phone in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 27
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $addressLine1 in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 28
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $addressLine2 in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 29
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $city in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 30
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $postcode in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 31
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $reference in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 32
+[30-Oct-2023 03:05:48 America/Chicago] PHP Warning:  Undefined variable $password in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 33
+[30-Oct-2023 03:06:28 America/Chicago] PHP Parse error:  syntax error, unexpected identifier "sent" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 40
+[30-Oct-2023 03:06:44 America/Chicago] PHP Parse error:  syntax error, unexpected identifier "sent" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 40
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "heatingSource" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:07:13 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "heatingSource" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 8
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:07:54 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:08:12 America/Chicago] PHP Warning:  Undefined array key "password" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 24
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "isHeatingSourceOld" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 9
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "propertyOwnership" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 10
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "benefit" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 11
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "property" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 12
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "bedroom" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 13
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "wall" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 14
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "firstName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 15
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "lastName" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 16
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "email" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 17
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "phone" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 18
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "addressLine1" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 19
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "addressLine2" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 20
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "city" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 21
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "postcode" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 22
+[30-Oct-2023 03:10:51 America/Chicago] PHP Warning:  Undefined array key "reference" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 23
+[30-Oct-2023 03:11:26 America/Chicago] PHP Warning:  Undefined array key "f.no" in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 7
+[30-Oct-2023 03:52:21 America/Chicago] PHP Warning:  Undefined variable $lastName in /home1/rectubmx/public_html/sgecrm.rectusmedia.in/php/confirmsurvay.php on line 39

@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         .logoimg {
             max-width: 100%;
-            height: 90px;
+            height: 107px;
             width: 250px;
             
         }

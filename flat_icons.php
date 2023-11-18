@@ -1,3 +1,21 @@
+<?php
+// Start the session to access session variables
+session_start();
+
+// Check if the user is not logged in (no session variable is set)
+if (!isset($_SESSION['email'])) {
+    // Redirect to the login page
+    header("Location: signin.php");
+    exit();
+}
+
+$userEmail = $_SESSION['email'];
+// If the user is logged in, you can display the content of index.php
+
+include('php/get_all_users.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     
@@ -26,17 +44,58 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
     <!-- Favicon icon -->
-	
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<link rel="icon" type="image/png" sizes="16x16" href="https://www.simplegreenenergy.org/wp-content/uploads/2021/03/cropped-Simple-Green-Energy_2_FavIcon-180x180.jpg">		
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet">
 	
-			
+	<link href="public/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>	
 		 <link href="public/assets/vendor/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>		
 		
 		 <link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>		
 		
 		 <link href="public/assets/css/style.css" rel="stylesheet" type="text/css"/>		
-	
+		 <style>
+          
+/* Center the modal */
+#password-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 80%; /* Adjust the width as needed */
+  max-width: 400px; /* Adjust the max-width as needed */
+  text-align: left;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  #password-modal {
+    width: 90%;
+    max-width: 90%;
+  }
+}
+/* Add any additional styling you need */
+
+        </style>
 </head>
 <body>
 
@@ -586,10 +645,10 @@
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="header-left">
 					<div class="dashboard_bar">
-					Flat Icons					</div>
+					Customer Credentials			</div>
 				</div>
 				<ul class="navbar-nav header-right">
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<form>
 							<div class="input-group search-area d-lg-inline-flex d-none me-3">
 								<span class="input-group-text" id="header-search">
@@ -600,7 +659,7 @@
 								<input type="text" class="form-control" placeholder="Search here" aria-label="Username" aria-describedby="header-search">
 							</div>
 						</form>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell dz-theme-mode" href="javascript:void(0);" aria-label="theme-mode">
 							<i id="icon-light" class="fas fa-sun"></i>
@@ -608,7 +667,7 @@
 							
 						</a>
 					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link  ai-icon" href="javascript:void(0)" aria-label="bell" role="button" data-bs-toggle="dropdown">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.75 15.8385V13.0463C22.7471 10.8855 21.9385 8.80353 20.4821 7.20735C19.0258 5.61116 17.0264 4.61555 14.875 4.41516V2.625C14.875 2.39294 14.7828 2.17038 14.6187 2.00628C14.4546 1.84219 14.2321 1.75 14 1.75C13.7679 1.75 13.5454 1.84219 13.3813 2.00628C13.2172 2.17038 13.125 2.39294 13.125 2.625V4.41534C10.9736 4.61572 8.97429 5.61131 7.51794 7.20746C6.06159 8.80361 5.25291 10.8855 5.25 13.0463V15.8383C4.26257 16.0412 3.37529 16.5784 2.73774 17.3593C2.10019 18.1401 1.75134 19.1169 1.75 20.125C1.75076 20.821 2.02757 21.4882 2.51969 21.9803C3.01181 22.4724 3.67904 22.7492 4.375 22.75H9.71346C9.91521 23.738 10.452 24.6259 11.2331 25.2636C12.0142 25.9013 12.9916 26.2497 14 26.2497C15.0084 26.2497 15.9858 25.9013 16.7669 25.2636C17.548 24.6259 18.0848 23.738 18.2865 22.75H23.625C24.321 22.7492 24.9882 22.4724 25.4803 21.9803C25.9724 21.4882 26.2492 20.821 26.25 20.125C26.2486 19.117 25.8998 18.1402 25.2622 17.3594C24.6247 16.5786 23.7374 16.0414 22.75 15.8385ZM7 13.0463C7.00232 11.2113 7.73226 9.45223 9.02974 8.15474C10.3272 6.85726 12.0863 6.12732 13.9212 6.125H14.0788C15.9137 6.12732 17.6728 6.85726 18.9703 8.15474C20.2677 9.45223 20.9977 11.2113 21 13.0463V15.75H7V13.0463ZM14 24.5C13.4589 24.4983 12.9316 24.3292 12.4905 24.0159C12.0493 23.7026 11.716 23.2604 11.5363 22.75H16.4637C16.284 23.2604 15.9507 23.7026 15.5095 24.0159C15.0684 24.3292 14.5411 24.4983 14 24.5ZM23.625 21H4.375C4.14298 20.9999 3.9205 20.9076 3.75644 20.7436C3.59237 20.5795 3.50014 20.357 3.5 20.125C3.50076 19.429 3.77757 18.7618 4.26969 18.2697C4.76181 17.7776 5.42904 17.5008 6.125 17.5H21.875C22.571 17.5008 23.2382 17.7776 23.7303 18.2697C24.2224 18.7618 24.4992 19.429 24.5 20.125C24.4999 20.357 24.4076 20.5795 24.2436 20.7436C24.0795 20.9076 23.857 20.9999 23.625 21Z" fill="#0B2A97"/>
@@ -688,8 +747,8 @@
 							</div>
 							<a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
 						</div>
-					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					</li> -->
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell bell-link" href="javascript:void(0)" aria-label="Chat">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.4605 3.84888H5.31688C4.64748 3.84961 4.00571 4.11586 3.53237 4.58919C3.05903 5.06253 2.79279 5.7043 2.79205 6.3737V18.1562C2.79279 18.8256 3.05903 19.4674 3.53237 19.9407C4.00571 20.4141 4.64748 20.6803 5.31688 20.6811C5.54005 20.6812 5.75404 20.7699 5.91184 20.9277C6.06964 21.0855 6.15836 21.2995 6.15849 21.5227V23.3168C6.15849 23.6215 6.24118 23.9204 6.39774 24.1818C6.5543 24.4431 6.77886 24.6571 7.04747 24.8009C7.31608 24.9446 7.61867 25.0128 7.92298 24.9981C8.22729 24.9834 8.52189 24.8863 8.77539 24.7173L14.6173 20.8224C14.7554 20.7299 14.918 20.6807 15.0842 20.6811H19.187C19.7383 20.68 20.2743 20.4994 20.7137 20.1664C21.1531 19.8335 21.4721 19.3664 21.6222 18.8359L24.8966 7.05011C24.9999 6.67481 25.0152 6.28074 24.9414 5.89856C24.8675 5.51637 24.7064 5.15639 24.4707 4.84663C24.235 4.53687 23.931 4.28568 23.5823 4.11263C23.2336 3.93957 22.8497 3.84931 22.4605 3.84888ZM23.2733 6.60304L20.0006 18.3847C19.95 18.5614 19.8432 18.7168 19.6964 18.8275C19.5496 18.9381 19.3708 18.9979 19.187 18.9978H15.0842C14.5856 18.9972 14.0981 19.1448 13.6837 19.4219L7.84171 23.3168V21.5227C7.84097 20.8533 7.57473 20.2115 7.10139 19.7382C6.62805 19.2648 5.98628 18.9986 5.31688 18.9978C5.09371 18.9977 4.87972 18.909 4.72192 18.7512C4.56412 18.5934 4.4754 18.3794 4.47527 18.1562V6.3737C4.4754 6.15054 4.56412 5.93655 4.72192 5.77874C4.87972 5.62094 5.09371 5.53223 5.31688 5.5321H22.4605C22.5905 5.53243 22.7188 5.56277 22.8353 5.62076C22.9517 5.67875 23.0532 5.76283 23.1318 5.86646C23.2105 5.97008 23.2642 6.09045 23.2887 6.21821C23.3132 6.34597 23.308 6.47766 23.2733 6.60304Z" fill="#0B2A97"/>
@@ -760,13 +819,13 @@
 								</ul>
 							</div>
 						</div>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown header-profile">
 						<a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
-							<img src="public/assets/images/profile/17.jpg" width="20" alt="">
+							<img src="public/assets/images/profile/17.png" width="20" alt="">
 							<div class="header-info">
-								<span class="text-black"><strong>Peter Parkur</strong></span>
-								<p class="fs-12 mb-0">Super Admin</p>
+								<span class="text-black"><strong><?php echo $userEmail; ?></strong></span>
+								<p class="fs-12 mb-0">Admin</p>
 							</div>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end">
@@ -803,30 +862,32 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="index.php">Dashboard</a></li>
-                    <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
+                    <!-- <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
                     <li><a href="workout_statistic.php">Workout Statistic</a></li>
                     <li><a href="workout_plan.php">Workout Plan</a></li>
                     <li><a href="distance_map.php">Distance Map</a></li>
                     <li><a href="food_menu.php">Diet Food Menu</a></li>
-                    <li><a href="personal_record.php">Personal Record</a></li>
+                    <li><a href="personal_record.php">Personal Record</a></li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
-                    <span class="nav-text">Apps</span>
+                    <span class="nav-text">Leads Manage</span>
                 </a>
                 <ul aria-expanded="false">
-                <li><a href="app_profile.php">Profile</a></li>
-                    <li><a href="post_details.php">Post Details</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                <!-- <li><a href="app_profile.php">Customers</a></li>
+                    <li><a href="post_details.php">Post Details</a></li> -->
+                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
                         <ul aria-expanded="false">
                             <li><a href="email_compose.php">Compose</a></li>
                             <li><a href="email_inbox.php">Inbox</a></li>
                             <li><a href="email_read.php">Read</a></li>
                         </ul>
-                    </li>
-                    <li><a href="app_calender.php">Calendar</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
+                    </li> -->
+                    <li><a href="app_calender.php">Qualify Leads</a></li>
+					<li><a href="ecom_product_grid.php">Boiler Leads</a></li>
+					<li><a href="ecom_product_details.php">Documents History</a></li>
+                     <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
                         <ul aria-expanded="false">
                             <li><a href="ecom_product_grid.php">Product Grid</a></li>
 							<li><a href="ecom_product_list.php">Product List</a></li>
@@ -836,22 +897,24 @@
 							<li><a href="ecom_invoice.php">Invoice</a></li>
 							<li><a href="ecom_customers.php">Customers</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-compact-disc-1"></i>
-                    <span class="nav-text">Icons<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Customers</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="flat_icons.php">Flaticons</a></li>
-                    <li><a href="svg_icons.php">SVG Icons</a></li> 
-                    <li><a href="feather_icons.php">Feather Icons</a></li>
+                    <li><a href="flat_icons.php">Users Manage</a></li>
+                    <!-- <li><a href="svg_icons.php">SVG Icons</a></li> 
+                    <li><a href="feather_icons.php">Feather Icons</a></li> -->
+
+					
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-briefcase"></i>
-                    <span class="nav-text">CMS<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Surveyors</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="content.php">Content</a></li>
@@ -866,22 +929,24 @@
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-controls-3"></i>
-                    <span class="nav-text">Charts</span>
+                    <span class="nav-text">Gas Engineers</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="flot.php">Flot</a></li>
 					<li><a href="morris.php">Morris</a></li> 
 					<li><a href="chartjs.php">Chartjs</a></li>
 					<li><a href="chartist.php">Chartist</a></li>
 					<li><a href="sparkline.php">Sparkline</a></li>
 					<li><a href="peity.php">Peity</a></li>
-                </ul>
+                </ul> -->
+				
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-internet"></i>
-                    <span class="nav-text">Bootstrap</span>
+                    <span class="nav-text">Installation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="accordion.php">Accordion</a></li>
 					<li><a href="alert.php">Alert</a></li>
 					<li><a href="badge.php">Badge</a></li>
@@ -900,13 +965,15 @@
                     <li><a href="pagination.php">Pagination</a></li>
                     <li><a href="grid.php">Grid</a></li>
 
-                </ul>
+                </ul> -->
+				
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-heart"></i>
-                    <span class="nav-text">Plugins</span>
+                    <span class="nav-text"> Insulation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="select2.php">Select 2</a></li> 
 					<li><a href="nestable.php">Nestable</a></li>
 					<li><a href="noui_slider.php">Noui Slider</a></li>
@@ -914,16 +981,12 @@
 					<li><a href="toastr.php">Toastr</a></li>
 					<li><a href="map_jqvmap.php">Jqv Map</a></li>
 					<li><a href="lightgallery.php">Light Gallery</a></li>
-                </ul>
-            </li>
-            <li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
-                    <span class="nav-text">Widget</span>
-                </a>
+                </ul> -->
+				
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
-                    <span class="nav-text">Forms</span>
+                    <span class="nav-text">Sub Admins</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="form_element.php">Form Elements</a></li>
@@ -932,6 +995,11 @@
 					<li><a href="form_pickers.php">Pickers</a></li>
 					<li><a href="form_validation_jquery.php">Form Validate</a></li>
                 </ul>
+            </li>
+			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Feedback</span>
+                </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-network"></i>
@@ -963,10 +1031,10 @@
                 </ul>
             </li>
         </ul>
-        <div class="add-menu-sidebar">
+       <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">
             <a href="workout_plan.php" class="font-w500 mb-0">Create Workout Plan Now</a>
-        </div>
+        </div> -->
         <div class="copyright">
             <p><strong>Simple Green Energy Admin Dashboard</strong> © 2023 All Rights Reserved</p>
             <p>Made with <span class="heart"></span> by Vertical Media</p>
@@ -982,2669 +1050,184 @@
 <div class="content-body default-height">
 	<!-- row -->
 	<div class="container-fluid">
-		<div class="page-titles">
+		<!-- <div class="page-titles">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="javascript:void(0)">Icons</a></li>
 				<li class="breadcrumb-item active"><a href="javascript:void(0)">Flat icons</a></li>
 			</ol>
-		</div>
+		</div> -->
 		<div class="row">
-			<div class="col-xl-12">
-				<div class="card">
-					<div class="card-header"><h4 class="text-black mb-0">Flaticon Icons</h4></div>
-					<div class="card-body svg-area px-3">
-						<div class="row">
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-add"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-add</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg">flaticon-381-add</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-add"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-1">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-add-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-add-1</div>
-									<div class="modal fade" id="svg_img_Brassieresvg-1" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-1">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-1">flaticon-381-add-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-add-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-2">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-add-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-add-2</div>
-									<div class="modal fade" id="svg_img_Brassieresvg-2" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-2">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-2">flaticon-381-add-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-add-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-23">
-									<div class="svg-icons-prev">
-									<i class="flaticon-381-add-3"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-add-3</div>
-									<div class="modal fade" id="svg_img_Brassieresvg-23" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-23">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-23">flaticon-381-add-3</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-add-3"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-24">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-alarm-clock"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-alarm-clock</div>
-									<div class="modal fade" id="svg_img_Brassieresvg-24" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-24">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-24">flaticon-381-alarm-clock</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-alarm-clock"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-25">
-									<div class="svg-icons-prev">
-									<i class="flaticon-381-alarm-clock-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-alarm-clock-1</div>
-									<div class="modal fade" id="svg_img_Brassieresvg-25" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-25">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-25">flaticon-381-alarm-clock-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-alarm-clock-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-26">
-									<div class="svg-icons-prev"><i class="flaticon-381-album"></i></div>
-									<div class="svg-classname">flaticon-381-album</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-26" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-26">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-26">flaticon-381-album</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-album"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-27">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-album-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-album-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-27" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-27">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-27">flaticon-381-album-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-album-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-28">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-album-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-album-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-28" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-28">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-28">flaticon-381-album-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-album-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-29">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-album-3"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-album-3</div>
-									<div class="modal fade" id="svg_img_Brassieresvg-29" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-29">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-29">flaticon-381-album-3</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-album-3"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-30">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-archive"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-archive</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-30" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-30">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-30">flaticon-381-archive</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-archive"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-31">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-back"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-back</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-31" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-31">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-31">flaticon-381-back</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-back"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div><div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-32">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-back-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-back-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-32" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-32">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-32">flaticon-381-back-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-back-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-33">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-back-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-back-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-33" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-33">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-33">flaticon-381-back-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-back-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-34">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-background"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-background</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-34" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-34">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-34">flaticon-381-background</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-background"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-35">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-background-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-background-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-35" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-35">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-35">flaticon-381-background-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-background-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-36">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-bluetooth"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-bluetooth</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-36" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-36">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-36">flaticon-381-bluetooth</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-bluetooth"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-37">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-bluetooth-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-bluetooth-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-37" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-37">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-37">flaticon-381-bluetooth-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-bluetooth-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-38">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-book"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-book</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-38" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-38">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-38">flaticon-381-book</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-book"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-39">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-bookmark"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-bookmark</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-39" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-39">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-39">flaticon-381-bookmark</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-bookmark"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-40">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-bookmark-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-bookmark-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-40" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-40">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-40">flaticon-381-bookmark-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-bookmark-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-41">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-box"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-box</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-41" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-41">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-41">flaticon-381-box</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-box"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-42">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-box-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-box-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-42" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-42">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-42">flaticon-381-box-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-box-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-43">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-box-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-box-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-43" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-43">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-43">flaticon-381-box-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-box-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-44">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-briefcase"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-briefcase</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-44" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-44">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-44">flaticon-381-briefcase</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-briefcase"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-45">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-broken-heart"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-broken-heart</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-45" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-45">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-45">flaticon-381-broken-heart</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-broken-heart"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-46">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-broken-link"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-broken-link</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-46" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-46">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-46">flaticon-381-broken-link</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-broken-link"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-47">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calculator"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calculator</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-47" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-47">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-47">flaticon-381-calculator</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calculator"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-48">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calculator-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calculator-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-48" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-48">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-48">flaticon-381-calculator-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calculator-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-49">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calendar"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calendar</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-49" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-49">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-49">flaticon-381-calendar</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calendar"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-50">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calendar-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calendar-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-50" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-50">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-50">flaticon-381-calendar-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calendar-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-51">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calendar-3"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calendar-3</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-51" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-51">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-51">flaticon-381-calendar-3</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calendar-3"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-52">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calendar-4"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calendar-4</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-52" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-52">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-52">flaticon-381-calendar-4</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calendar-4"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-53">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calendar-5"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calendar-5</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-53" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-53">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-53">flaticon-381-calendar-5</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calendar-5"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-54">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calendar-6"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calendar-6</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-54" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-54">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-54">flaticon-381-calendar-6</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calendar-6"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-55">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-calendar-7"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-calendar-7</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-55" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-55">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-55">flaticon-381-calendar-7</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-calendar-7"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-56">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-clock"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-clock</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-56" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-56">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-56">flaticon-381-clock</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-clock"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-57">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-clock-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-clock-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-57" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-57">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-57">flaticon-381-clock-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-clock-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-58">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-clock-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-clock-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-58" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-58">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-58">flaticon-381-clock-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-clock-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-59">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-close"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-close</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-59" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-59">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-59">flaticon-381-close</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-close"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-60">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-cloud"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-cloud</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-60" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-60">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-60">flaticon-381-cloud</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-cloud"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-61">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-cloud-computing"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-cloud-computing</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-61" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-61">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-61">flaticon-381-cloud-computing</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-cloud-computing"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-62">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-command"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-command</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-62" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-62">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-62">flaticon-381-command</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-command"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-63">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-compact-disc"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-compact-disc</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-63" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-63">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-63">flaticon-381-compact-disc</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-compact-disc"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-64">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-compact-disc-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-compact-disc-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-64" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-64">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-64">flaticon-381-compact-disc-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-compact-disc-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-65">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-compact-disc-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-compact-disc-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-65" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-65">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-65">flaticon-381-compact-disc-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-compact-disc-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-66">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-compass"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-compass</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-66" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-66">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-66">flaticon-381-compass</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-compass"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-67">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-compass-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-compass-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-67" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-67">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-67">flaticon-381-compass-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-compass-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-68">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-compass-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-compass-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-68" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-68">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-68">flaticon-381-compass-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-compass-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-69">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-69" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-69">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-69">flaticon-381-controls</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-70">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-70" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-70">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-70">flaticon-381-controls-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-71">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-71" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-71">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-71">flaticon-381-controls-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-72">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-3"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-3</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-72" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-72">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-72">flaticon-381-controls-3</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-3"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-73">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-4"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-4</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-73" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-73">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-73">flaticon-381-controls-4</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-4"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-74">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-5"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-5</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-74" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-74">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-74">flaticon-381-controls-5</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-5"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-75">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-6"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-6</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-75" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-75">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-75">flaticon-381-controls-6</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-6"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-76">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-7"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-7</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-76" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-76">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-76">flaticon-381-controls-7</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-7"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-77">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-8"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-8</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-77" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-77">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-77">flaticon-381-controls-8</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-8"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-78">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-controls-9"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-controls-9</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-78" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-78">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-78">flaticon-381-controls-9</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-controls-9"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-79">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-database"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-database</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-79" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-79">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-79">flaticon-381-database</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-database"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-80">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-database-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-database-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-80" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-80">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-80">flaticon-381-database-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-database-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-81">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-database-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-database-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-81" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-81">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-81">flaticon-381-database-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-database-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-82">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-diamond"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-diamond</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-82" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-82">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-82">flaticon-381-diamond</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-diamond"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-83">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-diploma"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-diploma</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-83" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-83">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-83">flaticon-381-diploma</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-diploma"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-84">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-dislike"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-dislike</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-84" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-84">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-84">flaticon-381-dislike</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-dislike"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-85">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-divide"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-divide</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-85" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-85">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-85">flaticon-381-divide</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-divide"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-86">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-division"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-division</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-86" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-86">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-86">flaticon-381-division</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-division"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-87">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-division-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-division-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-87" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-87">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-87">flaticon-381-division-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-division-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-88">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-download"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-download</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-88" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-88">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-88">flaticon-381-download</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-download"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-89">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-earth-globe"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-earth-globe</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-89" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-89">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-89">flaticon-381-earth-globe</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-earth-globe"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-90">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-earth-globe-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-earth-globe-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-90" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-90">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-90">flaticon-381-earth-globe-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-earth-globe-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-91">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-edit"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-edit</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-91" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-91">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-91">flaticon-381-edit</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-edit"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-92">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-edit-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-edit-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-92" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-92">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-92">flaticon-381-edit-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-edit-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-93">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-eject"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-eject</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-93" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-93">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-93">flaticon-381-eject</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-eject"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-94">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-eject-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-eject-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-94" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-94">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-94">flaticon-381-eject-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-eject-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-95">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-enter"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-enter</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-95" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-95">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-95">flaticon-381-enter</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-enter"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-96">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-equal"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-equal</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-96" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-96">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-96">flaticon-381-equal</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-equal"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-97">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-equal-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-equal-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-97" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-97">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-97">flaticon-381-equal-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-equal-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-98">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-equal-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-equal-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-98" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-98">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-98">flaticon-381-equal-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-equal-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-99">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-error"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-error</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-99" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-99">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-99">flaticon-381-error</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-error"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-100">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-exit"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-exit</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-100" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-100">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-100">flaticon-381-exit</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-exit"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-101">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-exit-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-exit-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-101" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-101">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-101">flaticon-381-exit-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-exit-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-102">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-exit-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-exit-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-102" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-102">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-102">flaticon-381-exit-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-exit-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-103">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-fast-forward"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-fast-forward</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-103" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-103">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-103">flaticon-381-fast-forward</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-fast-forward"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-104">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-fast-forward-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-fast-forward-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-104" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-104">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-104">flaticon-381-fast-forward-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-fast-forward-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-105">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-file"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-file</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-105" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-105">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-105">flaticon-381-file</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-file"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-106">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-file-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-file-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-106" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-106">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-106">flaticon-381-file-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-file-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-107">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-file-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-file-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-107" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-107">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-107">flaticon-381-file-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-file-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-108">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-background-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-background-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-108" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-108">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-108">flaticon-381-background-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-background-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-109">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-109" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-109">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-109">flaticon-381-battery</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-110">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-1"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-1</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-110" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-110">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-110">flaticon-381-battery-1</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-1"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-111">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-2"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-2</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-111" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-111">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-111">flaticon-381-battery-2</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-2"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-112">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-3"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-3</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-112" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-112">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-112">flaticon-381-battery-3</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-3"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-113">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-4"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-4</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-113" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-113">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-113">flaticon-381-battery-4</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-4"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-114">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-5"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-5</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-114" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-114">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-114">flaticon-381-battery-5</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-5"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-115">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-6"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-6</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-115" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-115">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-115">flaticon-381-battery-6</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-6"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-116">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-7"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-7</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-116" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-116">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-116">flaticon-381-battery-7</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-7"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-117">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-8"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-8</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-117" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-117">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-117">flaticon-381-battery-8</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-8"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-118">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-9"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-9</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-118" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-118">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-118">flaticon-381-battery-9</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-9"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-119">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-battery-9"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-battery-9</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-119" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-119">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-119">flaticon-381-battery-9</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-battery-9"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-120">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-binoculars"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-binoculars</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-120" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-120">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-120">flaticon-381-binoculars</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-binoculars"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 col-lg-3 col-xxl-3 col-md-4 col-sm-6 col-12">	
-								<div class="svg-icons-ov style-1" data-bs-toggle="modal" data-bs-target="#svg_img_Brassieresvg-121">
-									<div class="svg-icons-prev">
-										<i class="flaticon-381-blueprint"></i>
-									</div>
-									<div class="svg-classname">flaticon-381-blueprint</div>
-									
-									<div class="modal fade" id="svg_img_Brassieresvg-121" tabindex="-1" role="dialog" aria-labelledby="svg_img_label_Brassieresvg-121">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="svg_img_label_Brassieresvg-121">flaticon-381-blueprint</h5>
-													<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close">
-													</button>
-												</div>
-												<div class="modal-body">
-													<pre>&lt;i class="flaticon-381-blueprint"&gt;&lt;/i&gt;</pre>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		    <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Customer Credentials</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display min-w850">
+                                <thead>
+								<tr>
+								                    <th>Full Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>Address</th>
+                                                    <th>ID Status</th>
+                                                    <th>ID Control</th>
+                                                   
+                                                    <th>Password</th>
+                                                    <th>Pwd</th>
+                                                    <th>Post Code</th>
+                                               
+												
+                                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($records as $record): ?>
+                                                    <tr>
+                                                        
+													<td><?= $record["firstName"] ?></td>
+                                                    <td><?= $record["email"] ?></td>
+                                                    <td><?= $record["phone"] ?></td>
+                                                    <td><?= $record["addressLine1"] ?></td>
+                                                    
+                                                    <td><?= $record["idstatus"] ?></td>
+                                                    <td><button class="status-button" data-surveyoremail="<?= $record["email"] ?>"><i class="hvr-buzz-out fa fa-lock" style="color: green;"></i></button></td>
+                                                    <td><?= $record["password"] ?></td>
+                                                    <td><button class="change-password-button" data-email="<?= $record["email"] ?>"><i  class="hvr-buzz-out fa fa-key"  style="color: #165F0D; "></i></button></td> 
+                                                    <td><?= $record["postcode"] ?></td>
+                                                       
+
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                              
+                                    
+                                </tbody>
+                                <!-- <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </tfoot> -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>
 </div>
+
+<div id="password-modal" class="modal " style="display: none;">
+    <div class="container modal-content ">
+      <span id="password-modal-close" class="close">&times;</span>
+      <h4>Change Password for <span id="password-modal-email"></span></h4><br>
+      <input type="password" class="form-control" id="new-password" placeholder="Enter new password"><br>
+      <button type="button" class="btn btn-primary" id="password-change-button">Change</button>
+    </div>
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.querySelectorAll(".status-button");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", function() {
+        const surveyorEmail = this.getAttribute("data-surveyoremail");
+        const statusCell = this.parentElement.previousElementSibling;
+   
+        const currentStatus = statusCell.innerText.trim();
+        console.log(surveyorEmail);
+        // Toggle the status text
+        const newStatus = currentStatus === "Active" ? "Disable" : "Active";
+        statusCell.innerText = newStatus;
+
+        // Send an AJAX request to update the status in the database
+        const data = new FormData();
+        data.append("surveyorEmail", surveyorEmail);
+        data.append("newStatus", newStatus);
+
+        // Send the AJAX request to a PHP script
+        fetch("php/update_userstatus.php", {
+          method: "POST",
+          body: data
+        })
+        .then(response => response.text())
+        .then(result => {
+          if (result !== "success") {
+            // Revert the status if there was an error
+            statusCell.innerText = currentStatus;
+            alert("Failed to update status.");
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const changePasswordButtons = document.querySelectorAll(".change-password-button");
+    const modal = document.getElementById("password-modal");
+
+    // Hide the modal when the page loads
+    modal.style.display = "none";
+
+    changePasswordButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        const email = this.getAttribute("data-email");
+
+        // Display the modal
+        modal.style.display = "block";
+
+        // Set the email in the modal for reference
+        document.getElementById("password-modal-email").textContent = email;
+      });
+    });
+
+    // Close the modal when the close button is clicked
+    document.getElementById("password-modal-close").addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    // Handle the password change request
+    document.getElementById("password-change-button").addEventListener("click", function() {
+      const email = document.getElementById("password-modal-email").textContent;
+      const newPassword = document.getElementById("new-password").value;
+
+      // Send an AJAX request to change the password
+      const data = new FormData();
+      data.append("email", email);
+      data.append("newPassword", newPassword);
+
+      // Send the AJAX request to a PHP script
+      fetch("php/change_password.php", {
+        method: "POST",
+        body: data
+      })
+      .then(response => response.text())
+      .then(result => {
+        if (result === "success") {
+          alert("Password changed successfully.");
+          modal.style.display = "none"; // Hide the modal after changing the password
+        } else {
+          alert("Failed to change password.");
+        }
+      });
+    });
+
+    // Close the modal when clicking outside of the modal content
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script>
+
 <!--**********************************
 	Content body end
 ***********************************-->
@@ -3661,11 +1244,16 @@
 ***********************************-->        
 		
 	</div>
-			<script src="public/assets/vendor/global/global.min.js"></script>
+	<script src="public/assets/vendor/global/global.min.js"></script>
 			<script src="public/assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
 		
-
-		
+			<script src="public/assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="public/assets/js/plugins-init/datatables.init.js"></script>
+	        <script src="public/assets/vendor/jqueryui/js/jquery-ui.min.js"></script>
+            <script src="public/assets/vendor/moment/moment.min.js"></script>
+            <script src="public/assets/vendor/fullcalendar/js/main.min.js"></script>
+            <script src="public/assets/js/plugins-init/fullcalendar-init.js"></script>
+    	
 			<script src="public/assets/js/custom.min.js"></script>
 			<script src="public/assets/js/deznav-init.js"></script>
 		

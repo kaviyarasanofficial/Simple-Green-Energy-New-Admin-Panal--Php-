@@ -56,6 +56,22 @@ Dear Admin,
 ?>
 
 
+<?php
+// Start the session to access session variables
+session_start();
+
+// Check if the user is not logged in (no session variable is set)
+if (!isset($_SESSION['email'])) {
+    // Redirect to the login page
+    header("Location: signin.php");
+    exit();
+}
+
+$userEmail = $_SESSION['email'];
+// If the user is logged in, you can display the content of index.php
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
@@ -65,7 +81,33 @@ Dear Admin,
 <head>
     <!-- Title -->
 	<title>Simple Green Energy</title>
+    <style>
+             #logo {
+            margin-top: 1px;
+            text-align: center;  
+            
+        }
+        .logoimg {
+            max-width: 100%;
+            height: 107px;
+            width: 250px;
+            
+        }
 
+        /* Media query to adjust the logo size for different screen widths */
+        @media (max-width: 768px) {
+            .logoimg {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logoimg {
+                max-width: 100%;
+                height: 100%;
+            }
+        }
+            </style>
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -101,7 +143,7 @@ Dear Admin,
                             <div class="col-xl-12">
                                 <div class="auth-form">
 									<div class="text-center mb-3">
-										<a href="index.php"><img src="public/assets/images/logo-full.png" alt=""></a>
+										<a href="index.php"><img class="logoimg"  src="https://www.simplegreenenergy.org/wp-content/uploads/2021/06/SimpleGreenEnergy_FinalLogo.png"></a>
 									</div>
                                     <h4 class="text-center mb-4">Forgot Password</h4>
                                     <form method="post" action="page_forgot_password.php">

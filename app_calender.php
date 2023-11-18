@@ -1,3 +1,22 @@
+<?php
+// Start the session to access session variables
+session_start();
+
+// Check if the user is not logged in (no session variable is set)
+if (!isset($_SESSION['email'])) {
+    // Redirect to the login page
+    header("Location: signin.php");
+    exit();
+}
+
+$userEmail = $_SESSION['email'];
+
+include('php/userleads.php');
+// If the user is logged in, you can display the content of index.php
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     
@@ -38,7 +57,12 @@
 		 <link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>		
 		
 		 <link href="public/assets/css/style.css" rel="stylesheet" type="text/css"/>		
-	
+		 <link href="public/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>	
+			
+			<link href="public/assets/vendor/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>		
+		   
+			<link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>		
+			
 </head>
 <body>
 
@@ -588,10 +612,10 @@
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="header-left">
 					<div class="dashboard_bar">
-					Calendar					</div>
+					Qualify Leads					</div>
 				</div>
 				<ul class="navbar-nav header-right">
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<form>
 							<div class="input-group search-area d-lg-inline-flex d-none me-3">
 								<span class="input-group-text" id="header-search">
@@ -602,7 +626,7 @@
 								<input type="text" class="form-control" placeholder="Search here" aria-label="Username" aria-describedby="header-search">
 							</div>
 						</form>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell dz-theme-mode" href="javascript:void(0);" aria-label="theme-mode">
 							<i id="icon-light" class="fas fa-sun"></i>
@@ -610,7 +634,7 @@
 							
 						</a>
 					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link  ai-icon" href="javascript:void(0)" aria-label="bell" role="button" data-bs-toggle="dropdown">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.75 15.8385V13.0463C22.7471 10.8855 21.9385 8.80353 20.4821 7.20735C19.0258 5.61116 17.0264 4.61555 14.875 4.41516V2.625C14.875 2.39294 14.7828 2.17038 14.6187 2.00628C14.4546 1.84219 14.2321 1.75 14 1.75C13.7679 1.75 13.5454 1.84219 13.3813 2.00628C13.2172 2.17038 13.125 2.39294 13.125 2.625V4.41534C10.9736 4.61572 8.97429 5.61131 7.51794 7.20746C6.06159 8.80361 5.25291 10.8855 5.25 13.0463V15.8383C4.26257 16.0412 3.37529 16.5784 2.73774 17.3593C2.10019 18.1401 1.75134 19.1169 1.75 20.125C1.75076 20.821 2.02757 21.4882 2.51969 21.9803C3.01181 22.4724 3.67904 22.7492 4.375 22.75H9.71346C9.91521 23.738 10.452 24.6259 11.2331 25.2636C12.0142 25.9013 12.9916 26.2497 14 26.2497C15.0084 26.2497 15.9858 25.9013 16.7669 25.2636C17.548 24.6259 18.0848 23.738 18.2865 22.75H23.625C24.321 22.7492 24.9882 22.4724 25.4803 21.9803C25.9724 21.4882 26.2492 20.821 26.25 20.125C26.2486 19.117 25.8998 18.1402 25.2622 17.3594C24.6247 16.5786 23.7374 16.0414 22.75 15.8385ZM7 13.0463C7.00232 11.2113 7.73226 9.45223 9.02974 8.15474C10.3272 6.85726 12.0863 6.12732 13.9212 6.125H14.0788C15.9137 6.12732 17.6728 6.85726 18.9703 8.15474C20.2677 9.45223 20.9977 11.2113 21 13.0463V15.75H7V13.0463ZM14 24.5C13.4589 24.4983 12.9316 24.3292 12.4905 24.0159C12.0493 23.7026 11.716 23.2604 11.5363 22.75H16.4637C16.284 23.2604 15.9507 23.7026 15.5095 24.0159C15.0684 24.3292 14.5411 24.4983 14 24.5ZM23.625 21H4.375C4.14298 20.9999 3.9205 20.9076 3.75644 20.7436C3.59237 20.5795 3.50014 20.357 3.5 20.125C3.50076 19.429 3.77757 18.7618 4.26969 18.2697C4.76181 17.7776 5.42904 17.5008 6.125 17.5H21.875C22.571 17.5008 23.2382 17.7776 23.7303 18.2697C24.2224 18.7618 24.4992 19.429 24.5 20.125C24.4999 20.357 24.4076 20.5795 24.2436 20.7436C24.0795 20.9076 23.857 20.9999 23.625 21Z" fill="#0B2A97"/>
@@ -690,8 +714,8 @@
 							</div>
 							<a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
 						</div>
-					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					</li> -->
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell bell-link" href="javascript:void(0)" aria-label="Chat">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.4605 3.84888H5.31688C4.64748 3.84961 4.00571 4.11586 3.53237 4.58919C3.05903 5.06253 2.79279 5.7043 2.79205 6.3737V18.1562C2.79279 18.8256 3.05903 19.4674 3.53237 19.9407C4.00571 20.4141 4.64748 20.6803 5.31688 20.6811C5.54005 20.6812 5.75404 20.7699 5.91184 20.9277C6.06964 21.0855 6.15836 21.2995 6.15849 21.5227V23.3168C6.15849 23.6215 6.24118 23.9204 6.39774 24.1818C6.5543 24.4431 6.77886 24.6571 7.04747 24.8009C7.31608 24.9446 7.61867 25.0128 7.92298 24.9981C8.22729 24.9834 8.52189 24.8863 8.77539 24.7173L14.6173 20.8224C14.7554 20.7299 14.918 20.6807 15.0842 20.6811H19.187C19.7383 20.68 20.2743 20.4994 20.7137 20.1664C21.1531 19.8335 21.4721 19.3664 21.6222 18.8359L24.8966 7.05011C24.9999 6.67481 25.0152 6.28074 24.9414 5.89856C24.8675 5.51637 24.7064 5.15639 24.4707 4.84663C24.235 4.53687 23.931 4.28568 23.5823 4.11263C23.2336 3.93957 22.8497 3.84931 22.4605 3.84888ZM23.2733 6.60304L20.0006 18.3847C19.95 18.5614 19.8432 18.7168 19.6964 18.8275C19.5496 18.9381 19.3708 18.9979 19.187 18.9978H15.0842C14.5856 18.9972 14.0981 19.1448 13.6837 19.4219L7.84171 23.3168V21.5227C7.84097 20.8533 7.57473 20.2115 7.10139 19.7382C6.62805 19.2648 5.98628 18.9986 5.31688 18.9978C5.09371 18.9977 4.87972 18.909 4.72192 18.7512C4.56412 18.5934 4.4754 18.3794 4.47527 18.1562V6.3737C4.4754 6.15054 4.56412 5.93655 4.72192 5.77874C4.87972 5.62094 5.09371 5.53223 5.31688 5.5321H22.4605C22.5905 5.53243 22.7188 5.56277 22.8353 5.62076C22.9517 5.67875 23.0532 5.76283 23.1318 5.86646C23.2105 5.97008 23.2642 6.09045 23.2887 6.21821C23.3132 6.34597 23.308 6.47766 23.2733 6.60304Z" fill="#0B2A97"/>
@@ -762,13 +786,13 @@
 								</ul>
 							</div>
 						</div>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown header-profile">
 						<a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
-							<img src="public/assets/images/profile/17.jpg" width="20" alt="">
+							<img src="public/assets/images/profile/17.png" width="20" alt="">
 							<div class="header-info">
-								<span class="text-black"><strong>Peter Parkur</strong></span>
-								<p class="fs-12 mb-0">Super Admin</p>
+								<span class="text-black"><strong><?php echo $userEmail; ?></strong></span>
+								<p class="fs-12 mb-0">Admin</p>
 							</div>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end">
@@ -805,30 +829,32 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="index.php">Dashboard</a></li>
-                    <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
+                    <!-- <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
                     <li><a href="workout_statistic.php">Workout Statistic</a></li>
                     <li><a href="workout_plan.php">Workout Plan</a></li>
                     <li><a href="distance_map.php">Distance Map</a></li>
                     <li><a href="food_menu.php">Diet Food Menu</a></li>
-                    <li><a href="personal_record.php">Personal Record</a></li>
+                    <li><a href="personal_record.php">Personal Record</a></li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
-                    <span class="nav-text">Apps</span>
+                    <span class="nav-text">Leads Manage</span>
                 </a>
                 <ul aria-expanded="false">
-                <li><a href="app_profile.php">Profile</a></li>
-                    <li><a href="post_details.php">Post Details</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                <!-- <li><a href="app_profile.php">Customers</a></li>
+                    <li><a href="post_details.php">Post Details</a></li> -->
+                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
                         <ul aria-expanded="false">
                             <li><a href="email_compose.php">Compose</a></li>
                             <li><a href="email_inbox.php">Inbox</a></li>
                             <li><a href="email_read.php">Read</a></li>
                         </ul>
-                    </li>
-                    <li><a href="app_calender.php">Calendar</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
+                    </li> -->
+                    <li><a href="app_calender.php">Qualify Leads</a></li>
+					<li><a href="ecom_product_grid.php">Boiler Leads</a></li>
+					<li><a href="ecom_product_details.php">Documents History</a></li>
+                     <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
                         <ul aria-expanded="false">
                             <li><a href="ecom_product_grid.php">Product Grid</a></li>
 							<li><a href="ecom_product_list.php">Product List</a></li>
@@ -838,22 +864,22 @@
 							<li><a href="ecom_invoice.php">Invoice</a></li>
 							<li><a href="ecom_customers.php">Customers</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-compact-disc-1"></i>
-                    <span class="nav-text">Icons<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Customers</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="flat_icons.php">Flaticons</a></li>
-                    <li><a href="svg_icons.php">SVG Icons</a></li> 
-                    <li><a href="feather_icons.php">Feather Icons</a></li>
+                    <li><a href="flat_icons.php">Users Manage</a></li>
+                    <!-- <li><a href="svg_icons.php">SVG Icons</a></li> 
+                    <li><a href="feather_icons.php">Feather Icons</a></li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-briefcase"></i>
-                    <span class="nav-text">CMS<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Surveyors</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="content.php">Content</a></li>
@@ -868,22 +894,23 @@
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-controls-3"></i>
-                    <span class="nav-text">Charts</span>
+                    <span class="nav-text">Gas Engineers</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="flot.php">Flot</a></li>
 					<li><a href="morris.php">Morris</a></li> 
 					<li><a href="chartjs.php">Chartjs</a></li>
 					<li><a href="chartist.php">Chartist</a></li>
 					<li><a href="sparkline.php">Sparkline</a></li>
 					<li><a href="peity.php">Peity</a></li>
-                </ul>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-internet"></i>
-                    <span class="nav-text">Bootstrap</span>
+                    <span class="nav-text">Installation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="accordion.php">Accordion</a></li>
 					<li><a href="alert.php">Alert</a></li>
 					<li><a href="badge.php">Badge</a></li>
@@ -902,13 +929,14 @@
                     <li><a href="pagination.php">Pagination</a></li>
                     <li><a href="grid.php">Grid</a></li>
 
-                </ul>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-heart"></i>
-                    <span class="nav-text">Plugins</span>
+                    <span class="nav-text"> Insulation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="select2.php">Select 2</a></li> 
 					<li><a href="nestable.php">Nestable</a></li>
 					<li><a href="noui_slider.php">Noui Slider</a></li>
@@ -916,16 +944,11 @@
 					<li><a href="toastr.php">Toastr</a></li>
 					<li><a href="map_jqvmap.php">Jqv Map</a></li>
 					<li><a href="lightgallery.php">Light Gallery</a></li>
-                </ul>
-            </li>
-            <li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
-                    <span class="nav-text">Widget</span>
-                </a>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
-                    <span class="nav-text">Forms</span>
+                    <span class="nav-text">Sub Admins</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="form_element.php">Form Elements</a></li>
@@ -934,6 +957,11 @@
 					<li><a href="form_pickers.php">Pickers</a></li>
 					<li><a href="form_validation_jquery.php">Form Validate</a></li>
                 </ul>
+            </li>
+			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Feedback</span>
+                </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-network"></i>
@@ -965,10 +993,10 @@
                 </ul>
             </li>
         </ul>
-        <div class="add-menu-sidebar">
+       <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">
             <a href="workout_plan.php" class="font-w500 mb-0">Create Workout Plan Now</a>
-        </div>
+        </div> -->
         <div class="copyright">
             <p><strong>Simple Green Energy Admin Dashboard</strong> © 2023 All Rights Reserved</p>
             <p>Made with <span class="heart"></span> by Vertical Media</p>
@@ -982,108 +1010,310 @@
 ***********************************-->
 <div class="content-body default-height">
     <div class="container-fluid">
-        <div class="page-titles">
+        <!-- <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Calendar</a></li>
         </ol>
-        </div>
+        </div> -->
         <!-- row -->
 
 
-            <div class="row">
-            <div class="col-xl-3 col-xxl-4">
+        <div class="row">
+		    <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Qualify Leads</h4>
+                    </div>
                     <div class="card-body">
-                        <h4 class="card-intro-title">Calendar</h4>
+                        <div class="table-responsive">
+                            <table id="example" class="display min-w850">
+                                <thead>
+								<tr>
+                                                <th>F.No</th>
+                                                <th>Actions</th>
+                                                <th>Heating Source</th>
+                                                <th>Is Heating Source Old</th>
+                                                <th>Property Ownership</th>
+                                                <th>Benefit</th>
+                                                <th>Property</th>
+                                                <th>Bedroom</th>
+                                                <th>Wall</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Address Line 1</th>
+                                                <th>Address Line 2</th>
+                                                <th>City</th>
+                                                <th>Postcode</th>
+                                                <th>Reference</th>
+                                                <th>Password</th>
+                                                <!-- <th>Update</th> -->
+                                                <!-- <th>Request Document Notify</th> -->
+                                                <!-- <th>Status of Lead</th> -->
+												
+                                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($records as $record): ?>
+                                                    <tr>
+                                                        
+                                                        <td><?= $record["f.no"] ?></td>
+														<td>
+															<div class="dropdown ms-auto text-end c-pointer">
+																<div class="btn-link" data-bs-toggle="dropdown">
+																	<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#ffffff" cx="5" cy="12" r="2"></circle><circle fill="#ffffff" cx="12" cy="12" r="2"></circle><circle fill="#ffffff" cx="19" cy="12" r="2"></circle></g></svg>
+																</div>
+																<div class="dropdown-menu dropdown-menu-end">
+																	<form action="leadupdate.php" method="post">
+																		<input type="hidden" name="fno" value="<?= $record['f.no'] ?>">
+																		<button type="submit" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="Update">
+																			Update
+																		</button>
+																	</form>
+																	<button onclick="confirmDelete(<?= $record['f.no'] ?>)" class="dropdown-item" data-toggle="tooltip" data-placement="right" title="Delete">
+																		Delete
+																	</button>
+																	<form action="work_process.php" method="post">
+																		<input type="hidden" name="fno" value="<?= $record['f.no'] ?>">
+																		<button type="submit" class="dropdown-item" data-toggle="tooltip" data-placement="left" title="Work Process Update">
+																			Work Process Update
+																		</button>
+																	</form>
+																	<button type="button" class="dropdown-item notify-button" data-email="<?= $record["email"] ?>" data-record-id="<?= $record["f.no"] ?>">
+																		Notify
+																	</button>
+																	<div class="dropdown-divider"></div> <!-- Optional divider between items -->
+																	<button type="button" class="dropdown-item statusapprove-button" data-email="<?= $record["email"] ?>" data-record-id="<?= $record["f.no"] ?>">
+																		Approve
+																	</button>
+																	<button type="button" class="dropdown-item status-button" data-email="<?= $record["email"] ?>" data-record-id="<?= $record["f.no"] ?>">
+																		Reject
+																	</button>
+																</div>
+															</div>
+														</td>
+                                                        <td><?= $record["heatingSource"] ?></td>
+                                                        <td><?= $record["isHeatingSourceOld"] ?></td>
+                                                        <td><?= $record["propertyOwnership"] ?></td>
+                                                        <td><?= $record["benefit"] ?></td>
+                                                        <td><?= $record["property"] ?></td>
+                                                        <td><?= $record["bedroom"] ?></td>
+                                                        <td><?= $record["wall"] ?></td>
+                                                        <td><?= $record["firstName"] ?></td>
+                                                        <td><?= $record["lastName"] ?></td>
+                                                        <td><?= $record["email"] ?></td>
+                                                        <td><?= $record["phone"] ?></td>
+                                                        <td><?= $record["addressLine1"] ?></td>
+                                                        <td><?= $record["addressLine2"] ?></td>
+                                                        <td><?= $record["city"] ?></td>
+                                                        <td><?= $record["postcode"] ?></td>
+                                                        <td><?= $record["reference"] ?></td>
+                                                        <td><?= $record["password"] ?></td>
+                                                        <!-- <td class="td1">
+                                                        
+                                                            
+                                                        </td> -->
+                                                        <!-- <td >
+															<button type="button" class="btn btn-primary notify-button" data-email="<?= $record["email"] ?>" data-record-id="<?= $record["f.no"] ?>">Notify</button></td>
+                                                        <td class="td1">
+                                                        <button type="button" class="btn btn-primary statusapprove-button" data-email="<?= $record["email"] ?>" data-record-id="<?= $record["f.no"] ?>">Approve</button>
+                                                        <button type="button" class="btn btn-warning status-button" data-email="<?= $record["email"] ?>" data-record-id="<?= $record["f.no"] ?>">Reject</button>
+													</td> -->
+													
 
-                        <div class="">
-                            <div id="external-events" class="my-3">
-                                <p>Drag and drop your event or click in the calendar</p>
-                                <div class="external-event btn-primary light" data-class="bg-primary"><i class="fa fa-move"></i><span>New Theme Release</span></div>
-                                <div class="external-event btn-warning light" data-class="bg-warning"><i class="fa fa-move"></i>My Event
-                                </div>
-                                <div class="external-event btn-danger light" data-class="bg-danger"><i class="fa fa-move"></i>Meet manager</div>
-                                <div class="external-event btn-info light" data-class="bg-info"><i class="fa fa-move"></i>Create New theme</div>
-                                <div class="external-event btn-dark light" data-class="bg-dark"><i class="fa fa-move"></i>Project Launch</div>
-                                <div class="external-event btn-secondary light" data-class="bg-secondary"><i class="fa fa-move"></i>Meeting</div>
-                            </div>
-                            <!-- checkbox -->
-                            <div class="checkbox form-check checkbox-event custom-checkbox pt-3 pb-5">
-                                <input type="checkbox" class="form-check-input" id="drop-remove">
-                                <label class="form-check-label" for="drop-remove">Remove After Drop</label>
-                            </div>
-                            <a href="javascript:void()" data-bs-toggle="modal" data-bs-target="#add-category" class="btn btn-primary btn-event w-100">
-                                <span class="align-middle"><i class="ti-plus me-1"></i></span> Create New
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-9 col-xxl-8">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="calendar" class="app-fullcalendar"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- BEGIN MODAL -->
-            <div class="modal fade none-border" id="event-modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title"><strong>Add New Event</strong></h4>
-                        </div>
-                        <div class="modal-body"></div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default waves-effect" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success save-event waves-effect waves-light">Create
-                                event</button>
 
-                            <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-bs-toggle="modal">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal Add Category -->
-            <div class="modal fade none-border" id="add-category">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title"><strong>Add a category</strong></h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label form-label">Category Name</label>
-                                        <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label form-label">Choose Category Color</label>
-                                        <select class="form-control default-select form-white" data-placeholder="Choose a color..." name="category-color">
-                                            <option value="success">Success</option>
-                                            <option value="danger">Danger</option>
-                                            <option value="info">Info</option>
-                                            <option value="pink">Pink</option>
-                                            <option value="primary">Primary</option>
-                                            <option value="warning">Warning</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-danger light waves-effect" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary  save-category" data-bs-toggle="modal">Save</button>
+
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                              
+                                    
+                                </tbody>
+                                <!-- <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </tfoot> -->
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.notify-button');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const email = this.getAttribute('data-email');
+                    const recordId = this.getAttribute('data-record-id');
+
+                    if (this.innerText === 'Notify') {
+                        // Change button text to "Notified" and disable it
+                        this.innerText = 'Notified';
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-info');
+                        this.disabled = true;
+
+                        // Send an AJAX request to a PHP script to send the email
+                        sendEmail(email, recordId);
+                    }
+                });
+            });
+
+            function sendEmail(email, recordId) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'requestdocmail.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Handle the response from the PHP script if needed
+                        if (xhr.responseText === "Email sent successfully.") {
+                    Swal.fire("Success!", "Your Email Send", "success");
+                } else {
+                    Swal.fire("Failed!", "Your Email Not Valid", "error");
+                }
+                console.log(xhr.responseText);
+                    }
+                };
+                xhr.send('email=' + email + '&record_id=' + recordId);
+            }
+        });
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.status-button');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const email = this.getAttribute('data-email');
+                    const recordId = this.getAttribute('data-record-id');
+
+                    if (this.innerText === 'Reject') {
+                        // Change button text to "Notified" and disable it
+                        this.innerText = 'Rejected';
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-danger');
+                        this.disabled = true;
+
+                        // Send an AJAX request to a PHP script to send the email
+                        sendEmail(email, recordId);
+                    }
+                });
+            });
+
+            function sendEmail(email, recordId) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'statusleadsmail.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Handle the response from the PHP script if needed
+                        if (xhr.responseText === "Email sent successfully.") {
+                    Swal.fire("Success!", "Your Email Send", "success");
+                } else {
+                    Swal.fire("Failed!", "Your Email Not Valid", "error");
+                }
+                console.log(xhr.responseText);
+                    }
+                };
+                xhr.send('email=' + email + '&record_id=' + recordId);
+            }
+        });
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.statusapprove-button');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const email = this.getAttribute('data-email');
+                    const recordId = this.getAttribute('data-record-id');
+
+                    if (this.innerText === 'Approve') {
+                        // Change button text to "Notified" and disable it
+                        this.innerText = 'Approved';
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-success');
+                        this.disabled = true;
+
+                        // Send an AJAX request to a PHP script to send the email
+                        sendEmail(email, recordId);
+                    }
+                });
+            });
+
+            function sendEmail(email, recordId) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'approveleadmail.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Handle the response from the PHP script if needed
+                        if (xhr.responseText === "Email sent successfully.") {
+                    Swal.fire("Success!", "Your Email Send", "success");
+                } else {
+                    Swal.fire("Failed!", "Your Email Not Valid", "error");
+                }
+                console.log(xhr.responseText);
+                    }
+                };
+                xhr.send('email=' + email + '&record_id=' + recordId);
+            }
+        });
+</script>
+
+        <script>
+function confirmDelete(recordId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You will not be able to recover this record!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel plx!",
+        closeOnConfirm: false,
+        closeOnCancel: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send an AJAX request to delete the record
+            $.ajax({
+                type: "POST",
+                url: "php/userdelete.php",
+                data: { id: recordId },
+                success: function (response) {
+                    if (response === "success") {
+                        // Handle the success message
+                        Swal.fire("Deleted!", "Your record has been deleted.", "success").then(() => {
+                            // Reload the current page
+                            location.reload();
+                        });
+                    } else {
+                        // Handle the error message
+                        Swal.fire("Error", "Failed to delete the record.", "error");
+                    }
+                },
+                error: function (error) {
+                    // Handle errors, e.g., show an error message
+                    Swal.fire("Error", "Failed to delete the record.", "error");
+                },
+            });
+        }
+    });
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--**********************************
     Content body end
 ***********************************-->
@@ -1103,7 +1333,8 @@
 			<script src="public/assets/vendor/global/global.min.js"></script>
 			<script src="public/assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
 		
-
+			<script src="public/assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="public/assets/js/plugins-init/datatables.init.js"></script>
 	        <script src="public/assets/vendor/jqueryui/js/jquery-ui.min.js"></script>
             <script src="public/assets/vendor/moment/moment.min.js"></script>
             <script src="public/assets/vendor/fullcalendar/js/main.min.js"></script>

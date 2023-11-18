@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,9 +69,9 @@
     <form id="redirectForm" action="" method="post">
         <select id="redirectSelect" name="redirectOption" class="form-control custom-dropdown " style="width: 280px; background-color: #50C878; color: white;">
             <option selected>Select User</option>
-            <option value="page_login.php">Admin</option>
-            <option value="index.php">Customer</option>
-            <option value="index.php">Surveyors</option>
+            <option value="admin_login.php">Admin</option>
+            <option value="customer_logins.php">Customer</option>
+            <option value="teamlogins.php">Surveyors</option>
             <option value="teamlogin.php">Gas Engineers</option>
             <option value="teamlogin.php">Installation Team</option>
             <option value="teamlogin.php">Insulation Team</option>

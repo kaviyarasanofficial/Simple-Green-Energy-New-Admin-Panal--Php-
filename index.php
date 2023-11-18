@@ -9,7 +9,113 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
+$userEmail = $_SESSION['email'];
 // If the user is logged in, you can display the content of index.php
+
+
+
+// Replace with your actual database connection details
+define('DB_HOST', 'localhost');
+define('DB_USERNAME', 'rectubmx_simplegreen');
+define('DB_PASSWORD', '3N2h0DEwaDJ#');
+define('DB_NAME', 'rectubmx_simplegreenenergy');
+
+// Establish a database connection
+$conn = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to get the count of users from the "user" table
+// $sql = "SELECT COUNT(*) AS Subadmin_count FROM users WHERE role = 'Sub Admin'";
+$sql = "SELECT COUNT(*) AS leads_count FROM users";
+$result = $conn->query($sql);
+
+$userCount = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $userCount = $row['leads_count'];
+}
+
+$sql = "SELECT COUNT(*) AS total_count FROM (
+    SELECT NULL AS column_name FROM atp 
+    UNION ALL 
+    SELECT NULL AS column_name FROM users
+) AS combined";
+
+$result = $conn->query($sql);
+$totalCount = $result->fetch_assoc()['total_count'];
+
+
+
+
+
+$sql = "SELECT COUNT(*) AS subadmins_count FROM teams WHERE role = 'SubAdmin'";
+$result = $conn->query($sql);
+
+$subadmins_count = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $subadmins_count = $row['subadmins_count'];
+}
+
+$sql = "SELECT COUNT(*) AS surveyors_count FROM teams WHERE role = 'surveyor'";
+$result = $conn->query($sql);
+
+$surveyors_count = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $surveyors_count = $row['surveyors_count'];
+}
+
+$sql = "SELECT COUNT(*) AS Gasengineers_count FROM teams WHERE role = 'gasengineer'";
+$result = $conn->query($sql);
+
+$Gasengineers_count = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $Gasengineers_count = $row['Gasengineers_count'];
+}
+
+$sql = "SELECT COUNT(*) AS Installationteam_count FROM teams WHERE role = 'installationteam'";
+$result = $conn->query($sql);
+
+$Installationteam_count = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $Installationteam_count = $row['Installationteam_count'];
+}
+
+$sql = "SELECT COUNT(*) AS Insulationteam_count FROM teams WHERE role = 'insulationteam'";
+$result = $conn->query($sql);
+
+$Insulationteam_count = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $Insulationteam_count = $row['Insulationteam_count'];
+}
+
+
+$sql = "SELECT COUNT(*) AS feedbacks_count FROM feedbacks";
+$result = $conn->query($sql);
+
+$feedbacks_count = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $feedbacks_count = $row['feedbacks_count'];
+}
+
+$sql = "SELECT COUNT(*) AS customer_count FROM users";
+$result = $conn->query($sql);
+
+$customer_count = 0; // Default value if no users are found
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $customer_count = $row['customer_count'];
+}
+
+
 ?>
 
 
@@ -608,7 +714,7 @@ if (!isset($_SESSION['email'])) {
 					Dashboard					</div>
 				</div>
 				<ul class="navbar-nav header-right">
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<form>
 							<div class="input-group search-area d-lg-inline-flex d-none me-3">
 								<span class="input-group-text" id="header-search">
@@ -619,7 +725,7 @@ if (!isset($_SESSION['email'])) {
 								<input type="text" class="form-control" placeholder="Search here" aria-label="Username" aria-describedby="header-search">
 							</div>
 						</form>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell dz-theme-mode" href="javascript:void(0);" aria-label="theme-mode">
 							<i id="icon-light" class="fas fa-sun"></i>
@@ -627,7 +733,7 @@ if (!isset($_SESSION['email'])) {
 							
 						</a>
 					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link  ai-icon" href="javascript:void(0)" aria-label="bell" role="button" data-bs-toggle="dropdown">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.75 15.8385V13.0463C22.7471 10.8855 21.9385 8.80353 20.4821 7.20735C19.0258 5.61116 17.0264 4.61555 14.875 4.41516V2.625C14.875 2.39294 14.7828 2.17038 14.6187 2.00628C14.4546 1.84219 14.2321 1.75 14 1.75C13.7679 1.75 13.5454 1.84219 13.3813 2.00628C13.2172 2.17038 13.125 2.39294 13.125 2.625V4.41534C10.9736 4.61572 8.97429 5.61131 7.51794 7.20746C6.06159 8.80361 5.25291 10.8855 5.25 13.0463V15.8383C4.26257 16.0412 3.37529 16.5784 2.73774 17.3593C2.10019 18.1401 1.75134 19.1169 1.75 20.125C1.75076 20.821 2.02757 21.4882 2.51969 21.9803C3.01181 22.4724 3.67904 22.7492 4.375 22.75H9.71346C9.91521 23.738 10.452 24.6259 11.2331 25.2636C12.0142 25.9013 12.9916 26.2497 14 26.2497C15.0084 26.2497 15.9858 25.9013 16.7669 25.2636C17.548 24.6259 18.0848 23.738 18.2865 22.75H23.625C24.321 22.7492 24.9882 22.4724 25.4803 21.9803C25.9724 21.4882 26.2492 20.821 26.25 20.125C26.2486 19.117 25.8998 18.1402 25.2622 17.3594C24.6247 16.5786 23.7374 16.0414 22.75 15.8385ZM7 13.0463C7.00232 11.2113 7.73226 9.45223 9.02974 8.15474C10.3272 6.85726 12.0863 6.12732 13.9212 6.125H14.0788C15.9137 6.12732 17.6728 6.85726 18.9703 8.15474C20.2677 9.45223 20.9977 11.2113 21 13.0463V15.75H7V13.0463ZM14 24.5C13.4589 24.4983 12.9316 24.3292 12.4905 24.0159C12.0493 23.7026 11.716 23.2604 11.5363 22.75H16.4637C16.284 23.2604 15.9507 23.7026 15.5095 24.0159C15.0684 24.3292 14.5411 24.4983 14 24.5ZM23.625 21H4.375C4.14298 20.9999 3.9205 20.9076 3.75644 20.7436C3.59237 20.5795 3.50014 20.357 3.5 20.125C3.50076 19.429 3.77757 18.7618 4.26969 18.2697C4.76181 17.7776 5.42904 17.5008 6.125 17.5H21.875C22.571 17.5008 23.2382 17.7776 23.7303 18.2697C24.2224 18.7618 24.4992 19.429 24.5 20.125C24.4999 20.357 24.4076 20.5795 24.2436 20.7436C24.0795 20.9076 23.857 20.9999 23.625 21Z" fill="#0B2A97"/>
@@ -707,8 +813,8 @@ if (!isset($_SESSION['email'])) {
 							</div>
 							<a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
 						</div>
-					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					</li> -->
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell bell-link" href="javascript:void(0)" aria-label="Chat">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.4605 3.84888H5.31688C4.64748 3.84961 4.00571 4.11586 3.53237 4.58919C3.05903 5.06253 2.79279 5.7043 2.79205 6.3737V18.1562C2.79279 18.8256 3.05903 19.4674 3.53237 19.9407C4.00571 20.4141 4.64748 20.6803 5.31688 20.6811C5.54005 20.6812 5.75404 20.7699 5.91184 20.9277C6.06964 21.0855 6.15836 21.2995 6.15849 21.5227V23.3168C6.15849 23.6215 6.24118 23.9204 6.39774 24.1818C6.5543 24.4431 6.77886 24.6571 7.04747 24.8009C7.31608 24.9446 7.61867 25.0128 7.92298 24.9981C8.22729 24.9834 8.52189 24.8863 8.77539 24.7173L14.6173 20.8224C14.7554 20.7299 14.918 20.6807 15.0842 20.6811H19.187C19.7383 20.68 20.2743 20.4994 20.7137 20.1664C21.1531 19.8335 21.4721 19.3664 21.6222 18.8359L24.8966 7.05011C24.9999 6.67481 25.0152 6.28074 24.9414 5.89856C24.8675 5.51637 24.7064 5.15639 24.4707 4.84663C24.235 4.53687 23.931 4.28568 23.5823 4.11263C23.2336 3.93957 22.8497 3.84931 22.4605 3.84888ZM23.2733 6.60304L20.0006 18.3847C19.95 18.5614 19.8432 18.7168 19.6964 18.8275C19.5496 18.9381 19.3708 18.9979 19.187 18.9978H15.0842C14.5856 18.9972 14.0981 19.1448 13.6837 19.4219L7.84171 23.3168V21.5227C7.84097 20.8533 7.57473 20.2115 7.10139 19.7382C6.62805 19.2648 5.98628 18.9986 5.31688 18.9978C5.09371 18.9977 4.87972 18.909 4.72192 18.7512C4.56412 18.5934 4.4754 18.3794 4.47527 18.1562V6.3737C4.4754 6.15054 4.56412 5.93655 4.72192 5.77874C4.87972 5.62094 5.09371 5.53223 5.31688 5.5321H22.4605C22.5905 5.53243 22.7188 5.56277 22.8353 5.62076C22.9517 5.67875 23.0532 5.76283 23.1318 5.86646C23.2105 5.97008 23.2642 6.09045 23.2887 6.21821C23.3132 6.34597 23.308 6.47766 23.2733 6.60304Z" fill="#0B2A97"/>
@@ -779,13 +885,13 @@ if (!isset($_SESSION['email'])) {
 								</ul>
 							</div>
 						</div>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown header-profile">
 						<a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
-							<img src="public/assets/images/profile/17.jpg" width="20" alt="">
+							<img src="public/assets/images/profile/17.png" width="20" alt="">
 							<div class="header-info">
-								<span class="text-black"><strong>Peter Parkur</strong></span>
-								<p class="fs-12 mb-0">Super Admin</p>
+								<span class="text-black"><strong><?php echo $userEmail; ?></strong></span>
+								<p class="fs-12 mb-0">Admin</p>
 							</div>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end">
@@ -793,10 +899,10 @@ if (!isset($_SESSION['email'])) {
 								<svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
 								<span class="ms-2">Profile </span>
 							</a>
-							<a href="email_inbox.php" class="dropdown-item ai-icon">
+							<!-- <a href="email_inbox.php" class="dropdown-item ai-icon">
 								<svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
 								<span class="ms-2">Inbox </span>
-							</a>
+							</a> -->
 							<a href="logout.php" class="dropdown-item ai-icon">
 								<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 								<span class="ms-2">Logout </span>
@@ -820,32 +926,38 @@ if (!isset($_SESSION['email'])) {
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
-                <ul aria-expanded="false">
+                <ul aria-expanded="true">
                     <li><a href="index.php">Dashboard</a></li>
-                    <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
+                    <!-- <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
                     <li><a href="workout_statistic.php">Workout Statistic</a></li>
                     <li><a href="workout_plan.php">Workout Plan</a></li>
                     <li><a href="distance_map.php">Distance Map</a></li>
                     <li><a href="food_menu.php">Diet Food Menu</a></li>
-                    <li><a href="personal_record.php">Personal Record</a></li>
+                    <li><a href="personal_record.php">Personal Record</a></li> -->
                 </ul>
+				
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
-                    <span class="nav-text">Apps</span>
+                    <span class="nav-text">Leads Manage</span>
                 </a>
                 <ul aria-expanded="false">
-                <li><a href="app_profile.php">Profile</a></li>
-                    <li><a href="post_details.php">Post Details</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                <!-- <li><a href="app_profile.php">Customers</a></li>
+                    <li><a href="post_details.php">Post Details</a></li> -->
+					
+                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
                         <ul aria-expanded="false">
                             <li><a href="email_compose.php">Compose</a></li>
                             <li><a href="email_inbox.php">Inbox</a></li>
                             <li><a href="email_read.php">Read</a></li>
                         </ul>
-                    </li>
-                    <li><a href="app_calender.php">Calendar</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
+                    </li> -->
+                    <li><a href="app_calender.php">Qualify Leads</a></li>
+					<li><a href="ecom_product_grid.php">Boiler Leads</a></li>
+					<li><a href="ecom_product_details.php">Documents History</a></li>
+
+					
+                     <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
                         <ul aria-expanded="false">
                             <li><a href="ecom_product_grid.php">Product Grid</a></li>
 							<li><a href="ecom_product_list.php">Product List</a></li>
@@ -855,22 +967,22 @@ if (!isset($_SESSION['email'])) {
 							<li><a href="ecom_invoice.php">Invoice</a></li>
 							<li><a href="ecom_customers.php">Customers</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-compact-disc-1"></i>
-                    <span class="nav-text">Icons<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Customers</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="flat_icons.php">Flaticons</a></li>
-                    <li><a href="svg_icons.php">SVG Icons</a></li> 
-                    <li><a href="feather_icons.php">Feather Icons</a></li>
+                    <li><a href="flat_icons.php">Users Manage</a></li>
+                    <!-- <li><a href="svg_icons.php">SVG Icons</a></li> 
+                    <li><a href="feather_icons.php">Feather Icons</a></li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-briefcase"></i>
-                    <span class="nav-text">CMS<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Surveyors</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="content.php">Content</a></li>
@@ -885,22 +997,23 @@ if (!isset($_SESSION['email'])) {
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-controls-3"></i>
-                    <span class="nav-text">Charts</span>
+                    <span class="nav-text">Gas Engineers</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="flot.php">Flot</a></li>
 					<li><a href="morris.php">Morris</a></li> 
 					<li><a href="chartjs.php">Chartjs</a></li>
 					<li><a href="chartist.php">Chartist</a></li>
 					<li><a href="sparkline.php">Sparkline</a></li>
 					<li><a href="peity.php">Peity</a></li>
-                </ul>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-internet"></i>
-                    <span class="nav-text">Bootstrap</span>
+                    <span class="nav-text">Installation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="accordion.php">Accordion</a></li>
 					<li><a href="alert.php">Alert</a></li>
 					<li><a href="badge.php">Badge</a></li>
@@ -919,13 +1032,14 @@ if (!isset($_SESSION['email'])) {
                     <li><a href="pagination.php">Pagination</a></li>
                     <li><a href="grid.php">Grid</a></li>
 
-                </ul>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-heart"></i>
-                    <span class="nav-text">Plugins</span>
+                    <span class="nav-text"> Insulation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="select2.php">Select 2</a></li> 
 					<li><a href="nestable.php">Nestable</a></li>
 					<li><a href="noui_slider.php">Noui Slider</a></li>
@@ -933,16 +1047,11 @@ if (!isset($_SESSION['email'])) {
 					<li><a href="toastr.php">Toastr</a></li>
 					<li><a href="map_jqvmap.php">Jqv Map</a></li>
 					<li><a href="lightgallery.php">Light Gallery</a></li>
-                </ul>
-            </li>
-            <li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
-                    <span class="nav-text">Widget</span>
-                </a>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
-                    <span class="nav-text">Forms</span>
+                    <span class="nav-text">Sub Admins</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="form_element.php">Form Elements</a></li>
@@ -951,6 +1060,11 @@ if (!isset($_SESSION['email'])) {
 					<li><a href="form_pickers.php">Pickers</a></li>
 					<li><a href="form_validation_jquery.php">Form Validate</a></li>
                 </ul>
+            </li>
+			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Feedback</span>
+                </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-network"></i>
@@ -982,10 +1096,10 @@ if (!isset($_SESSION['email'])) {
                 </ul>
             </li>
         </ul>
-        <div class="add-menu-sidebar">
+       <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">
             <a href="workout_plan.php" class="font-w500 mb-0">Create Workout Plan Now</a>
-        </div>
+        </div> -->
         <div class="copyright">
             <p><strong>Simple Green Energy Admin Dashboard</strong> © 2023 All Rights Reserved</p>
             <p>Made with <span class="heart"></span> by Vertical Media</p>
@@ -1003,7 +1117,7 @@ if (!isset($_SESSION['email'])) {
 		<div class="row">
 			<div class="col-xl-6 col-xxl-12">
 				<div class="row">
-					<div class="col-sm-6">
+					<!-- <div class="col-sm-6">
 						<div class="card avtivity-card">
 							<div class="card-body">
 								<div class="media align-items-center">
@@ -1020,8 +1134,8 @@ if (!isset($_SESSION['email'])) {
 										</svg>
 									</span>
 									<div class="media-body">
-										<p class="fs-14 mb-2">Weekly Progress</p>
-										<span class="title text-black font-w600">42%</span>
+										<p class="fs-14 mb-2">Leads</p>
+										<span class="title text-black font-w600"><?php echo $totalCount; ?></span>
 									</div>
 								</div>
 								<div class="progress" style="height:5px;">
@@ -1045,8 +1159,8 @@ if (!isset($_SESSION['email'])) {
 										</svg>
 									</span>
 									<div class="media-body">
-										<p class="fs-14 mb-2">Weekly Running</p>
-										<span class="title text-black font-w600">42km</span>
+										<p class="fs-14 mb-2">Sub admins</p>
+										<span class="title text-black font-w600"><?php echo $subadmins_count; ?></span>
 									</div>
 								</div>
 								<div class="progress" style="height:5px;">
@@ -1071,8 +1185,8 @@ if (!isset($_SESSION['email'])) {
 										</svg>
 									</span>
 									<div class="media-body">
-										<p class="fs-14 mb-2">Daily Cycling</p>
-										<span class="title text-black font-w600">230 Km</span>
+										<p class="fs-14 mb-2">Surveyors</p>
+										<span class="title text-black font-w600"><?php echo $surveyors_count; ?></span>
 									</div>
 								</div>
 								<div class="progress" style="height:5px;">
@@ -1098,8 +1212,8 @@ if (!isset($_SESSION['email'])) {
 										</svg>
 									</span>
 									<div class="media-body">
-										<p class="fs-14 mb-2">Morning Yoga</p>
-										<span class="title text-black font-w600">18:34:21</span>
+										<p class="fs-14 mb-2">Installation Team</p>
+										<span class="title text-black font-w600"><?php echo $Installationteam_count; ?></span>
 									</div>
 								</div>
 								<div class="progress" style="height:5px;">
@@ -1111,9 +1225,220 @@ if (!isset($_SESSION['email'])) {
 							<div class="effect bg-warning"></div>
 						</div>
 					</div>
+
+					<div class="col-sm-6">
+						<div class="card avtivity-card">
+							<div class="card-body">
+								<div class="media align-items-center">
+									<span class="activity-icon bgl-danger me-md-4 me-3">
+										<svg width="40" height="39" viewBox="0 0 40 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M18.0977 7.90402L9.78535 16.7845C9.17929 17.6683 9.40656 18.872 10.2862 19.4738L18.6574 25.2104V30.787C18.6574 31.8476 19.4992 32.7357 20.5598 32.7568C21.6456 32.7735 22.5295 31.9023 22.5295 30.8207V24.1961C22.5295 23.5564 22.2138 22.9588 21.6877 22.601L16.3174 18.9184L20.8376 14.1246L23.1524 19.3982C23.4596 20.101 24.1582 20.5556 24.9243 20.5556H31.974C33.0346 20.5556 33.9226 19.7139 33.9437 18.6532C33.9605 17.5674 33.0893 16.6835 32.0076 16.6835H26.1953C25.4293 14.9411 24.6128 13.2155 23.9015 11.4478C23.5395 10.5556 23.3376 10.1684 22.6726 9.55389C22.5379 9.42763 21.5993 8.56904 20.7618 7.80305C19.9916 7.10435 18.8047 7.15065 18.0977 7.90402Z" fill="#FF3282"/>
+											<path d="M26.0269 8.87206C28.4769 8.87206 30.463 6.88598 30.463 4.43603C30.463 1.98608 28.4769 0 26.0269 0C23.577 0 21.5909 1.98608 21.5909 4.43603C21.5909 6.88598 23.577 8.87206 26.0269 8.87206Z" fill="#FF3282"/>
+											<path d="M8.16498 38.388C12.6744 38.388 16.33 34.7325 16.33 30.2231C16.33 25.7137 12.6744 22.0581 8.16498 22.0581C3.65559 22.0581 0 25.7137 0 30.2231C0 34.7325 3.65559 38.388 8.16498 38.388Z" fill="#FF3282"/>
+											<path d="M31.835 38.388C36.3444 38.388 40 34.7325 40 30.2231C40 25.7137 36.3444 22.0581 31.835 22.0581C27.3256 22.0581 23.67 25.7137 23.67 30.2231C23.67 34.7325 27.3256 38.388 31.835 38.388Z" fill="#FF3282"/>
+										</svg>
+									</span>
+									<div class="media-body">
+										<p class="fs-14 mb-2">Gas Engineers</p>
+										<span class="title text-black font-w600"><?php echo $Gasengineers_count; ?></span>
+									</div>
+								</div>
+								<div class="progress" style="height:5px;">
+									<div class="progress-bar bg-danger" style="width: 90%; height:5px;" aria-label="Progess-danger"  role="progressbar">
+										<span class="sr-only">42% Complete</span>
+									</div>
+								</div>
+							</div>
+							<div class="effect bg-danger"></div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card avtivity-card">
+							<div class="card-body">
+								<div class="media align-items-center">
+									<span class="activity-icon bgl-warning  me-md-4 me-3">
+										<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M19.9996 10.0001C22.7611 10.0001 24.9997 7.76148 24.9997 5.00004C24.9997 2.23859 22.7611 0 19.9996 0C17.2382 0 14.9996 2.23859 14.9996 5.00004C14.9996 7.76148 17.2382 10.0001 19.9996 10.0001Z" fill="#FFBC11"/>
+											<path d="M29.7178 36.3838L23.5603 38.6931L26.6224 39.8414C27.9402 40.3307 29.3621 39.6527 29.8413 38.3778C30.0964 37.6976 30.021 36.9851 29.7178 36.3838Z" fill="#FFBC11"/>
+											<path d="M8.37771 27.6588C7.08745 27.1803 5.64452 27.8298 5.15873 29.1224C4.67411 30.4151 5.32967 31.8555 6.62228 32.3413L9.31945 33.3527L16.4402 30.6821L8.37771 27.6588Z" fill="#FFBC11"/>
+											<path d="M34.8413 29.1225C34.3554 27.8297 32.9126 27.1803 31.6223 27.6589L11.6223 35.1589C10.3295 35.6448 9.67401 37.0852 10.1586 38.3779C10.6378 39.6524 12.0594 40.3309 13.3776 39.8415L33.3777 32.3414C34.6705 31.8556 35.326 30.4152 34.8413 29.1225Z" fill="#FFBC11"/>
+											<path d="M37.5001 20.0001H31.5455L27.2364 11.3819C26.7886 10.4871 25.8776 9.97737 24.9388 10.0001L19.9996 10.0001L15.061 10.0001C14.1223 9.97737 13.2125 10.4872 12.7637 11.3819L8.45457 20.0001H2.49998C1.1194 20.0001 0 21.1195 0 22.5001C0 23.8807 1.1194 25.0001 2.49998 25.0001H10C10.9473 25.0001 11.8128 24.4654 12.2363 23.6183L15 18.0909V27.4724L19.9998 29.3472L25 27.4719V18.0909L27.7637 23.6183C28.1873 24.4655 29.0528 25.0001 30 25.0001H37.5C38.8806 25.0001 40 23.8807 40 22.5001C40 21.1195 38.8807 20.0001 37.5001 20.0001Z" fill="#FFBC11"/>
+										</svg>
+									</span>
+									<div class="media-body">
+										<p class="fs-14 mb-2">Insulation Team</p>
+										<span class="title text-black font-w600"><?php echo $Insulationteam_count; ?></span>
+									</div>
+								</div>
+								<div class="progress" style="height:5px;">
+									<div class="progress-bar bg-warning" style="width: 42%; height:5px;" role="progressbar">
+										<span class="sr-only">42% Complete</span>
+									</div>
+								</div>
+							</div>
+							<div class="effect bg-info"></div>
+						</div>
+					</div> -->
+
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-primary">
+					<div class="card-body  p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-users"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">Leads</p>
+								<h3 class="text-white"><?php echo $totalCount; ?>
+								</h3>
+								<div class="progress mb-2 bg-secondary">
+									<div class="progress-bar progress-animated bg-white" style="width: 80%"></div>
+								</div>
+								<small>80% Increase in 20 Days</small>
+							</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-xl-6 col-xxl-12">
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-warning">
+					<div class="card-body p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-user"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">Surveyors</p>
+								<h3 class="text-white"><?php echo $surveyors_count; ?></h3>
+								<div class="progress mb-2 bg-primary">
+									<div class="progress-bar progress-animated bg-white" style="width: 50%"></div>
+								</div>
+								<small>50% Increase in 25 Days</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-secondary">
+					<div class="card-body p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-graduation-cap"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">Installation Team</p>
+								<h3 class="text-white"><?php echo $Installationteam_count; ?></h3>
+								<div class="progress mb-2 bg-primary">
+									<div class="progress-bar progress-animated bg-white" style="width: 76%"></div>
+								</div>
+								<small>76% Increase in 20 Days</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-danger ">
+					<div class="card-body p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-dollar"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">Gas Engineers</p>
+								<h3 class="text-white"><?php echo $Gasengineers_count; ?></h3>
+								<div class="progress mb-2 bg-secondary">
+									<div class="progress-bar progress-animated bg-white" style="width: 30%"></div>
+								</div>
+								<small>30% Increase in 30 Days</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-primary">
+					<div class="card-body  p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-users"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">Insulation Team</p>
+								<h3 class="text-white"><?php echo $Insulationteam_count; ?></h3>
+								<div class="progress mb-2 bg-secondary">
+									<div class="progress-bar progress-animated bg-white" style="width: 80%"></div>
+								</div>
+								<small>80% Increase in 20 Days</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-warning">
+					<div class="card-body p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-user"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">Sub admins</p>
+								<h3 class="text-white"><?php echo $subadmins_count; ?></h3>
+								<div class="progress mb-2 bg-primary">
+									<div class="progress-bar progress-animated bg-white" style="width: 50%"></div>
+								</div>
+								<small>50% Increase in 25 Days</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-secondary">
+					<div class="card-body p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-graduation-cap"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">feedbacks</p>
+								<h3 class="text-white"><?php echo $feedbacks_count; ?></h3>
+								<div class="progress mb-2 bg-primary">
+									<div class="progress-bar progress-animated bg-white" style="width: 76%"></div>
+								</div>
+								<small>76% Increase in 20 Days</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="widget-stat card bg-danger ">
+					<div class="card-body p-4">
+						<div class="media">
+							<span class="me-3">
+								<i class="la la-dollar"></i>
+							</span>
+							<div class="media-body text-white">
+								<p class="mb-1">Customer</p>
+								<h3 class="text-white"><?php echo $customer_count; ?></h3>
+								<div class="progress mb-2 bg-secondary">
+									<div class="progress-bar progress-animated bg-white" style="width: 30%"></div>
+								</div>
+								<small>30% Increase in 30 Days</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+
+
+				</div>
+			</div>
+			<!-- <div class="col-xl-6 col-xxl-12">
 				<div class="card">
 					<div class="card-header d-sm-flex d-block pb-0 border-0">
 						<div class="me-auto pe-3 mb-sm-0 mb-3">
@@ -1149,110 +1474,9 @@ if (!isset($_SESSION['email'])) {
 						<div id="chartBar"></div>
 					</div>
 				</div>
-			</div>
-			<div class="col-xl-9 col-xxl-8">
-				<div class="row">
-					<div class="col-xl-12">	
-						<div class="card">
-							<div class="card-header d-sm-flex d-block pb-0 border-0">
-								<div class="me-auto pe-3">
-									<h4 class="text-black font-w600 fs-20">Recomended Trainer for You</h4>
-									<p class="fs-13 mb-0">Lorem ipsum dolor sit amet, consectetur</p>
-								</div>
-								<a href="food_menu.php" class="btn btn-primary rounded d-none d-md-block">View More</a>
-							</div>
-							<div class="card-body pt-2">
-								<div class="testimonial-one owl-carousel">
-									<div class="items">
-										<div class="card text-center">
-											<div class="card-body">
-												<img src="public/assets/images/testimonial/1.jpg" alt="">
-												<h5 class="fs-16 font-w500 mb-1"><a href="app_profile.php" class="text-black">Roberto Carloz</a></h5>
-												<p class="fs-14">Body Building Trainer</p>
-												<div class="d-flex align-items-center justify-content-center">
-													<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M5.09569 20C4.80437 19.9988 4.51677 19.9344 4.25273 19.8113C3.98868 19.6881 3.75447 19.5091 3.56624 19.2866C3.37801 19.0641 3.24024 18.8034 3.16243 18.5225C3.08462 18.2415 3.06862 17.9471 3.11554 17.6593L3.88905 12.8902L0.569441 9.45986C0.312024 9.19466 0.132451 8.86374 0.0503661 8.50328C-0.0317185 8.14282 -0.0131526 7.76671 0.104033 7.4161C0.221219 7.06549 0.43251 6.75388 0.714792 6.51537C0.997074 6.27685 1.33947 6.12062 1.70453 6.06376L6.20048 5.37325L8.18158 1.13817C8.34755 0.796915 8.60606 0.509234 8.92762 0.307978C9.24917 0.106721 9.6208 0 10.0001 0C10.3793 0 10.751 0.106721 11.0725 0.307978C11.3941 0.509234 11.6526 0.796915 11.8186 1.13817L13.7931 5.36719L18.2955 6.06376C18.6606 6.12062 19.003 6.27685 19.2852 6.51537C19.5675 6.75388 19.7788 7.06549 19.896 7.4161C20.0132 7.76671 20.0318 8.14282 19.9497 8.50328C19.8676 8.86374 19.688 9.19466 19.4306 9.45986L16.1144 12.8765L16.885 17.66C16.9463 18.0327 16.9014 18.4152 16.7556 18.7635C16.6097 19.1119 16.3687 19.4121 16.0602 19.6297C15.7517 19.8473 15.3882 19.9735 15.0113 19.994C14.6344 20.0144 14.2593 19.9281 13.9292 19.7451L10.0026 17.5635L6.07117 19.7451C5.77302 19.9118 5.43724 19.9996 5.09569 20Z" fill="#FFAA29"/>
-													</svg>
-													<span class="fs-14 d-block ms-2 pe-2 me-2 border-end text-black font-w500">4.4</span>
-													<a href="app_profile.php" class="btn-link fs-14">Send Request</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="items">
-										<div class="card text-center">
-											<div class="card-body">
-												<img src="public/assets/images/testimonial/2.jpg" alt="">
-												<h5 class="fs-16 font-w500 mb-1"><a href="app_profile.php" class="text-black">Cindy Moss</a></h5>
-												<p class="fs-14">Fat Belly Trainer</p>
-												<div class="d-flex align-items-center justify-content-center">
-													<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M5.09569 20C4.80437 19.9988 4.51677 19.9344 4.25273 19.8113C3.98868 19.6881 3.75447 19.5091 3.56624 19.2866C3.37801 19.0641 3.24024 18.8034 3.16243 18.5225C3.08462 18.2415 3.06862 17.9471 3.11554 17.6593L3.88905 12.8902L0.569441 9.45986C0.312024 9.19466 0.132451 8.86374 0.0503661 8.50328C-0.0317185 8.14282 -0.0131526 7.76671 0.104033 7.4161C0.221219 7.06549 0.43251 6.75388 0.714792 6.51537C0.997074 6.27685 1.33947 6.12062 1.70453 6.06376L6.20048 5.37325L8.18158 1.13817C8.34755 0.796915 8.60606 0.509234 8.92762 0.307978C9.24917 0.106721 9.6208 0 10.0001 0C10.3793 0 10.751 0.106721 11.0725 0.307978C11.3941 0.509234 11.6526 0.796915 11.8186 1.13817L13.7931 5.36719L18.2955 6.06376C18.6606 6.12062 19.003 6.27685 19.2852 6.51537C19.5675 6.75388 19.7788 7.06549 19.896 7.4161C20.0132 7.76671 20.0318 8.14282 19.9497 8.50328C19.8676 8.86374 19.688 9.19466 19.4306 9.45986L16.1144 12.8765L16.885 17.66C16.9463 18.0327 16.9014 18.4152 16.7556 18.7635C16.6097 19.1119 16.3687 19.4121 16.0602 19.6297C15.7517 19.8473 15.3882 19.9735 15.0113 19.994C14.6344 20.0144 14.2593 19.9281 13.9292 19.7451L10.0026 17.5635L6.07117 19.7451C5.77302 19.9118 5.43724 19.9996 5.09569 20Z" fill="#FFAA29"/>
-													</svg>
-													<span class="fs-14 d-block ms-2 pe-2 me-2 border-end text-black font-w500">4.4</span>
-													<a href="app_profile.php" class="btn-link fs-14">Send Request</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="items">
-										<div class="card text-center">
-											<div class="card-body">
-												<img src="public/assets/images/testimonial/3.jpg" alt="">
-												<h5 class="fs-16 font-w500 mb-1"><a href="app_profile.php" class="text-black">Ivankov Smurz</a></h5>
-												<p class="fs-14">Sixpack Builder</p>
-												<div class="d-flex align-items-center justify-content-center">
-													<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M5.09569 20C4.80437 19.9988 4.51677 19.9344 4.25273 19.8113C3.98868 19.6881 3.75447 19.5091 3.56624 19.2866C3.37801 19.0641 3.24024 18.8034 3.16243 18.5225C3.08462 18.2415 3.06862 17.9471 3.11554 17.6593L3.88905 12.8902L0.569441 9.45986C0.312024 9.19466 0.132451 8.86374 0.0503661 8.50328C-0.0317185 8.14282 -0.0131526 7.76671 0.104033 7.4161C0.221219 7.06549 0.43251 6.75388 0.714792 6.51537C0.997074 6.27685 1.33947 6.12062 1.70453 6.06376L6.20048 5.37325L8.18158 1.13817C8.34755 0.796915 8.60606 0.509234 8.92762 0.307978C9.24917 0.106721 9.6208 0 10.0001 0C10.3793 0 10.751 0.106721 11.0725 0.307978C11.3941 0.509234 11.6526 0.796915 11.8186 1.13817L13.7931 5.36719L18.2955 6.06376C18.6606 6.12062 19.003 6.27685 19.2852 6.51537C19.5675 6.75388 19.7788 7.06549 19.896 7.4161C20.0132 7.76671 20.0318 8.14282 19.9497 8.50328C19.8676 8.86374 19.688 9.19466 19.4306 9.45986L16.1144 12.8765L16.885 17.66C16.9463 18.0327 16.9014 18.4152 16.7556 18.7635C16.6097 19.1119 16.3687 19.4121 16.0602 19.6297C15.7517 19.8473 15.3882 19.9735 15.0113 19.994C14.6344 20.0144 14.2593 19.9281 13.9292 19.7451L10.0026 17.5635L6.07117 19.7451C5.77302 19.9118 5.43724 19.9996 5.09569 20Z" fill="#FFAA29"/>
-													</svg>
-													<span class="fs-14 d-block ms-2 pe-2 me-2 border-end text-black font-w500">4.4</span>
-													<a href="javascript:void(0)" class="btn-link fs-14">Send Request</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="items">
-										<div class="card text-center">
-											<div class="card-body">
-												<img src="public/assets/images/testimonial/4.jpg" alt="">
-												<h5 class="fs-16 font-w500 mb-1"><a href="app_profile.php" class="text-black">Louis Simatupang</a></h5>
-												<p class="fs-14">Body Building Trainer</p>
-												<div class="d-flex align-items-center justify-content-center">
-													<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M5.09569 20C4.80437 19.9988 4.51677 19.9344 4.25273 19.8113C3.98868 19.6881 3.75447 19.5091 3.56624 19.2866C3.37801 19.0641 3.24024 18.8034 3.16243 18.5225C3.08462 18.2415 3.06862 17.9471 3.11554 17.6593L3.88905 12.8902L0.569441 9.45986C0.312024 9.19466 0.132451 8.86374 0.0503661 8.50328C-0.0317185 8.14282 -0.0131526 7.76671 0.104033 7.4161C0.221219 7.06549 0.43251 6.75388 0.714792 6.51537C0.997074 6.27685 1.33947 6.12062 1.70453 6.06376L6.20048 5.37325L8.18158 1.13817C8.34755 0.796915 8.60606 0.509234 8.92762 0.307978C9.24917 0.106721 9.6208 0 10.0001 0C10.3793 0 10.751 0.106721 11.0725 0.307978C11.3941 0.509234 11.6526 0.796915 11.8186 1.13817L13.7931 5.36719L18.2955 6.06376C18.6606 6.12062 19.003 6.27685 19.2852 6.51537C19.5675 6.75388 19.7788 7.06549 19.896 7.4161C20.0132 7.76671 20.0318 8.14282 19.9497 8.50328C19.8676 8.86374 19.688 9.19466 19.4306 9.45986L16.1144 12.8765L16.885 17.66C16.9463 18.0327 16.9014 18.4152 16.7556 18.7635C16.6097 19.1119 16.3687 19.4121 16.0602 19.6297C15.7517 19.8473 15.3882 19.9735 15.0113 19.994C14.6344 20.0144 14.2593 19.9281 13.9292 19.7451L10.0026 17.5635L6.07117 19.7451C5.77302 19.9118 5.43724 19.9996 5.09569 20Z" fill="#FFAA29"/>
-													</svg>
-													<span class="fs-14 d-block ms-2 pe-2 me-2 border-end text-black font-w500">4.4</span>
-													<a href="app_profile.php" class="btn-link fs-14">Send Request</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-12">	
-						<div class="card">
-							<div class="card-header d-sm-flex d-block pb-0 border-0">
-								<div class="me-auto pe-3">
-									<h4 class="text-black fs-20 font-w600">Calories Chart</h4>
-									<p class="fs-13 mb-0">Lorem ipsum dolor sit amet, consectetur</p>
-								</div>
-								<select class="default-select w-auto" aria-label="Default select example">
-									<option selected>Weekly</option>
-									<option value="1">Monthly</option>
-									<option value="2">Daily</option>
-									<option value="3">Yearly</option>
-								</select>
-							</div>
-							<div class="card-body px-3 pb-0">
-								<div id="chartTimeline"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-3 col-xxl-4">
+			</div> -->
+			
+			<!-- <div class="col-xl-3 col-xxl-4">
 				<div class="row">
 					<div class="col-xl-12">
 						<div class="card featuredMenu">
@@ -1312,7 +1536,7 @@ if (!isset($_SESSION['email'])) {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>

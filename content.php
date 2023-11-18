@@ -1,3 +1,19 @@
+<?php
+// Start the session to access session variables
+session_start();
+
+// Check if the user is not logged in (no session variable is set)
+if (!isset($_SESSION['email'])) {
+    // Redirect to the login page
+    header("Location: signin.php");
+    exit();
+}
+
+$userEmail = $_SESSION['email'];
+// If the user is logged in, you can display the content of index.php
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     
@@ -30,7 +46,7 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="https://www.simplegreenenergy.org/wp-content/uploads/2021/03/cropped-Simple-Green-Energy_2_FavIcon-180x180.jpg">		
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet">
 	
-		
+	<link href="public/assets/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet" type="text/css"/>	
 		 <link href="public/assets/vendor/chartist/css/chartist.min.css" rel="stylesheet" type="text/css"/>	
 		
 		 <link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>	
@@ -592,10 +608,10 @@
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="header-left">
 					<div class="dashboard_bar">
-					Content					</div>
+					New Surveyor Register					</div>
 				</div>
 				<ul class="navbar-nav header-right">
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<form>
 							<div class="input-group search-area d-lg-inline-flex d-none me-3">
 								<span class="input-group-text" id="header-search">
@@ -606,7 +622,7 @@
 								<input type="text" class="form-control" placeholder="Search here" aria-label="Username" aria-describedby="header-search">
 							</div>
 						</form>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell dz-theme-mode" href="javascript:void(0);" aria-label="theme-mode">
 							<i id="icon-light" class="fas fa-sun"></i>
@@ -614,7 +630,7 @@
 							
 						</a>
 					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link  ai-icon" href="javascript:void(0)" aria-label="bell" role="button" data-bs-toggle="dropdown">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.75 15.8385V13.0463C22.7471 10.8855 21.9385 8.80353 20.4821 7.20735C19.0258 5.61116 17.0264 4.61555 14.875 4.41516V2.625C14.875 2.39294 14.7828 2.17038 14.6187 2.00628C14.4546 1.84219 14.2321 1.75 14 1.75C13.7679 1.75 13.5454 1.84219 13.3813 2.00628C13.2172 2.17038 13.125 2.39294 13.125 2.625V4.41534C10.9736 4.61572 8.97429 5.61131 7.51794 7.20746C6.06159 8.80361 5.25291 10.8855 5.25 13.0463V15.8383C4.26257 16.0412 3.37529 16.5784 2.73774 17.3593C2.10019 18.1401 1.75134 19.1169 1.75 20.125C1.75076 20.821 2.02757 21.4882 2.51969 21.9803C3.01181 22.4724 3.67904 22.7492 4.375 22.75H9.71346C9.91521 23.738 10.452 24.6259 11.2331 25.2636C12.0142 25.9013 12.9916 26.2497 14 26.2497C15.0084 26.2497 15.9858 25.9013 16.7669 25.2636C17.548 24.6259 18.0848 23.738 18.2865 22.75H23.625C24.321 22.7492 24.9882 22.4724 25.4803 21.9803C25.9724 21.4882 26.2492 20.821 26.25 20.125C26.2486 19.117 25.8998 18.1402 25.2622 17.3594C24.6247 16.5786 23.7374 16.0414 22.75 15.8385ZM7 13.0463C7.00232 11.2113 7.73226 9.45223 9.02974 8.15474C10.3272 6.85726 12.0863 6.12732 13.9212 6.125H14.0788C15.9137 6.12732 17.6728 6.85726 18.9703 8.15474C20.2677 9.45223 20.9977 11.2113 21 13.0463V15.75H7V13.0463ZM14 24.5C13.4589 24.4983 12.9316 24.3292 12.4905 24.0159C12.0493 23.7026 11.716 23.2604 11.5363 22.75H16.4637C16.284 23.2604 15.9507 23.7026 15.5095 24.0159C15.0684 24.3292 14.5411 24.4983 14 24.5ZM23.625 21H4.375C4.14298 20.9999 3.9205 20.9076 3.75644 20.7436C3.59237 20.5795 3.50014 20.357 3.5 20.125C3.50076 19.429 3.77757 18.7618 4.26969 18.2697C4.76181 17.7776 5.42904 17.5008 6.125 17.5H21.875C22.571 17.5008 23.2382 17.7776 23.7303 18.2697C24.2224 18.7618 24.4992 19.429 24.5 20.125C24.4999 20.357 24.4076 20.5795 24.2436 20.7436C24.0795 20.9076 23.857 20.9999 23.625 21Z" fill="#0B2A97"/>
@@ -694,8 +710,8 @@
 							</div>
 							<a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
 						</div>
-					</li>
-					<li class="nav-item dropdown notification_dropdown">
+					</li> -->
+					<!-- <li class="nav-item dropdown notification_dropdown">
 						<a class="nav-link bell bell-link" href="javascript:void(0)" aria-label="Chat">
 							<svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M22.4605 3.84888H5.31688C4.64748 3.84961 4.00571 4.11586 3.53237 4.58919C3.05903 5.06253 2.79279 5.7043 2.79205 6.3737V18.1562C2.79279 18.8256 3.05903 19.4674 3.53237 19.9407C4.00571 20.4141 4.64748 20.6803 5.31688 20.6811C5.54005 20.6812 5.75404 20.7699 5.91184 20.9277C6.06964 21.0855 6.15836 21.2995 6.15849 21.5227V23.3168C6.15849 23.6215 6.24118 23.9204 6.39774 24.1818C6.5543 24.4431 6.77886 24.6571 7.04747 24.8009C7.31608 24.9446 7.61867 25.0128 7.92298 24.9981C8.22729 24.9834 8.52189 24.8863 8.77539 24.7173L14.6173 20.8224C14.7554 20.7299 14.918 20.6807 15.0842 20.6811H19.187C19.7383 20.68 20.2743 20.4994 20.7137 20.1664C21.1531 19.8335 21.4721 19.3664 21.6222 18.8359L24.8966 7.05011C24.9999 6.67481 25.0152 6.28074 24.9414 5.89856C24.8675 5.51637 24.7064 5.15639 24.4707 4.84663C24.235 4.53687 23.931 4.28568 23.5823 4.11263C23.2336 3.93957 22.8497 3.84931 22.4605 3.84888ZM23.2733 6.60304L20.0006 18.3847C19.95 18.5614 19.8432 18.7168 19.6964 18.8275C19.5496 18.9381 19.3708 18.9979 19.187 18.9978H15.0842C14.5856 18.9972 14.0981 19.1448 13.6837 19.4219L7.84171 23.3168V21.5227C7.84097 20.8533 7.57473 20.2115 7.10139 19.7382C6.62805 19.2648 5.98628 18.9986 5.31688 18.9978C5.09371 18.9977 4.87972 18.909 4.72192 18.7512C4.56412 18.5934 4.4754 18.3794 4.47527 18.1562V6.3737C4.4754 6.15054 4.56412 5.93655 4.72192 5.77874C4.87972 5.62094 5.09371 5.53223 5.31688 5.5321H22.4605C22.5905 5.53243 22.7188 5.56277 22.8353 5.62076C22.9517 5.67875 23.0532 5.76283 23.1318 5.86646C23.2105 5.97008 23.2642 6.09045 23.2887 6.21821C23.3132 6.34597 23.308 6.47766 23.2733 6.60304Z" fill="#0B2A97"/>
@@ -766,13 +782,13 @@
 								</ul>
 							</div>
 						</div>
-					</li>
+					</li> -->
 					<li class="nav-item dropdown header-profile">
 						<a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
-							<img src="public/assets/images/profile/17.jpg" width="20" alt="">
+							<img src="public/assets/images/profile/17.png" width="20" alt="">
 							<div class="header-info">
-								<span class="text-black"><strong>Peter Parkur</strong></span>
-								<p class="fs-12 mb-0">Super Admin</p>
+								<span class="text-black"><strong><?php echo $userEmail; ?></strong></span>
+								<p class="fs-12 mb-0">Admin</p>
 							</div>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end">
@@ -809,30 +825,32 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="index.php">Dashboard</a></li>
-                    <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
+                    <!-- <li><a href="index_2.php">Dashboard Dark<span class="badge badge-xs badge-danger ms-1">New</span></a></li>
                     <li><a href="workout_statistic.php">Workout Statistic</a></li>
                     <li><a href="workout_plan.php">Workout Plan</a></li>
                     <li><a href="distance_map.php">Distance Map</a></li>
                     <li><a href="food_menu.php">Diet Food Menu</a></li>
-                    <li><a href="personal_record.php">Personal Record</a></li>
+                    <li><a href="personal_record.php">Personal Record</a></li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
-                    <span class="nav-text">Apps</span>
+                    <span class="nav-text">Leads Manage</span>
                 </a>
                 <ul aria-expanded="false">
-                <li><a href="app_profile.php">Profile</a></li>
-                    <li><a href="post_details.php">Post Details</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                <!-- <li><a href="app_profile.php">Customers</a></li>
+                    <li><a href="post_details.php">Post Details</a></li> -->
+                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
                         <ul aria-expanded="false">
                             <li><a href="email_compose.php">Compose</a></li>
                             <li><a href="email_inbox.php">Inbox</a></li>
                             <li><a href="email_read.php">Read</a></li>
                         </ul>
-                    </li>
-                    <li><a href="app_calender.php">Calendar</a></li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
+                    </li> -->
+                    <li><a href="app_calender.php">Qualify Leads</a></li>
+					<li><a href="ecom_product_grid.php">Boiler Leads</a></li>
+					<li><a href="ecom_product_details.php">Documents History</a></li>
+                     <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
                         <ul aria-expanded="false">
                             <li><a href="ecom_product_grid.php">Product Grid</a></li>
 							<li><a href="ecom_product_list.php">Product List</a></li>
@@ -842,22 +860,22 @@
 							<li><a href="ecom_invoice.php">Invoice</a></li>
 							<li><a href="ecom_customers.php">Customers</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-compact-disc-1"></i>
-                    <span class="nav-text">Icons<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Customers</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="flat_icons.php">Flaticons</a></li>
-                    <li><a href="svg_icons.php">SVG Icons</a></li> 
-                    <li><a href="feather_icons.php">Feather Icons</a></li>
+                    <li><a href="flat_icons.php">Users Manage</a></li>
+                    <!-- <li><a href="svg_icons.php">SVG Icons</a></li> 
+                    <li><a href="feather_icons.php">Feather Icons</a></li> -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-briefcase"></i>
-                    <span class="nav-text">CMS<span class="badge badge-danger badge-xs ms-1">NEW</span></span>
+                    <span class="nav-text">Surveyors</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="content.php">Content</a></li>
@@ -872,22 +890,23 @@
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-controls-3"></i>
-                    <span class="nav-text">Charts</span>
+                    <span class="nav-text">Gas Engineers</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="flot.php">Flot</a></li>
 					<li><a href="morris.php">Morris</a></li> 
 					<li><a href="chartjs.php">Chartjs</a></li>
 					<li><a href="chartist.php">Chartist</a></li>
 					<li><a href="sparkline.php">Sparkline</a></li>
 					<li><a href="peity.php">Peity</a></li>
-                </ul>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-internet"></i>
-                    <span class="nav-text">Bootstrap</span>
+                    <span class="nav-text">Installation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="accordion.php">Accordion</a></li>
 					<li><a href="alert.php">Alert</a></li>
 					<li><a href="badge.php">Badge</a></li>
@@ -906,13 +925,14 @@
                     <li><a href="pagination.php">Pagination</a></li>
                     <li><a href="grid.php">Grid</a></li>
 
-                </ul>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-heart"></i>
-                    <span class="nav-text">Plugins</span>
+                    <span class="nav-text"> Insulation Team
+</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="select2.php">Select 2</a></li> 
 					<li><a href="nestable.php">Nestable</a></li>
 					<li><a href="noui_slider.php">Noui Slider</a></li>
@@ -920,16 +940,11 @@
 					<li><a href="toastr.php">Toastr</a></li>
 					<li><a href="map_jqvmap.php">Jqv Map</a></li>
 					<li><a href="lightgallery.php">Light Gallery</a></li>
-                </ul>
-            </li>
-            <li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
-                    <span class="nav-text">Widget</span>
-                </a>
+                </ul> -->
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
-                    <span class="nav-text">Forms</span>
+                    <span class="nav-text">Sub Admins</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="form_element.php">Form Elements</a></li>
@@ -938,6 +953,11 @@
 					<li><a href="form_pickers.php">Pickers</a></li>
 					<li><a href="form_validation_jquery.php">Form Validate</a></li>
                 </ul>
+            </li>
+			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Feedback</span>
+                </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-network"></i>
@@ -969,10 +989,10 @@
                 </ul>
             </li>
         </ul>
-        <div class="add-menu-sidebar">
+       <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">
             <a href="workout_plan.php" class="font-w500 mb-0">Create Workout Plan Now</a>
-        </div>
+        </div> -->
         <div class="copyright">
             <p><strong>Simple Green Energy Admin Dashboard</strong> © 2023 All Rights Reserved</p>
             <p>Made with <span class="heart"></span> by Vertical Media</p>
@@ -986,165 +1006,232 @@
 ***********************************-->
 <div class="content-body default-height">
 	<div class="container-fluid">
-		<div class="page-titles">
+		<!-- <div class="page-titles">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="javascript:void(0)">CMS</a></li>
 				<li class="breadcrumb-item active"><a href="javascript:void(0)">Content</a></li>
 			</ol>
-		</div>
+		</div> -->
 		<!-- Row -->
 		<div class="row">
-			<div class="col-xl-12">
-				<div class="filter cm-content-box box-primary">
-					<div class="content-title">
-						<h4 class="cpa card-title">
-							<i class="fa-sharp fa-solid fa-filter me-2"></i>Filter
-						</h4>
-						<div class="tools">
-							<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-						</div>
+			<div class="col-xl-12 col-xxl-12">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Surveyor Register</h4>
 					</div>
-					<div class="cm-content-body form excerpt">
-						<div class="card-body pb-2">
-							<div class="row">
-								<div class="col-xl-3 col-xxl-6 col-sm-6 mb-3">
-									<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+					<div class="card-body">
+						<div id="smartwizard" class="form-wizard order-create">
+							<ul class="nav nav-wizard">
+								<li><a class="nav-link" href="#register"> 
+									<span>1</span> 
+								</a></li>
+								<li><a class="nav-link" href="#wizard_Time">
+									<span>2</span>
+								</a></li>
+								<li><a class="nav-link" href="#wizard_Details">
+									<span>3</span>
+								</a></li>
+								<li><a class="nav-link" href="#wizard_Payment">
+									<span>4</span>
+								</a></li>
+							</ul>
+							<div class="tab-content">
+								<div id="register" class="tab-pane" role="tabpanel">
+									<div class="row">
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Full name<span class="required">*</span></label>
+												<input type="text" name="f1-full-name" class="form-control" placeholder="Parsley" required>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Last Name<span class="required">*</span></label>
+												<input type="text" name="lastName" class="form-control" placeholder="Montana" required>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Email Address<span class="required">*</span></label>
+												<input type="email" name="f1-email" class="form-control" id="inputGroupPrepend2" aria-describedby="inputGroupPrepend2" placeholder="example@example.com.com" required>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Phone Number<span class="required">*</span></label>
+												<input type="number" name="f1-phone" class="form-control" placeholder="(+1)408-657-9007" required>
+											</div>
+										</div>
+										<div class="col-lg-12 mb-3">
+											<div class="form-group">
+												<label class="text-label">Where are you from<span class="required">*</span></label>
+												<input type="text" name="place" class="form-control" required>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="col-xl-3 col-xxl-6 col-sm-6 mb-3">
-									<select class="form-control default-select dashboard-select-2 h-auto wide" aria-label="Default select example">
-										<option selected>Select Status</option>
-										<option value="1">Published</option>
-										<option value="2">Draft</option>
-										<option value="3">Trash</option>
-										<option value="4">Private</option>
-										<option value="5">Pending</option>
-									</select> 
+								<div id="wizard_Time" class="tab-pane" role="tabpanel">
+									<div class="row">
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Company Name<span class="required">*</span></label>
+												<input type="text" name="firstName" class="form-control" placeholder="Cellophane Square" required>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Company Email Address<span class="required">*</span></label>
+												<input type="email" class="form-control" id="emial1" placeholder="example@example.com.com" required>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Company Phone Number<span class="required">*</span></label>
+												<input type="number" name="phoneNumber" class="form-control" placeholder="(+1)408-657-9007" required>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<label class="text-label">Your position in Company<span class="required">*</span></label>
+												<input type="text" name="place" class="form-control" required>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="col-xl-3 col-xxl-6 col-sm-6 mb-3">
-									<input class="form-control mb-3" type="text" id="datepicker">
+								<div id="wizard_Details" class="tab-pane" role="tabpanel">
+									<div class="row align-items-center">
+										<div class="col-sm-4 mb-2">
+											<span>Monday<span class="required">*</span></span>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="9.00" type="number" name="input1" id="input1">
+											</div>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="6.00" type="number" name="input2" id="input2">
+											</div>
+										</div>
+									</div>
+									<div class="row align-items-center">
+										<div class="col-sm-4 mb-2">
+											<span>Tuesday<span class="required">*</span></span>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="9.00" type="number" name="input3" id="input3">
+											</div>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="6.00" type="number" name="input4" id="input4">
+											</div>
+										</div>
+									</div> 
+									<div class="row align-items-center">
+										<div class="col-sm-4 mb-2">
+											<span>Wednesday<span class="required">*</span></span>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="9.00" type="number" name="input5" id="input5">
+											</div>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="6.00" type="number" name="input6" id="input6">
+											</div>
+										</div>
+									</div>
+									<div class="row align-items-center">
+										<div class="col-sm-4 mb-2">
+											<span>Thrusday<span class="required">*</span></span>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="9.00" type="number" name="input7" id="input7">
+											</div>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="6.00" type="number" name="input8" id="input8">
+											</div>
+										</div>
+									</div>
+									<div class="row align-items-center">
+										<div class="col-sm-4 mb-2">
+											<span>Friday<span class="required">*</span></span>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="9.00" type="number" name="input9" id="input9">
+											</div>
+										</div>
+										<div class="col-6 col-sm-4 mb-2">
+											<div class="form-group">
+												<input class="form-control" value="6.00" type="number" name="input10" id="input10">
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="col-xl-3 col-xxl-6 col-sm-6 mb-3">
-									<button class="btn btn-primary" title="Click here to Search" type="button"><i class="fa-sharp fa-solid fa-filter me-1"></i>Filter</button>
-									<button class="btn btn-danger light ms-1" title="Click here to remove filter" type="button">Remove Filter</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="mb-5">
-					<a href="add_content.php" class="btn btn-primary">Add Content</a>
-				</div>
-				<div class="filter cm-content-box box-primary">
-					<div class="content-title">
-						<div class="cpa">
-							<i class="fa-solid fa-file-lines me-1"></i>Contact List
-						</div>
-						<div class="tools">
-							<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-						</div>
-					</div>
-					<div class="cm-content-body form excerpt">
-						<div class="card-body py-3">
-							<div class="table-responsive">
-								<table class="table table-striped table-condensed flip-content">
-									<thead>
-										<tr>
-											<th class="text-black">S.No</th>
-											<th class="text-black">Title</th>
-											<th class="text-black">Status</th>
-											<th class="text-black">Modified</th>
-											<th class="text-black text-end">Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td>About Us</td>
-											<td>Published</td>
-											<td>18 Feb, 2024</td>
-											<td class="text-end">
-											
-												<a href="javascript:void(0);" class="btn btn-warning btn-sm content-icon">
-													<i class="fa fa-edit"></i>
-												</a>
-												<a href="javascript:void(0);" class="btn btn-danger btn-sm content-icon">
-														<i class="fa fa-times"></i>
-												</a>
-											</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>FAQ</td>
-											<td>Published</td>
-											<td>13 Jan, 2024</td>
-											<td class="text-end">
-												
-												<a href="javascript:void(0);" class="btn btn-warning btn-sm content-icon">
-													<i class="fa fa-edit"></i>
-												</a>
-												<a href="javascript:void(0);" class="btn btn-danger btn-sm content-icon">
-														<i class="fa fa-times"></i>
-												</a>
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>Pricing</td>
-											<td>Published</td>
-											<td>13 Jan, 2024</td>
-											<td class="text-end">
-												
-												<a href="javascript:void(0);" class="btn btn-warning btn-sm content-icon">
-													<i class="fa fa-edit"></i>
-												</a>
-												<a href="javascript:void(0);" class="btn btn-danger btn-sm content-icon">
-														<i class="fa fa-times"></i>
-												</a>
-											</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>Schedule</td>
-											<td>Published</td>
-											<td>13 Jan, 2024</td>
-											<td class="text-end">
-												
-												<a href="javascript:void(0);" class="btn btn-warning btn-sm content-icon">
-													<i class="fa fa-edit"></i>
-												</a>
-												<a href="javascript:void(0);" class="btn btn-danger btn-sm content-icon">
-														<i class="fa fa-times"></i>
-												</a>
-											</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>Under Maintenance</td>
-											<td>Published</td>
-											<td>25 Jan, 2024</td>
-											<td class="text-end">
-												
-												<a href="javascript:void(0);" class="btn btn-warning btn-sm content-icon">
-													<i class="fa fa-edit"></i>
-												</a>
-												<a href="javascript:void(0);" class="btn btn-danger btn-sm content-icon">
-														<i class="fa fa-times"></i>
-												</a>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="d-flex align-items-center width-defult justify-content-xl-between flex-wrap justify-content-center py-3">
-									<small class="mb-xl-0 mb-lg-1">Page 1 of 5, showing 2 records out of 8 total, starting on record 1, ending on 2</small>
-									<nav aria-label="Page navigation example">
-										<ul class="pagination mb-2 mb-sm-0">
-										<li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
-										<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-										<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-										<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-										<li class="page-item"><a class="page-link " href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
-										</ul>
-									</nav>
+								<div id="wizard_Payment" class="tab-pane" role="tabpanel">
+									<div class="row emial-setup">
+										<div class="col-lg-3 col-sm-6 col-6">
+											<div class="form-group">
+												<label for="mailclient11" class="mailclinet mailclinet-gmail">
+													<input type="radio" name="emailclient" id="mailclient11">
+													<span class="mail-icon">
+														<i class="mdi mdi-google-plus" aria-hidden="true"></i>
+													</span>
+													<span class="mail-text">I'm using Gmail</span>
+												</label>
+											</div>
+										</div>
+										<div class="col-lg-3 col-sm-6 col-6">
+											<div class="form-group">
+												<label for="mailclient12" class="mailclinet mailclinet-office">
+													<input type="radio" name="emailclient" id="mailclient12">
+													<span class="mail-icon">
+														<i class="mdi mdi-office" aria-hidden="true"></i>
+													</span>
+													<span class="mail-text">I'm using Office</span>
+												</label>
+											</div>
+										</div>
+										<div class="col-lg-3 col-sm-6 col-6">
+											<div class="form-group">
+												<label for="mailclient13" class="mailclinet mailclinet-drive">
+													<input type="radio" name="emailclient" id="mailclient13">
+													<span class="mail-icon">
+														<i class="mdi mdi-google-drive" aria-hidden="true"></i>
+													</span>
+													<span class="mail-text">I'm using Drive</span>
+												</label>
+											</div>
+										</div>
+										<div class="col-lg-3 col-sm-6 col-6">
+											<div class="form-group">
+												<label for="mailclient14" class="mailclinet mailclinet-another">
+													<input type="radio" name="emailclient" id="mailclient14">
+													<span class="mail-icon">
+														<i class="far fa-question-circle"
+															aria-hidden="true"></i>
+													</span>
+													<span class="mail-text">Another Service</span>
+												</label>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-12">
+											<div class="skip-email text-center">
+												<p>Or if want skip this step entirely and setup it later</p>
+												<a href="javascript:void(0)">Skip step</a>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -1172,23 +1259,21 @@
 	</div>
 			<script src="public/assets/vendor/global/global.min.js"></script>
 			<script src="public/assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
-		
+			<script src="public/assets/vendor/jquery-steps/build/jquery.steps.min.php"></script>
+            <script src="public/assets/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
 
 	        <script src="public/assets/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
             <script src="public/assets/js/dashboard/cms.js"></script>
     	
 			<script src="public/assets/js/custom.min.js"></script>
 			<script src="public/assets/js/deznav-init.js"></script>
-		<script>
-	$(function () {
-			$("#datepicker").datepicker({ 
-				autoclose: true, 
-				todayHighlight: true
-			}).datepicker('update', new Date());
-	
+		
+			<script>
+	$(document).ready(function(){
+		// SmartWizard initialize
+		$('#smartwizard').smartWizard(); 
 	});
 </script>
-
 
     <!--**********************************
         Main wrapper end
