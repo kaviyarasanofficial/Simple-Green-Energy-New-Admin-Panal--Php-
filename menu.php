@@ -11,6 +11,8 @@ if (!isset($_SESSION['email'])) {
 
 $userEmail = $_SESSION['email'];
 // If the user is logged in, you can display the content of index.php
+
+include('php/get_avail_serveyor.php');
 ?>
 
 
@@ -58,8 +60,52 @@ $userEmail = $_SESSION['email'];
 		 <link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>		
 		
 		 <link href="public/assets/css/style.css" rel="stylesheet" type="text/css"/>		
-	
-</head>
+		 <link href="public/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+		 <style>
+    /* Center the modal */
+    #password-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        z-index: 9999;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 80%;
+        /* Adjust the width as needed */
+        max-width: 400px;
+        /* Adjust the max-width as needed */
+        text-align: left;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        #password-modal {
+            width: 90%;
+            max-width: 90%;
+        }
+    }
+
+    /* Add any additional styling you need */
+    </style>
+		</head>
 <body>
 
     <!--*******************
@@ -608,7 +654,7 @@ $userEmail = $_SESSION['email'];
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="header-left">
 					<div class="dashboard_bar">
-					Menu					</div>
+					Surveyors list				</div>
 				</div>
 				<ul class="navbar-nav header-right">
 					<!-- <li class="nav-item">
@@ -878,14 +924,15 @@ $userEmail = $_SESSION['email'];
                     <span class="nav-text">Surveyors</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="content.php">Content</a></li>
-                    <li><a href="add_content.php">Add Content</a></li>
-                    <li><a href="menu.php">Menus</a></li>
-                    <li><a href="email_template.php">Email Template</a></li>
-                    <li><a href="add_email.php">Add Email</a></li>
+                    <li><a href="content.php">Surveyor Register</a></li>
+                    <li><a href="add_content.php">Surveyor Works</a></li>
+                    <li><a href="menu.php">Surveyors list</a></li>
+                    <li><a href="email_template.php">Documents Upload</a></li>
+                    <!-- <li><a href="add_email.php">Add Email</a></li>
                     <li><a href="blog.php">Blog</a></li>
                     <li><a href="add_blog.php">Add Blog</a></li>
-                    <li><a href="blog_category.php">Blog Category</a></li>	
+                    <li><a href="blog_category.php">Blog Category</a></li>	 -->
+					
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -946,13 +993,15 @@ $userEmail = $_SESSION['email'];
                     <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Sub Admins</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="form_element.php">Form Elements</a></li>
                     <li><a href="form_wizard.php">Wizard</a></li>   
                     <li><a href="form_editor.php">Editor</a></li>
 					<li><a href="form_pickers.php">Pickers</a></li>
 					<li><a href="form_validation_jquery.php">Form Validate</a></li>
-                </ul>
+                </ul> -->
+
+				
             </li>
 			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -961,18 +1010,20 @@ $userEmail = $_SESSION['email'];
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-network"></i>
-                    <span class="nav-text">Table</span>
+                    <span class="nav-text">Settings</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="table_bootstrap.php">Bootstrap</a></li>
 					<li><a href="table_datatable.php">Datatable</a></li>
-                </ul>
+                </ul> -->
+
+				
             </li>
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+           <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-layer-1"></i>
                     <span class="nav-text">Pages</span>
                 </a>
-                <ul aria-expanded="false">
+               <ul aria-expanded="false">
                     <li><a href="page_register.php">Register</a></li>
                     <li><a href="page_login.php">Login</a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
@@ -986,8 +1037,8 @@ $userEmail = $_SESSION['email'];
                     </li>
                     <li><a href="page_lock_screen.php">Lock Screen</a></li>
                     <li><a href="page_empty.php">Empty Page</a></li>
-                </ul>
-            </li>
+                </ul> 
+            </li> -->
         </ul>
        <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">
@@ -1006,420 +1057,190 @@ $userEmail = $_SESSION['email'];
 ***********************************-->
 <div class="content-body default-height">
     <div class="container-fluid">
-        <div class="page-titles">
+        <!-- <div class="page-titles">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="javascript:void(0)">CMS</a></li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">Menus</a></li>
             </ol>
-        </div>
+        </div> -->
         <!-- Row -->
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="filter cm-content-box box-primary">
-                    <div class="content-title">
-                        <div class="cpa">
-                            <i class="fa fa-list-alt me-1"></i>Menus
-                        </div>
-                        <div class="tools">
-                            <a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-                        </div>
-                    </div>
-                    <div class="cm-content-body form excerpt">
-                        <div class="card-body">
-                            <div class="row align-items-center p-3">
-                                <div class="col-xl-3 col-xxl-3 mb-xl-0 mb-3">
-                                    <h6 class="mb-0">Select a menu to edit: <span class="required">* </span></h6>
-                                </div>
-                                <div class="col-xl-6 col-xxl-5 mb-xl-0 mb-3">
-                                    <select class="form-control default-select dashboard-select-2 h-auto wide">
-                                        <option value="AL">Select Menu</option>
-                                        <option value="WY">India</option>
-                                        <option value="WY">Information</option>
-                                        <option value="WY">New Menu</option>
-                                        <option value="WY">Page Menu</option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-xxl-4">
-                                    <a href="javascript:void(0);" class="btn btn-primary">Select</a>
-                                    <span class="mx-2">or</span>
-                                    <a href="javascript:void(0);" class="text-primary">create new menu</a>
+		<div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Surveyors list</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display min-w850">
+                                        <thead>
+                                            <tr>
+											<th>Full Name</th>
+                                                <th>Email</th>
+
+                                                <th>ID Status</th>
+                                                <th>ID Control</th>
+                                                <th>Surveyor Phone</th>
+                                                <th>Password</th>
+                                                <th>Pwd</th>
+                                                <th >About Surveyor</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($records as $record): ?>
+                                            <tr>
+
+											<td><?= $record["name"] ?></td>
+                                                <td><?= $record["email"] ?></td>
+                                                <td><?= $record["idstatus"] ?></td>
+                                                <td><button class="status-button"
+                                                        data-surveyoremail="<?= $record["email"] ?>"><i
+                                                            class="hvr-buzz-out fa fa-lock"></i></button></td>
+                                                <td><?= $record["phone"] ?></td>
+                                                <td><?= $record["password"] ?></td>
+                                                <td><button class="change-password-button"
+                                                        data-email="<?= $record["email"] ?>"><i
+                                                            class="hvr-buzz-out fa fa-key"></i></button></td>
+                                                <td><?= $record["about_id"] ?></td>
+
+
+                                            </tr>
+                                            <?php endforeach; ?>
+
+
+                                        </tbody>
+                                        <!-- <tfoot>
+									<tr>
+										<th>Name</th>
+										<th>Position</th>
+										<th>Office</th>
+										<th>Age</th>
+										<th>Start date</th>
+										<th>Salary</th>
+									</tr>
+								</tfoot> -->
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-4">
-                        <div class="filter cm-content-box box-primary">
-                            <div class="content-title">
-                                <div class="cpa">
-                                    Menus
-                                </div>
-                                <div class="tools">
-                                    <a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-                                </div>
-                            </div>
-                            <div class="cm-content-body form excerpt">
-                                <div class="card-body">
-                                    <div class="filter cm-content-box box-primary border">
-                                        <div class="content-title border-0">
-                                            <div class="cpa">
-                                                Page
-                                            </div>
-                                            <div class="tools">
-                                                <a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="cm-content-body form excerpt border-top">
-                                            <div class="card-body ItemsCheckboxSec">
-                                                <ul class=" tab-my nav nav-tabs" id="myTab" role="tablist">
-                                                    <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="Viewall-tab" data-bs-toggle="tab" data-bs-target="#Viewall-tab-pane" type="button" role="tab" aria-controls="Viewall-tab-pane" aria-selected="true">View All</button>
-                                                    </li>
-                                                    <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="Search-tab" data-bs-toggle="tab" data-bs-target="#Search-tab-pane" type="button" role="tab" aria-controls="Search-tab-pane" aria-selected="false">Search</button>
-                                                    </li>
-                                                
-                                                </ul>
-                                                <div class="tab-content" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="Viewall-tab-pane" role="tabpanel" aria-labelledby="Viewall-tab" tabindex="0">
-                                                        <div class="menu-tabs">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                <label class="form-check-label" for="flexCheckDefault">
-                                                                Privacy Policy 
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-1">
-                                                                <label class="form-check-label" for="flexCheckDefault-1">
-                                                                Contact Us 
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-2">
-                                                                <label class="form-check-label" for="flexCheckDefault-2">
-                                                                Important Information 
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-3">
-                                                                <label class="form-check-label" for="flexCheckDefault-3">
-                                                                About Us 
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-4">
-                                                                <label class="form-check-label" for="flexCheckDefault-4">
-                                                                Dummy Co 
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="Search-tab-pane" role="tabpanel" aria-labelledby="Search-tab" tabindex="0">
-                                                            <div class="menu-tabs">
-                                                                <label for="exampleFormControlInput1" class="form-label">Search</label>
-                                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Page Name">
-                                                            </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center flex-wrap">
-                                                        
-                                                        <a href="javascript:void(0);" class="checkAllInput">Select All</a><span class="mx-2">|</span>
-                                                        <a href="javascript:void(0);" class="unCheckAllInput">Deselect All</a>
-                                                    </div>
-                                                    <a  class="btn btn-primary btn-sm dz-menu-btn">Add to Menu</a>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="filter cm-content-box box-primary border">
-                                        <div class="content-title border-0">
-                                            <div class="cpa">
-                                                Links 
-                                            </div>
-                                            <div class="tools">
-                                                <a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="cm-content-body form excerpt border-top">
-                                            <div class="card-body">
-                                                <div class="row align-items-center">
-                                                    <div class="col-xl-4">
-                                                        <h6>URL</h6>
-                                                    </div>
-                                                    <div class="col-xl-8">
-                                                            <input type="text" class="form-control mb-2" placeholder="">
-                                                    </div>
-                                                    <div class="col-xl-4">
-                                                        <h6 class="mb-xl-0 text-nowrap ">Link Text</h6>
-                                                    </div>
-                                                    <div class="col-xl-8">
-                                                            <input type="text" class="form-control" placeholder="Menu items">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8">
-                        <div class="filter cm-content-box box-primary">
-                            <div class="content-title flex-wrap">
-                                <div class="cpa d-flex align-items-center flex-wrap">
-                                    Menu Name
-                                    <input type="text" class="form-control w-auto ms-2" placeholder="information">
-                                </div>
-                                <button type="button" class="btn btn-secondary light ms-sm-auto mb-2 mb-sm-0">Save Menu</button>
-                            </div>
-                            <div class="cm-content-body form excerpt rounded-0">
-                                <div class="card-body">
-                                    <h6 class="mb-0">Menus Structure</h6>
-                                    <p>Add Menus items from the column on the left.</p>
-                                    <div class="col-xl-12">
-                                        <div class="dd" id="nestable">
-                                            <ol class="dd-list accordion" id="accordionExample">
-                                                <!-- <div class="dd-handle"></div> -->
-                                                
-                                                    <li class="accordion-item dd-item menu-ac-item" data-id="1">
-                                                    <div class="accordion-header position-relative">
-                                                        <div class="move-media dd-handle">
-                                                            <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                                                        </div>
-                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        Contact Us
-                                                        </button>
-                                                    </div>
-                                                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <div class="row">
-                                                                <div class="col-xl-12">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">URL</label>
-                                                                        <input type="text" class="form-control" placeholder="https://bodyclub.dexignzone.com/xhtml/about-us.php">
-                                                                        </div>
-                                                                    </form>													
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Navigation Label</label>
-                                                                        <input type="text" class="form-control" placeholder="Contact Us">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Title Attribute</label>
-                                                                        <input type="text" class="form-control" placeholder="Contact Us">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="javascript:void(0);">Remove</a><span class="mx-2">|</span>
-                                                                    
-                                                                    <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                                    Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </div>												
-                                                        </div>
-                                                    </div>
-                                                    </li>
-                                                    <li class="accordion-item dd-item menu-ac-item" data-id="2">
-                                                    <div class="accordion-header position-relative">
-                                                        <div class="move-media dd-handle">
-                                                            <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                                                        </div>
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        Privacy Policy
-                                                        </button>
-                                                    </div>
-                                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <div class="row">
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Navigation Label</label>
-                                                                        <input type="text" class="form-control" placeholder="Privacy Policy">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Title Attribute</label>
-                                                                        <input type="text" class="form-control" placeholder="Privacy Policy">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-12">
-                                                                    <p class="dz-terms">Original: <a href="javascript:void(0);">Privacy Policy</a></p>
-                                                                </div>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="javascript:void(0);">Remove</a><span class="mx-2">|</span>
-                                                                    <a href="javascript:void(0);"  data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                    Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </div>												
-                                                        </div>
-                                                    </div>
-                                                    </li>
-                                                    <li class="accordion-item dd-item menu-ac-item" data-id="3">
-                                                    <div class="accordion-header position-relative">
-                                                        <div class="move-media dd-handle">
-                                                            <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                                                        </div>
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        Terms and Conditions
-                                                        </button>
-                                                    </div>
-                                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <div class="row">
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Navigation Label</label>
-                                                                        <input type="text" class="form-control" placeholder="Terms and Conditions">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Title Attribute</label>
-                                                                        <input type="text" class="form-control" placeholder="Terms and Conditions">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-12">
-                                                                    <p class="dz-terms">Original: <a href="javascript:void(0);">Terms and Conditions</a></p>
-                                                                </div>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="javascript:void(0);">Remove</a><span class="mx-2">|</span>
-                                                                    <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                    Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </div>												
-                                                        </div>
-                                                    </div>
-                                                    </li>
-                                                    <li class="accordion-item dd-item menu-ac-item" data-id="4">
-                                                    <div class="accordion-header position-relative">
-                                                        <div class="move-media dd-handle">
-                                                            <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                                                        </div>
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                                        About Us
-                                                        </button>
-                                                    </div>
-                                                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <div class="row">
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Navigation Label</label>
-                                                                        <input type="text" class="form-control" placeholder="About Us">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Title Attribute</label>
-                                                                        <input type="text" class="form-control" placeholder="About Us">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-12">
-                                                                    <p class="dz-terms">Original: <a href="javascript:void(0);">About Us</a></p>
-                                                                </div>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="javascript:void(0);">Remove</a><span class="mx-2">|</span>
-                                                                    <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                                                    Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </div>												
-                                                        </div>
-                                                    </div>
-                                                    </li>
-                                                    <li class="accordion-item dd-item menu-ac-item" data-id="5">
-                                                    <div class="accordion-header position-relative">
-                                                        <div class="move-media dd-handle">
-                                                            <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                                                        </div>
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                                        Important Information
-                                                        </button>
-                                                    </div>
-                                                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <div class="row">
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Navigation Label</label>
-                                                                        <input type="text" class="form-control" placeholder="Important Information">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                        <label  class="form-label">Title Attribute</label>
-                                                                        <input type="text" class="form-control" placeholder="">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="col-xl-12">
-                                                                    <p class="dz-terms">Original: <a href="javascript:void(0);">Terms and Conditions</a></p>
-                                                                </div>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="javascript:void(0);">Remove</a><span class="mx-2">|</span>
-                                                                    <a href="javascript:void(0);"   data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                                                    Cancel
-                                                                    </a>
-                                                                </div>
-                                                            </div>												
-                                                        </div>
-                                                    </div>
-                                                    </li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div>		
-                            </div>
-                            <div class="filter cm-content-box box-primary style-1 mb-0 border-0">
-                                <div class="content-title">
-                                    <div class="cpa">
-                                        Delete Menu
-                                    </div>
-                                    <button type="button" class="btn btn-secondary light my-2">Save Menu</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+<div id="password-modal" class="modal " style="display: none;">
+            <div class="container modal-content ">
+                <span id="password-modal-close" class="close">&times;</span>
+                <h4>Change Password for <span id="password-modal-email"></span></h4><br>
+                <input type="password" class="form-control" id="new-password" placeholder="Enter new password"><br>
+                <button type="button" class="btn btn-primary" id="password-change-button">Change</button>
+            </div>
+        </div>
 <!--**********************************
     Content body end
 ***********************************-->
         <!--**********************************
     Footer start
 ***********************************-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const buttons = document.querySelectorAll(".status-button");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", function() {
+                const surveyorEmail = this.getAttribute("data-surveyoremail");
+                const statusCell = this.parentElement.previousElementSibling;
+
+                const currentStatus = statusCell.innerText.trim();
+
+                // Toggle the status text
+                const newStatus = currentStatus === "Active" ? "Disable" : "Active";
+                statusCell.innerText = newStatus;
+
+                // Send an AJAX request to update the status in the database
+                const data = new FormData();
+                data.append("surveyorEmail", surveyorEmail);
+                data.append("newStatus", newStatus);
+
+                // Send the AJAX request to a PHP script
+                fetch("php/update_surveyorstatus.php", {
+                        method: "POST",
+                        body: data
+                    })
+                    .then(response => response.text())
+                    .then(result => {
+                        if (result !== "success") {
+                            // Revert the status if there was an error
+                            statusCell.innerText = currentStatus;
+                            alert("Failed to update status.");
+                        }
+                    });
+            });
+        });
+    });
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const changePasswordButtons = document.querySelectorAll(".change-password-button");
+        const modal = document.getElementById("password-modal");
+
+        // Hide the modal when the page loads
+        modal.style.display = "none";
+
+        changePasswordButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const email = this.getAttribute("data-email");
+
+                // Display the modal
+                modal.style.display = "block";
+
+                // Set the email in the modal for reference
+                document.getElementById("password-modal-email").textContent = email;
+            });
+        });
+
+        // Close the modal when the close button is clicked
+        document.getElementById("password-modal-close").addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+
+        // Handle the password change request
+        document.getElementById("password-change-button").addEventListener("click", function() {
+            const email = document.getElementById("password-modal-email").textContent;
+            const newPassword = document.getElementById("new-password").value;
+
+            // Send an AJAX request to change the password
+            const data = new FormData();
+            data.append("email", email);
+            data.append("newPassword", newPassword);
+
+            // Send the AJAX request to a PHP script
+            fetch("php/change_surveyorpwd.php", {
+                    method: "POST",
+                    body: data
+                })
+                .then(response => response.text())
+                .then(result => {
+                    if (result === "success") {
+                        alert("Password changed successfully.");
+                        modal.style.display = "none"; // Hide the modal after changing the password
+                    } else {
+                        alert("Failed to change password.");
+                    }
+                });
+        });
+
+        // Close the modal when clicking outside of the modal content
+        window.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+    </script>
+
 <footer class="footer">
     <div class="copyright">
             <p>Copyright © Designed &amp; Developed by <a href="http://dexignzone.com/" target="_blank">Vertical Media</a> 2023</p>
@@ -1440,7 +1261,8 @@ $userEmail = $_SESSION['email'];
     	
 			<script src="public/assets/js/custom.min.js"></script>
 			<script src="public/assets/js/deznav-init.js"></script>
-		
+			<script src="public/assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="public/assets/js/plugins-init/datatables.init.js"></script>
 
     <!--**********************************
         Main wrapper end

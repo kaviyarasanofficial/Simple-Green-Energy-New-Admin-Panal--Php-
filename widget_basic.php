@@ -604,7 +604,7 @@ $userEmail = $_SESSION['email'];
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="header-left">
 					<div class="dashboard_bar">
-					Basic					</div>
+					Feedbacks					</div>
 				</div>
 				<ul class="navbar-nav header-right">
 					<!-- <li class="nav-item">
@@ -874,14 +874,14 @@ $userEmail = $_SESSION['email'];
                     <span class="nav-text">Surveyors</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="content.php">Content</a></li>
-                    <li><a href="add_content.php">Add Content</a></li>
-                    <li><a href="menu.php">Menus</a></li>
-                    <li><a href="email_template.php">Email Template</a></li>
-                    <li><a href="add_email.php">Add Email</a></li>
+                    <li><a href="content.php">Surveyor Register</a></li>
+                    <li><a href="add_content.php">Surveyor Works</a></li>
+                    <li><a href="menu.php">Surveyors list</a></li>
+                    <li><a href="email_template.php">Documents Upload</a></li>
+                    <!-- <li><a href="add_email.php">Add Email</a></li>
                     <li><a href="blog.php">Blog</a></li>
                     <li><a href="add_blog.php">Add Blog</a></li>
-                    <li><a href="blog_category.php">Blog Category</a></li>	
+                    <li><a href="blog_category.php">Blog Category</a></li>	 -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -942,13 +942,13 @@ $userEmail = $_SESSION['email'];
                     <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Sub Admins</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="form_element.php">Form Elements</a></li>
                     <li><a href="form_wizard.php">Wizard</a></li>   
                     <li><a href="form_editor.php">Editor</a></li>
 					<li><a href="form_pickers.php">Pickers</a></li>
 					<li><a href="form_validation_jquery.php">Form Validate</a></li>
-                </ul>
+                </ul> -->
             </li>
 			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -957,18 +957,18 @@ $userEmail = $_SESSION['email'];
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-network"></i>
-                    <span class="nav-text">Table</span>
+                    <span class="nav-text">Settings</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="table_bootstrap.php">Bootstrap</a></li>
 					<li><a href="table_datatable.php">Datatable</a></li>
-                </ul>
+                </ul> -->
             </li>
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+           <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-layer-1"></i>
                     <span class="nav-text">Pages</span>
                 </a>
-                <ul aria-expanded="false">
+               <ul aria-expanded="false">
                     <li><a href="page_register.php">Register</a></li>
                     <li><a href="page_login.php">Login</a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
@@ -982,8 +982,8 @@ $userEmail = $_SESSION['email'];
                     </li>
                     <li><a href="page_lock_screen.php">Lock Screen</a></li>
                     <li><a href="page_empty.php">Empty Page</a></li>
-                </ul>
-            </li>
+                </ul> 
+            </li> -->
         </ul>
        <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">
@@ -1000,7 +1000,7 @@ $userEmail = $_SESSION['email'];
 ***********************************-->        <!--**********************************
 	Content body start
 ***********************************-->
-<div class="content-body default-height">
+<div style="display:none;" class="content-body default-height">
 	<div class="container-fluid">
 		<div class="page-titles">
 			<ol class="breadcrumb">

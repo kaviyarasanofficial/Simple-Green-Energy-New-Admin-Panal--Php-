@@ -58,7 +58,17 @@ $userEmail = $_SESSION['email'];
 		 <link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>		
 		
 		 <link href="public/assets/css/style.css" rel="stylesheet" type="text/css"/>		
-	
+		 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		 <!-- Include Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<!-- Include Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    // Your jQuery-dependent script here
+</script>
+
 </head>
 <body>
 
@@ -878,14 +888,14 @@ $userEmail = $_SESSION['email'];
                     <span class="nav-text">Surveyors</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="content.php">Content</a></li>
-                    <li><a href="add_content.php">Add Content</a></li>
-                    <li><a href="menu.php">Menus</a></li>
-                    <li><a href="email_template.php">Email Template</a></li>
-                    <li><a href="add_email.php">Add Email</a></li>
+                    <li><a href="content.php">Surveyor Register</a></li>
+                    <li><a href="add_content.php">Surveyor Works</a></li>
+                    <li><a href="menu.php">Surveyors list</a></li>
+                    <li><a href="email_template.php">Documents Upload</a></li>
+                    <!-- <li><a href="add_email.php">Add Email</a></li>
                     <li><a href="blog.php">Blog</a></li>
                     <li><a href="add_blog.php">Add Blog</a></li>
-                    <li><a href="blog_category.php">Blog Category</a></li>	
+                    <li><a href="blog_category.php">Blog Category</a></li>	 -->
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -946,13 +956,13 @@ $userEmail = $_SESSION['email'];
                     <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Sub Admins</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="form_element.php">Form Elements</a></li>
                     <li><a href="form_wizard.php">Wizard</a></li>   
                     <li><a href="form_editor.php">Editor</a></li>
 					<li><a href="form_pickers.php">Pickers</a></li>
 					<li><a href="form_validation_jquery.php">Form Validate</a></li>
-                </ul>
+                </ul> -->
             </li>
 			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -961,18 +971,18 @@ $userEmail = $_SESSION['email'];
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-network"></i>
-                    <span class="nav-text">Table</span>
+                    <span class="nav-text">Settings</span>
                 </a>
-                <ul aria-expanded="false">
+                <!-- <ul aria-expanded="false">
                     <li><a href="table_bootstrap.php">Bootstrap</a></li>
 					<li><a href="table_datatable.php">Datatable</a></li>
-                </ul>
+                </ul> -->
             </li>
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+           <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-layer-1"></i>
                     <span class="nav-text">Pages</span>
                 </a>
-                <ul aria-expanded="false">
+               <ul aria-expanded="false">
                     <li><a href="page_register.php">Register</a></li>
                     <li><a href="page_login.php">Login</a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
@@ -986,8 +996,8 @@ $userEmail = $_SESSION['email'];
                     </li>
                     <li><a href="page_lock_screen.php">Lock Screen</a></li>
                     <li><a href="page_empty.php">Empty Page</a></li>
-                </ul>
-            </li>
+                </ul> 
+            </li> -->
         </ul>
        <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">
@@ -1014,233 +1024,314 @@ $userEmail = $_SESSION['email'];
 		</div> -->
 		<!-- Row -->
 		<div class="row">
-			<div class="col-xl-12 col-xxl-12">
-				<div class="card">
-					<div class="card-header">
-						<h4 class="card-title">Surveyor Register</h4>
-					</div>
-					<div class="card-body">
-						<div id="smartwizard" class="form-wizard order-create">
-							<ul class="nav nav-wizard">
-								<li><a class="nav-link" href="#register"> 
-									<span>1</span> 
-								</a></li>
-								<li><a class="nav-link" href="#wizard_Time">
-									<span>2</span>
-								</a></li>
-								<li><a class="nav-link" href="#wizard_Details">
-									<span>3</span>
-								</a></li>
-								<li><a class="nav-link" href="#wizard_Payment">
-									<span>4</span>
-								</a></li>
-							</ul>
-							<div class="tab-content">
-								<div id="register" class="tab-pane" role="tabpanel">
-									<div class="row">
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Full name<span class="required">*</span></label>
-												<input type="text" name="f1-full-name" class="form-control" placeholder="Parsley" required>
-											</div>
-										</div>
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Last Name<span class="required">*</span></label>
-												<input type="text" name="lastName" class="form-control" placeholder="Montana" required>
-											</div>
-										</div>
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Email Address<span class="required">*</span></label>
-												<input type="email" name="f1-email" class="form-control" id="inputGroupPrepend2" aria-describedby="inputGroupPrepend2" placeholder="example@example.com.com" required>
-											</div>
-										</div>
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Phone Number<span class="required">*</span></label>
-												<input type="number" name="f1-phone" class="form-control" placeholder="(+1)408-657-9007" required>
-											</div>
-										</div>
-										<div class="col-lg-12 mb-3">
-											<div class="form-group">
-												<label class="text-label">Where are you from<span class="required">*</span></label>
-												<input type="text" name="place" class="form-control" required>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="wizard_Time" class="tab-pane" role="tabpanel">
-									<div class="row">
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Company Name<span class="required">*</span></label>
-												<input type="text" name="firstName" class="form-control" placeholder="Cellophane Square" required>
-											</div>
-										</div>
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Company Email Address<span class="required">*</span></label>
-												<input type="email" class="form-control" id="emial1" placeholder="example@example.com.com" required>
-											</div>
-										</div>
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Company Phone Number<span class="required">*</span></label>
-												<input type="number" name="phoneNumber" class="form-control" placeholder="(+1)408-657-9007" required>
-											</div>
-										</div>
-										<div class="col-lg-6 mb-2">
-											<div class="form-group">
-												<label class="text-label">Your position in Company<span class="required">*</span></label>
-												<input type="text" name="place" class="form-control" required>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="wizard_Details" class="tab-pane" role="tabpanel">
-									<div class="row align-items-center">
-										<div class="col-sm-4 mb-2">
-											<span>Monday<span class="required">*</span></span>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="9.00" type="number" name="input1" id="input1">
-											</div>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="6.00" type="number" name="input2" id="input2">
-											</div>
-										</div>
-									</div>
-									<div class="row align-items-center">
-										<div class="col-sm-4 mb-2">
-											<span>Tuesday<span class="required">*</span></span>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="9.00" type="number" name="input3" id="input3">
-											</div>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="6.00" type="number" name="input4" id="input4">
-											</div>
-										</div>
-									</div> 
-									<div class="row align-items-center">
-										<div class="col-sm-4 mb-2">
-											<span>Wednesday<span class="required">*</span></span>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="9.00" type="number" name="input5" id="input5">
-											</div>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="6.00" type="number" name="input6" id="input6">
-											</div>
-										</div>
-									</div>
-									<div class="row align-items-center">
-										<div class="col-sm-4 mb-2">
-											<span>Thrusday<span class="required">*</span></span>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="9.00" type="number" name="input7" id="input7">
-											</div>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="6.00" type="number" name="input8" id="input8">
-											</div>
-										</div>
-									</div>
-									<div class="row align-items-center">
-										<div class="col-sm-4 mb-2">
-											<span>Friday<span class="required">*</span></span>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="9.00" type="number" name="input9" id="input9">
-											</div>
-										</div>
-										<div class="col-6 col-sm-4 mb-2">
-											<div class="form-group">
-												<input class="form-control" value="6.00" type="number" name="input10" id="input10">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="wizard_Payment" class="tab-pane" role="tabpanel">
-									<div class="row emial-setup">
-										<div class="col-lg-3 col-sm-6 col-6">
-											<div class="form-group">
-												<label for="mailclient11" class="mailclinet mailclinet-gmail">
-													<input type="radio" name="emailclient" id="mailclient11">
-													<span class="mail-icon">
-														<i class="mdi mdi-google-plus" aria-hidden="true"></i>
-													</span>
-													<span class="mail-text">I'm using Gmail</span>
-												</label>
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-6">
-											<div class="form-group">
-												<label for="mailclient12" class="mailclinet mailclinet-office">
-													<input type="radio" name="emailclient" id="mailclient12">
-													<span class="mail-icon">
-														<i class="mdi mdi-office" aria-hidden="true"></i>
-													</span>
-													<span class="mail-text">I'm using Office</span>
-												</label>
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-6">
-											<div class="form-group">
-												<label for="mailclient13" class="mailclinet mailclinet-drive">
-													<input type="radio" name="emailclient" id="mailclient13">
-													<span class="mail-icon">
-														<i class="mdi mdi-google-drive" aria-hidden="true"></i>
-													</span>
-													<span class="mail-text">I'm using Drive</span>
-												</label>
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-6">
-											<div class="form-group">
-												<label for="mailclient14" class="mailclinet mailclinet-another">
-													<input type="radio" name="emailclient" id="mailclient14">
-													<span class="mail-icon">
-														<i class="far fa-question-circle"
-															aria-hidden="true"></i>
-													</span>
-													<span class="mail-text">Another Service</span>
-												</label>
-											</div>
-										</div>
-									</div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">New Surveyor Register</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="needs-validation"  >
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom01">Full name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="f1-full-name" placeholder="Full name..." required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a username.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" >Email <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="f1-email" placeholder="Email..." id="f1-emails" required>
+												
+                                                <div class="invalid-feedback">
+                                                    Please enter a Email.
+                                                </div>
+												<div  id="email-status"></div> 
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom03">Password
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="password" class="form-control" name="f1-password" placeholder="Password..." required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a password.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom04">Suggestions <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <textarea class="form-control" id="validationCustom04"  rows="5" placeholder="What would you like to see?" required></textarea>
+                                                <div class="invalid-feedback">
+                                                    Please enter a Suggestions.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom05">Best Skill
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <select class="default-select wide form-control" id="validationCustom05">
+                                                    <option  data-display="Select">Please select</option>
+                                                    <option value="html">HTML</option>
+                                                    <option value="css">CSS</option>
+                                                    <option value="javascript">JavaScript</option>
+                                                    <option value="angular">Angular</option>
+                                                    <option value="angular">React</option>
+                                                    <option value="vuejs">Vue.js</option>
+                                                    <option value="ruby">Ruby</option>
+                                                    <option value="php">PHP</option>
+                                                    <option value="asp">ASP.NET</option>
+                                                    <option value="python">Python</option>
+                                                    <option value="mysql">MySQL</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    Please select a one.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom06">Currency
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom06" placeholder="$21.60" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a Currency.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom07">Website
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom07"  placeholder="http://example.com" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a url.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom08">Phone Number
+                                                <!-- <span class="text-danger">*</span> -->
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="f1-phone" placeholder="Phone Number..." >
+                                                <div class="invalid-feedback">
+                                                    Please enter a phone no.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom09">About Surveyor 
+												<!-- <span
+                                                    class="text-danger">*</span> -->
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="f1-details" placeholder="details..." >
+                                                <div class="invalid-feedback">
+                                                    Please enter a digits.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom10">Number <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom10" placeholder="5.0" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a num.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom11">Range [1, 5]
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom11" placeholder="4" required>
+                                                <div class="invalid-feedback">
+                                                    Please select a range.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label"><a
+                                                    href="javascript:void(0);">Terms &amp; Conditions</a> <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-8">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="validationCustom12" required>
+                                                    <label class="form-check-label" for="validationCustom12">
+                                                    Agree to terms and conditions
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>  -->
+                                        <div class="mb-3 row">
+                                            <div class="col-lg-8 ms-auto">
+                                                <button type="submit" onclick="confirmcreateserveyor(event, this.form)" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-									<div class="row">
-										<div class="col-12">
-											<div class="skip-email text-center">
-												<p>Or if want skip this step entirely and setup it later</p>
-												<a href="javascript:void(0)">Skip step</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+
+            <!-- <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Vertical Forms with icon</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form class="form-valide-with-icon needs-validation" novalidate>
+                                <div class="mb-3">
+                                    <label class="text-label form-label" for="validationCustomUsername">Username <span class="required">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                        <input type="text" class="form-control border-s-1" id="validationCustomUsername" placeholder="Enter a username.." required>
+                                        <div class="invalid-feedback">
+                                            Please Enter a username.
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="text-label form-label" for="dz-password">Password <span class="required">*</span></label>
+                                    <div class="input-group transparent-append">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                        <input type="password" class="form-control" id="dz-password" placeholder="Choose a safe one.." required>
+                                        <span class="input-group-text show-pass border-s-1 "> 
+                                            <i class="fa fa-eye-slash"></i>
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <div class="invalid-feedback">
+                                            Please Enter a username.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                                        <label class="form-check-label" for="invalidCheck2">
+                                        Check Me out
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn me-2 btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-danger light">Cancel</button>
+                            </form>
+                        </div>	
+                    </div>
+                </div>
+            </div> -->
+        </div>
 	</div>
 </div>
+
+<script>
+                                                     function confirmcreateserveyor(event, form) {
+                                                        event.preventDefault(); // Prevent the form from submitting
+
+                                                     Swal.fire({
+                                                            title: "Are you sure?",
+                                                            text: "Please Confirm to create a new surveyor!",
+                                                            icon: "warning",
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: "#DD6B55",
+                                                            confirmButtonText: "Yes, Create it!",
+                                                            cancelButtonText: "No, cancel plx",
+                                                            allowEnterKey: false,
+                                                            allowEscapeKey: false,
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                // Send an AJAX request to create the new surveyor
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "php/createsurveyor.php",
+                                                                    data: $(form).serialize(), // Serialize the form data
+                                                                    success: function (response) {
+                                                                        if (response === "success") {
+                                                                            Swal.fire("Created!", "New Surveyor Registered Successfully.", "success").then(() => {
+                                                                                location.reload();
+                                                                            });
+                                                                        } else {
+                                                                            Swal.fire("Error", "Failed to Register New Surveyor.", "error");
+                                                                        }
+                                                                    },
+                                                                    error: function (xhr, status, error) {
+                                                                        console.log("AJAX Error: " + error); // Log the error to the console
+                                                                        Swal.fire("Error", "Failed to Register New Surveyor. Please check the console for more details.", "error");
+                                                                    },
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                </script>
+
+<script>
+    $(document).ready(function () {
+        // Add event listeners to the email and password fields
+        $("#f1-emails").on("keyup", function () {
+			console.log('hi');
+            checkEmailAvailability($(this).val());
+           
+        });
+
+        function checkEmailAvailability(email) {
+            $.ajax({
+                type: "POST",
+                url: "php/checkemail.php", // Adjust the URL to your email availability check script
+                data: { email: email },
+                success: function (response) {
+                    // Update an element to provide feedback to the user
+					var emailStatusDiv = $("#email-status");
+					if(response == 'Email is available'){
+						
+						$("#email-status").text(response);
+						emailStatusDiv.css('color', 'green');
+						$("button[type='submit']").prop('disabled', false);
+
+					}else{
+						
+						$("#email-status").text(response);
+						$("button[type='submit']").prop('disabled', true);
+						emailStatusDiv.css('color', 'red');
+						toastr.error('Duplicate value not allowed');
+					}
+                    
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors
+                    console.log(error); // Log the error for debugging
+                },
+            });
+        }
+    });
+</script>
 <!--**********************************
 	Content body end
 ***********************************-->
@@ -1257,6 +1348,8 @@ $userEmail = $_SESSION['email'];
 ***********************************-->        
 		
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
 			<script src="public/assets/vendor/global/global.min.js"></script>
 			<script src="public/assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
 			<script src="public/assets/vendor/jquery-steps/build/jquery.steps.min.php"></script>
