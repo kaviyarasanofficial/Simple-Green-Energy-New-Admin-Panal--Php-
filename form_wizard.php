@@ -11,6 +11,8 @@ if (!isset($_SESSION['email'])) {
 
 $userEmail = $_SESSION['email'];
 // If the user is logged in, you can display the content of index.php
+
+include('php/get_all_subadmins.php');
 ?>
 
 
@@ -53,8 +55,52 @@ $userEmail = $_SESSION['email'];
 		
 		 <link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>		
 		
-		 <link href="public/assets/css/style.css" rel="stylesheet" type="text/css"/>		
-	
+		 <link href="public/assets/css/style.css" rel="stylesheet" type="text/css"/>
+		 <link href="public/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />		
+		 <style>
+    /* Center the modal */
+    #password-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        z-index: 9999;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 80%;
+        /* Adjust the width as needed */
+        max-width: 400px;
+        /* Adjust the max-width as needed */
+        text-align: left;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        #password-modal {
+            width: 90%;
+            max-width: 90%;
+        }
+    }
+
+    /* Add any additional styling you need */
+    </style>
 </head>
 <body>
 
@@ -98,501 +144,7 @@ $userEmail = $_SESSION['email'];
 ***********************************-->		<!--**********************************
 	Chat box start
 ***********************************-->
-<div class="chatbox">
-	<div class="chatbox-close"></div>
-	<div class="custom-tab-1">
-		<ul class="nav nav-tabs">
-			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" href="#notes">Notes</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" href="#alerts">Alerts</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" data-bs-toggle="tab" href="#chat">Chat</a>
-			</li>
-		</ul>
-		<div class="tab-content">
-			<div class="tab-pane fade active show" id="chat" role="tabpanel">
-				<div class="card mb-sm-3 mb-md-0 contacts_card dz-chat-user-box">
-					<div class="card-header chat-list-header text-center">
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/><rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/></g></svg></a>
-						<div>
-							<h6 class="mb-1">Chat List</h6>
-							<p class="mb-0">Show All</p>
-						</div>
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
-					</div>
-					<div class="card-body contacts_body p-0 dz-scroll  " id="DZ_W_Contacts_Body">
-						<ul class="contacts">
-							<li class="name-first-letter">A</li>
-							<li class="active dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Archie Parker</span>
-										<p>Kalid is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Alfie Mason</span>
-										<p>Taherah left 7 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>AharlieKane</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Athan Jacoby</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">B</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Bashid Samim</span>
-										<p>Rashid left 50 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Breddie Ronan</span>
-										<p>Kalid is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Ceorge Carson</span>
-										<p>Taherah left 7 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">D</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Darry Parker</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Denry Hunter</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">J</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Jack Ronan</span>
-										<p>Rashid left 50 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Jacob Tucker</span>
-										<p>Kalid is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>James Logan</span>
-										<p>Taherah left 7 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Joshua Weston</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">O</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Oliver Acker</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Oscar Weston</span>
-										<p>Rashid left 50 mins ago</p>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card chat dz-chat-history-box d-none">
-					<div class="card-header chat-list-header text-center">
-						<a href="#" class="dz-chat-history-back">
-							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon points="0 0 24 0 24 24 0 24"/><rect fill="#000000" opacity="0.3" transform="translate(15.000000, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-15.000000, -12.000000) " x="14" y="7" width="2" height="10" rx="1"/><path d="M3.7071045,15.7071045 C3.3165802,16.0976288 2.68341522,16.0976288 2.29289093,15.7071045 C1.90236664,15.3165802 1.90236664,14.6834152 2.29289093,14.2928909 L8.29289093,8.29289093 C8.67146987,7.914312 9.28105631,7.90106637 9.67572234,8.26284357 L15.6757223,13.7628436 C16.0828413,14.136036 16.1103443,14.7686034 15.7371519,15.1757223 C15.3639594,15.5828413 14.7313921,15.6103443 14.3242731,15.2371519 L9.03007346,10.3841355 L3.7071045,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(9.000001, 11.999997) scale(-1, -1) rotate(90.000000) translate(-9.000001, -11.999997) "/></g></svg>
-						</a>
-						<div>
-							<h6 class="mb-1">Chat with Khelesh</h6>
-							<p class="mb-0 text-success">Online</p>
-						</div>							
-						<div class="dropdown">
-							<a href="#" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
-							<ul class="dropdown-menu dropdown-menu-end">
-								<li class="dropdown-item"><i class="fa fa-user-circle text-primary me-2"></i> View profile</li>
-								<li class="dropdown-item"><i class="fa fa-users text-primary me-2"></i> Add to close friends</li>
-								<li class="dropdown-item"><i class="fa fa-plus text-primary me-2"></i> Add to group</li>
-								<li class="dropdown-item"><i class="fa fa-ban text-primary me-2"></i> Block</li>
-							</ul>
-						</div>
-					</div>
-					<div class="card-body msg_card_body dz-scroll" id="DZ_W_Contacts_Body3">
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Hi, how are you samim?
-								<span class="msg_time">8:40 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Hi Khalid i am good tnx how about you?
-								<span class="msg_time_send">8:55 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am good too, thank you for your chat template
-								<span class="msg_time">9:00 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								You are welcome
-								<span class="msg_time_send">9:05 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am looking for your next templates
-								<span class="msg_time">9:07 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Ok, thank you have a good day
-								<span class="msg_time_send">9:10 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Bye, see you
-								<span class="msg_time">9:12 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Hi, how are you samim?
-								<span class="msg_time">8:40 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Hi Khalid i am good tnx how about you?
-								<span class="msg_time_send">8:55 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am good too, thank you for your chat template
-								<span class="msg_time">9:00 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								You are welcome
-								<span class="msg_time_send">9:05 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am looking for your next templates
-								<span class="msg_time">9:07 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Ok, thank you have a good day
-								<span class="msg_time_send">9:10 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Bye, see you
-								<span class="msg_time">9:12 AM, Today</span>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer type_msg">
-						<div class="input-group">
-							<textarea class="form-control" placeholder="Type your message..."></textarea>
-							<div class="input-group-append">
-								<button type="button" class="btn btn-primary"><i class="fa fa-location-arrow"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="alerts" role="tabpanel">
-				<div class="card mb-sm-3 mb-md-0 contacts_card">
-					<div class="card-header chat-list-header text-center">
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
-						<div>
-							<h6 class="mb-1">Notications</h6>
-							<p class="mb-0">Show All</p>
-						</div>
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/><path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"/></g></svg></a>
-					</div>
-					<div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body1">
-						<ul class="contacts">
-							<li class="name-first-letter">SEVER STATUS</li>
-							<li class="active">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont primary">KK</div>
-									<div class="user_info">
-										<span>David Nester Birthday</span>
-										<p class="text-primary">Today</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">SOCIAL</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="img_cont success">RU<i class="icon fa-birthday-cake"></i></div>
-									<div class="user_info">
-										<span>Perfection Simplified</span>
-										<p>Jame Smith commented on your status</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">SEVER STATUS</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="img_cont primary">AU<i class="icon fa fa-user-plus"></i></div>
-									<div class="user_info">
-										<span>AharlieKane</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="img_cont info">MO<i class="icon fa fa-user-plus"></i></div>
-									<div class="user_info">
-										<span>Athan Jacoby</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="card-footer"></div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="notes">
-				<div class="card mb-sm-3 mb-md-0 note_card">
-					<div class="card-header chat-list-header text-center">
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/><rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/></g></svg></a>
-						<div>
-							<h6 class="mb-1">Notes</h6>
-							<p class="mb-0">Add New Nots</p>
-						</div>
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/><path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"/></g></svg></a>
-					</div>
-					<div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body2">
-						<ul class="contacts">
-							<li class="active">
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>New order placed..</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>Youtube, a video-sharing website..</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>john just buy your product..</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>Athan Jacoby</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
 <!--**********************************
 	Chat box End
 ***********************************-->        <!--**********************************
@@ -604,7 +156,7 @@ $userEmail = $_SESSION['email'];
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="header-left">
 					<div class="dashboard_bar">
-					Wizard					</div>
+					Sub Admins list	</div>
 				</div>
 				<ul class="navbar-nav header-right">
 					<!-- <li class="nav-item">
@@ -888,26 +440,26 @@ $userEmail = $_SESSION['email'];
                     <i class="flaticon-381-controls-3"></i>
                     <span class="nav-text">Gas Engineers</span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="flot.php">Flot</a></li>
-					<li><a href="morris.php">Morris</a></li> 
-					<li><a href="chartjs.php">Chartjs</a></li>
-					<li><a href="chartist.php">Chartist</a></li>
-					<li><a href="sparkline.php">Sparkline</a></li>
-					<li><a href="peity.php">Peity</a></li>
-                </ul> -->
+                <ul aria-expanded="false">
+                    <li><a href="flot.php">Gas Engineers Register</a></li>
+					<li><a href="morris.php">Gas Engineer Works</a></li> 
+					<li><a href="chartjs.php">Gas Engineer list</a></li>
+					<li><a href="chartist.php">Documents Upload</a></li>
+					<!-- <li><a href="sparkline.php">Sparkline</a></li>
+					<li><a href="peity.php">Peity</a></li> -->
+                </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-internet"></i>
                     <span class="nav-text">Installation Team
 </span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="accordion.php">Accordion</a></li>
-					<li><a href="alert.php">Alert</a></li>
-					<li><a href="badge.php">Badge</a></li>
-					<li><a href="button.php">Button</a></li>
-					<li><a href="modal.php">Modal</a></li>
+                <ul aria-expanded="false">
+                    <li><a href="accordion.php">Installation Team Register</a></li>
+					<li><a href="alert.php">Installation Team Works</a></li>
+					<li><a href="badge.php">Installation Team list</a></li>
+					<li><a href="button.php">Documents Upload</a></li>
+					<!-- <li><a href="modal.php">Modal</a></li>
                     <li><a href="button_group.php">Button Group</a></li>
                     <li><a href="list_group.php">List Group</a></li>
                     <li><a href="media_object.php">Media Object</a></li>
@@ -919,36 +471,36 @@ $userEmail = $_SESSION['email'];
                     <li><a href="tab.php">Tab</a></li>
                     <li><a href="typography.php">Typography</a></li>
                     <li><a href="pagination.php">Pagination</a></li>
-                    <li><a href="grid.php">Grid</a></li>
+                    <li><a href="grid.php">Grid</a></li> -->
 
-                </ul> -->
+                </ul> 
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-heart"></i>
                     <span class="nav-text"> Insulation Team
 </span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="select2.php">Select 2</a></li> 
-					<li><a href="nestable.php">Nestable</a></li>
-					<li><a href="noui_slider.php">Noui Slider</a></li>
-					<li><a href="sweetalert.php">Sweet Alert</a></li>
-					<li><a href="toastr.php">Toastr</a></li>
+               <ul aria-expanded="false">
+                    <li><a href="select2.php">Insulation Team Register</a></li> 
+					<li><a href="nestable.php">Insulation Team Works</a></li>
+					<li><a href="noui_slider.php">Insulation Team list</a></li>
+					<li><a href="sweetalert.php">Documents Upload</a></li>
+					<!-- <li><a href="toastr.php">Toastr</a></li>
 					<li><a href="map_jqvmap.php">Jqv Map</a></li>
-					<li><a href="lightgallery.php">Light Gallery</a></li>
-                </ul> -->
+					<li><a href="lightgallery.php">Light Gallery</a></li> -->
+                </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Sub Admins</span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="form_element.php">Form Elements</a></li>
-                    <li><a href="form_wizard.php">Wizard</a></li>   
-                    <li><a href="form_editor.php">Editor</a></li>
+                <ul aria-expanded="false">
+                    <li><a href="form_element.php">Sub Admins Register</a></li>
+                    <li><a href="form_wizard.php">Sub Admins Manage</a></li>   
+                    <!-- <li><a href="form_editor.php">Editor</a></li>
 					<li><a href="form_pickers.php">Pickers</a></li>
-					<li><a href="form_validation_jquery.php">Form Validate</a></li>
-                </ul> -->
+					<li><a href="form_validation_jquery.php">Form Validate</a></li> -->
+                </ul> 
             </li>
 			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -959,10 +511,12 @@ $userEmail = $_SESSION['email'];
                     <i class="flaticon-381-network"></i>
                     <span class="nav-text">Settings</span>
                 </a>
-                <!-- <ul aria-expanded="false">
+                <!--  <ul aria-expanded="false">
                     <li><a href="table_bootstrap.php">Bootstrap</a></li>
 					<li><a href="table_datatable.php">Datatable</a></li>
-                </ul> -->
+                </ul> --> 
+
+				
             </li>
            <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-layer-1"></i>
@@ -1002,97 +556,76 @@ $userEmail = $_SESSION['email'];
 ***********************************-->
 <div class="content-body default-height">
 	<div class="container-fluid">
-		<div class="page-titles">
+		<!-- <div class="page-titles">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="javascript:void(0)">Form</a></li>
 				<li class="breadcrumb-item active"><a href="javascript:void(0)">Wizard</a></li>
 			</ol>
-		</div>
+		</div> -->
 		<!-- row -->
 		<div class="row">
-			<div class="col-xl-12 col-xxl-12">
-			<form method="" class="f1">
-                                                <h3 class="m-t-0">Create New Surveyor</h3>
-                                                <p>Fill in the form to get instant access</p>
-                                                <div class="f1-steps">
-                                                    <div class="f1-progress">
-                                                        <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
-                                                    </div>
-                                                    <div class="f1-step active">
-                                                        <div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                                                        <p>about</p>
-                                                    </div>
-                                                    <div class="f1-step">
-                                                        <div class="f1-step-icon"><i class="fa fa-key"></i></div>
-                                                        <p>account</p>
-                                                    </div>
-                                                    <div class="f1-step">
-                                                        <div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
-                                                        <p>details</p>
-                                                    </div>
-                                                </div>
-                                                <fieldset>
-                                                    <h4 class="m-t-0">Tell us who you are:</h4>
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="f1-first-name">Full name</label>
-                                                        <input type="text" name="f1-full-name" placeholder="Full name..." class="form-control" id="f1-first-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="f1-last-name">Phone Number</label>
-                                                        <input type="number" name="f1-phone" placeholder="Phone Number..." class="form-control" id="f1-last-name">
-                                                    </div>
-                                                    <!-- <div class="form-group">
-                                                        <label class="sr-only" for="f1-about-yourself">About yourself</label>
-                                                        <textarea name="f1-about-yourself" placeholder="About yourself..." 
-                                                                  class="form-control" id="f1-about-yourself" rows="5"></textarea>
-                                                    </div> -->
-                                                    <div class="f1-buttons">
-                                                        <button type="button" class="btn btn-success btn-next">Next</button>
-                                                    </div>
-                                                </fieldset>
-                                                <fieldset>
-                                                    <h4>Set up your account:</h4>
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="f1-email">Email</label>
-                                                        <input type="text" name="f1-email" placeholder="Email..." class="form-control" id="f1-email">
-                                                        <div id="email-status"></div> 
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="f1-password">Password</label>
-                                                        <input type="password" name="f1-password" placeholder="Password..." class="form-control" id="f1-password">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="f1-repeat-password">Repeat password</label>
-                                                        <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                               class="form-control" id="f1-repeat-password">
-                                                    </div>
-                                                    <div class="f1-buttons">
-                                                        <button type="button" class="btn btn-previous">Previous</button>
-                                                        <button type="button" class="btn btn-success btn-next">Next</button>
-                                                    </div>
-                                                </fieldset>
-                                                <fieldset>
-                                                    <h4>About</h4>
-                                                    <!-- <div class="form-group">
-                                                        <label class="sr-only" for="f1-facebook">Facebook</label>
-                                                        <input type="text" name="f1-facebook" placeholder="Facebook..." class="form-control" id="f1-facebook">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="f1-twitter">Twitter</label>
-                                                        <input type="text" name="f1-twitter" placeholder="Twitter..." class="form-control" id="f1-twitter">
-                                                    </div> -->
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="f1-details">About Surveyor</label>
-                                                        <input type="text" name="f1-details" placeholder="details..." class="form-control" >
-                                                    </div>
-                                                    <div class="f1-buttons">
-                                                        <button type="button" class="btn btn-previous">Previous</button>
-                                                        <button type="button" onclick="confirmcreateserveyor(event, this.form)" class="btn btn-success btn-submit">Submit</button>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-			</div>
-		</div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Sub Admins list</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display min-w850">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Email</th>
+
+                                                <th>ID Status</th>
+                                                <th>ID Control</th>
+                                                <th>Surveyor Phone</th>
+                                                <th>Password</th>
+                                                <th>Pwd</th>
+                                                <th>About Surveyor</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($records as $record): ?>
+                                            <tr>
+
+                                                <td><?= $record["name"] ?></td>
+                                                <td><?= $record["email"] ?></td>
+                                                <td><?= $record["idstatus"] ?></td>
+                                                <td><button style="background-color: #0d6efd; border: none;" class="status-button"
+                                                        data-subadminemail="<?= $record["email"] ?>"><i
+                                                            class="hvr-buzz-out fa fa-lock" style="color:white;" ></i></button></td>
+                                                <td><?= $record["phone"] ?></td>
+                                                <td><?= $record["password"] ?></td>
+                                                <td><button  style="background-color: #0d6efd; border: none;" class="change-password-button"
+                                                        data-email="<?= $record["email"] ?>"><i
+                                                            class="hvr-buzz-out fa fa-key"  style="color:white;"></i></button></td>
+                                                <td><?= $record["about_id"] ?></td>
+
+
+                                            </tr>
+                                            <?php endforeach; ?>
+
+
+                                        </tbody>
+                                        <!-- <tfoot>
+									<tr>
+										<th>Name</th>
+										<th>Position</th>
+										<th>Office</th>
+										<th>Age</th>
+										<th>Start date</th>
+										<th>Salary</th>
+									</tr>
+								</tfoot> -->
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 	</div>
 </div>
 <!--**********************************
@@ -1101,6 +634,114 @@ $userEmail = $_SESSION['email'];
         <!--**********************************
     Footer start
 ***********************************-->
+
+<div id="password-modal" class="modal " style="display: none;">
+            <div class="container modal-content ">
+                <span id="password-modal-close" class="close">&times;</span>
+                <h4>Change Password for <span id="password-modal-email"></span></h4><br>
+                <input type="password" class="form-control" id="new-password" placeholder="Enter new password"><br>
+                <button type="button" class="btn btn-primary" id="password-change-button">Change</button>
+            </div>
+        </div>
+
+		<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll(".status-button");
+
+            buttons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const subadminEmail = this.getAttribute("data-subadminemail");
+                    const statusCell = this.parentElement.previousElementSibling;
+
+                    const currentStatus = statusCell.innerText.trim();
+
+                    // Toggle the status text
+                    const newStatus = currentStatus === "Active" ? "Disable" : "Active";
+                    statusCell.innerText = newStatus;
+
+                    // Send an AJAX request to update the status in the database
+                    const data = new FormData();
+                    data.append("subadminEmail", subadminEmail);
+                    data.append("newStatus", newStatus);
+
+                    // Send the AJAX request to a PHP script
+                    fetch("php/update_subadminstatus.php", {
+                            method: "POST",
+                            body: data
+                        })
+                        .then(response => response.text())
+                        .then(result => {
+                            if (result !== "success") {
+                                // Revert the status if there was an error
+                                statusCell.innerText = currentStatus;
+                                alert("Failed to update status.");
+                            }
+                        });
+                });
+            });
+        });
+    </script>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const changePasswordButtons = document.querySelectorAll(".change-password-button");
+            const modal = document.getElementById("password-modal");
+
+            // Hide the modal when the page loads
+            modal.style.display = "none";
+
+            changePasswordButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const email = this.getAttribute("data-email");
+
+                    // Display the modal
+                    modal.style.display = "block";
+
+                    // Set the email in the modal for reference
+                    document.getElementById("password-modal-email").textContent = email;
+                });
+            });
+
+            // Close the modal when the close button is clicked
+            document.getElementById("password-modal-close").addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+
+            // Handle the password change request
+            document.getElementById("password-change-button").addEventListener("click", function() {
+                const email = document.getElementById("password-modal-email").textContent;
+                const newPassword = document.getElementById("new-password").value;
+
+                // Send an AJAX request to change the password
+                const data = new FormData();
+                data.append("email", email);
+                data.append("newPassword", newPassword);
+
+                // Send the AJAX request to a PHP script
+                fetch("php/change_surveyorpwd.php", {
+                        method: "POST",
+                        body: data
+                    })
+                    .then(response => response.text())
+                    .then(result => {
+                        if (result === "success") {
+                            alert("Password changed successfully.");
+                            modal.style.display =
+                                "none"; // Hide the modal after changing the password
+                        } else {
+                            alert("Failed to change password.");
+                        }
+                    });
+            });
+
+            // Close the modal when clicking outside of the modal content
+            window.addEventListener("click", function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+        </script>
 <footer class="footer">
     <div class="copyright">
             <p>Copyright © Designed &amp; Developed by <a href="http://dexignzone.com/" target="_blank">Vertical Media</a> 2023</p>
@@ -1120,12 +761,8 @@ $userEmail = $_SESSION['email'];
     	
 			<script src="public/assets/js/custom.min.js"></script>
 			<script src="public/assets/js/deznav-init.js"></script>
-		<script>
-	$(document).ready(function(){
-		// SmartWizard initialize
-		$('#smartwizard').smartWizard(); 
-	});
-</script>
+			<script src="public/assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="public/assets/js/plugins-init/datatables.init.js"></script>
 
 
     <!--**********************************

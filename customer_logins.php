@@ -51,20 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
-<?php
-// Start the session to access session variables
-session_start();
 
-// Check if the user is not logged in (no session variable is set)
-if (!isset($_SESSION['email'])) {
-    // Redirect to the login page
-    header("Location: signin.php");
-    exit();
-}
-
-$userEmail = $_SESSION['email'];
-// If the user is logged in, you can display the content of index.php
-?>
 
 
 <!DOCTYPE html>

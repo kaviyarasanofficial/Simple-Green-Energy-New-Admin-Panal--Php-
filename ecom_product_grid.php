@@ -901,26 +901,26 @@ include('php/atpleads.php');
                     <i class="flaticon-381-controls-3"></i>
                     <span class="nav-text">Gas Engineers</span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="flot.php">Flot</a></li>
-					<li><a href="morris.php">Morris</a></li> 
-					<li><a href="chartjs.php">Chartjs</a></li>
-					<li><a href="chartist.php">Chartist</a></li>
-					<li><a href="sparkline.php">Sparkline</a></li>
-					<li><a href="peity.php">Peity</a></li>
-                </ul> -->
+                <ul aria-expanded="false">
+                    <li><a href="flot.php">Gas Engineers Register</a></li>
+					<li><a href="morris.php">Gas Engineer Works</a></li> 
+					<li><a href="chartjs.php">Gas Engineer list</a></li>
+					<li><a href="chartist.php">Documents Upload</a></li>
+					<!-- <li><a href="sparkline.php">Sparkline</a></li>
+					<li><a href="peity.php">Peity</a></li> --> 
+                </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-internet"></i>
                     <span class="nav-text">Installation Team
 </span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="accordion.php">Accordion</a></li>
-					<li><a href="alert.php">Alert</a></li>
-					<li><a href="badge.php">Badge</a></li>
-					<li><a href="button.php">Button</a></li>
-					<li><a href="modal.php">Modal</a></li>
+                <ul aria-expanded="false">
+                    <li><a href="accordion.php">Installation Team Register</a></li>
+					<li><a href="alert.php">Installation Team Works</a></li>
+					<li><a href="badge.php">Installation Team list</a></li>
+					<li><a href="button.php">Documents Upload</a></li>
+					<!-- <li><a href="modal.php">Modal</a></li>
                     <li><a href="button_group.php">Button Group</a></li>
                     <li><a href="list_group.php">List Group</a></li>
                     <li><a href="media_object.php">Media Object</a></li>
@@ -932,36 +932,36 @@ include('php/atpleads.php');
                     <li><a href="tab.php">Tab</a></li>
                     <li><a href="typography.php">Typography</a></li>
                     <li><a href="pagination.php">Pagination</a></li>
-                    <li><a href="grid.php">Grid</a></li>
+                    <li><a href="grid.php">Grid</a></li> -->
 
-                </ul> -->
+                </ul> 
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-heart"></i>
                     <span class="nav-text"> Insulation Team
 </span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="select2.php">Select 2</a></li> 
-					<li><a href="nestable.php">Nestable</a></li>
-					<li><a href="noui_slider.php">Noui Slider</a></li>
-					<li><a href="sweetalert.php">Sweet Alert</a></li>
-					<li><a href="toastr.php">Toastr</a></li>
+               <ul aria-expanded="false">
+                    <li><a href="select2.php">Insulation Team Register</a></li> 
+					<li><a href="nestable.php">Insulation Team Works</a></li>
+					<li><a href="noui_slider.php">Insulation Team list</a></li>
+					<li><a href="sweetalert.php">Documents Upload</a></li>
+					<!-- <li><a href="toastr.php">Toastr</a></li>
 					<li><a href="map_jqvmap.php">Jqv Map</a></li>
-					<li><a href="lightgallery.php">Light Gallery</a></li>
-                </ul> -->
+					<li><a href="lightgallery.php">Light Gallery</a></li> -->
+                </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Sub Admins</span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="form_element.php">Form Elements</a></li>
-                    <li><a href="form_wizard.php">Wizard</a></li>   
-                    <li><a href="form_editor.php">Editor</a></li>
+                <ul aria-expanded="false">
+                    <li><a href="form_element.php">Sub Admins Register</a></li>
+                    <li><a href="form_wizard.php">Sub Admins Manage</a></li>   
+                    <!-- <li><a href="form_editor.php">Editor</a></li>
 					<li><a href="form_pickers.php">Pickers</a></li>
-					<li><a href="form_validation_jquery.php">Form Validate</a></li>
-                </ul> -->
+					<li><a href="form_validation_jquery.php">Form Validate</a></li> -->
+                </ul> 
             </li>
 			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -975,13 +975,13 @@ include('php/atpleads.php');
                 <!-- <ul aria-expanded="false">
                     <li><a href="table_bootstrap.php">Bootstrap</a></li>
 					<li><a href="table_datatable.php">Datatable</a></li>
-                </ul> -->
+                </ul> --> 
             </li>
-           <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+            <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-layer-1"></i>
                     <span class="nav-text">Pages</span>
-                </a>
-               <ul aria-expanded="false">
+                </a> -->
+               <!-- <ul aria-expanded="false">
                     <li><a href="page_register.php">Register</a></li>
                     <li><a href="page_login.php">Login</a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
@@ -995,8 +995,8 @@ include('php/atpleads.php');
                     </li>
                     <li><a href="page_lock_screen.php">Lock Screen</a></li>
                     <li><a href="page_empty.php">Empty Page</a></li>
-                </ul> 
-            </li> -->
+                </ul> -->
+            <!-- </li> -->
         </ul>
        <!-- <div class="add-menu-sidebar">
             <img src="public/assets/images/calendar.png" alt="" class="me-3">

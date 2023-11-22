@@ -54,7 +54,12 @@ $userEmail = $_SESSION['email'];
 		 <link href="public/assets/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>		
 		
 		 <link href="public/assets/css/style.css" rel="stylesheet" type="text/css"/>		
-	
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Include Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
 
@@ -98,501 +103,7 @@ $userEmail = $_SESSION['email'];
 ***********************************-->		<!--**********************************
 	Chat box start
 ***********************************-->
-<div class="chatbox">
-	<div class="chatbox-close"></div>
-	<div class="custom-tab-1">
-		<ul class="nav nav-tabs">
-			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" href="#notes">Notes</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" href="#alerts">Alerts</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" data-bs-toggle="tab" href="#chat">Chat</a>
-			</li>
-		</ul>
-		<div class="tab-content">
-			<div class="tab-pane fade active show" id="chat" role="tabpanel">
-				<div class="card mb-sm-3 mb-md-0 contacts_card dz-chat-user-box">
-					<div class="card-header chat-list-header text-center">
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/><rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/></g></svg></a>
-						<div>
-							<h6 class="mb-1">Chat List</h6>
-							<p class="mb-0">Show All</p>
-						</div>
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
-					</div>
-					<div class="card-body contacts_body p-0 dz-scroll  " id="DZ_W_Contacts_Body">
-						<ul class="contacts">
-							<li class="name-first-letter">A</li>
-							<li class="active dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Archie Parker</span>
-										<p>Kalid is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Alfie Mason</span>
-										<p>Taherah left 7 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>AharlieKane</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Athan Jacoby</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">B</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Bashid Samim</span>
-										<p>Rashid left 50 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Breddie Ronan</span>
-										<p>Kalid is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Ceorge Carson</span>
-										<p>Taherah left 7 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">D</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Darry Parker</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Denry Hunter</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">J</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Jack Ronan</span>
-										<p>Rashid left 50 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Jacob Tucker</span>
-										<p>Kalid is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>James Logan</span>
-										<p>Taherah left 7 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>Joshua Weston</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">O</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Oliver Acker</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-							<li class="dz-chat-user">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="public/assets/images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-										<span class="online_icon offline"></span>
-									</div>
-									<div class="user_info">
-										<span>Oscar Weston</span>
-										<p>Rashid left 50 mins ago</p>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card chat dz-chat-history-box d-none">
-					<div class="card-header chat-list-header text-center">
-						<a href="#" class="dz-chat-history-back">
-							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon points="0 0 24 0 24 24 0 24"/><rect fill="#000000" opacity="0.3" transform="translate(15.000000, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-15.000000, -12.000000) " x="14" y="7" width="2" height="10" rx="1"/><path d="M3.7071045,15.7071045 C3.3165802,16.0976288 2.68341522,16.0976288 2.29289093,15.7071045 C1.90236664,15.3165802 1.90236664,14.6834152 2.29289093,14.2928909 L8.29289093,8.29289093 C8.67146987,7.914312 9.28105631,7.90106637 9.67572234,8.26284357 L15.6757223,13.7628436 C16.0828413,14.136036 16.1103443,14.7686034 15.7371519,15.1757223 C15.3639594,15.5828413 14.7313921,15.6103443 14.3242731,15.2371519 L9.03007346,10.3841355 L3.7071045,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(9.000001, 11.999997) scale(-1, -1) rotate(90.000000) translate(-9.000001, -11.999997) "/></g></svg>
-						</a>
-						<div>
-							<h6 class="mb-1">Chat with Khelesh</h6>
-							<p class="mb-0 text-success">Online</p>
-						</div>							
-						<div class="dropdown">
-							<a href="#" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
-							<ul class="dropdown-menu dropdown-menu-end">
-								<li class="dropdown-item"><i class="fa fa-user-circle text-primary me-2"></i> View profile</li>
-								<li class="dropdown-item"><i class="fa fa-users text-primary me-2"></i> Add to close friends</li>
-								<li class="dropdown-item"><i class="fa fa-plus text-primary me-2"></i> Add to group</li>
-								<li class="dropdown-item"><i class="fa fa-ban text-primary me-2"></i> Block</li>
-							</ul>
-						</div>
-					</div>
-					<div class="card-body msg_card_body dz-scroll" id="DZ_W_Contacts_Body3">
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Hi, how are you samim?
-								<span class="msg_time">8:40 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Hi Khalid i am good tnx how about you?
-								<span class="msg_time_send">8:55 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am good too, thank you for your chat template
-								<span class="msg_time">9:00 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								You are welcome
-								<span class="msg_time_send">9:05 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am looking for your next templates
-								<span class="msg_time">9:07 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Ok, thank you have a good day
-								<span class="msg_time_send">9:10 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Bye, see you
-								<span class="msg_time">9:12 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Hi, how are you samim?
-								<span class="msg_time">8:40 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Hi Khalid i am good tnx how about you?
-								<span class="msg_time_send">8:55 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am good too, thank you for your chat template
-								<span class="msg_time">9:00 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								You are welcome
-								<span class="msg_time_send">9:05 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-						<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								I am looking for your next templates
-								<span class="msg_time">9:07 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Ok, thank you have a good day
-								<span class="msg_time_send">9:10 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="public/assets/images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-							</div>
-							<div class="msg_cotainer">
-								Bye, see you
-								<span class="msg_time">9:12 AM, Today</span>
-							</div>
-						</div>
-					</div>
-					<div class="card-footer type_msg">
-						<div class="input-group">
-							<textarea class="form-control" placeholder="Type your message..."></textarea>
-							<div class="input-group-append">
-								<button type="button" class="btn btn-primary"><i class="fa fa-location-arrow"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="alerts" role="tabpanel">
-				<div class="card mb-sm-3 mb-md-0 contacts_card">
-					<div class="card-header chat-list-header text-center">
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
-						<div>
-							<h6 class="mb-1">Notications</h6>
-							<p class="mb-0">Show All</p>
-						</div>
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/><path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"/></g></svg></a>
-					</div>
-					<div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body1">
-						<ul class="contacts">
-							<li class="name-first-letter">SEVER STATUS</li>
-							<li class="active">
-								<div class="d-flex bd-highlight">
-									<div class="img_cont primary">KK</div>
-									<div class="user_info">
-										<span>David Nester Birthday</span>
-										<p class="text-primary">Today</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">SOCIAL</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="img_cont success">RU<i class="icon fa-birthday-cake"></i></div>
-									<div class="user_info">
-										<span>Perfection Simplified</span>
-										<p>Jame Smith commented on your status</p>
-									</div>
-								</div>
-							</li>
-							<li class="name-first-letter">SEVER STATUS</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="img_cont primary">AU<i class="icon fa fa-user-plus"></i></div>
-									<div class="user_info">
-										<span>AharlieKane</span>
-										<p>Sami is online</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="img_cont info">MO<i class="icon fa fa-user-plus"></i></div>
-									<div class="user_info">
-										<span>Athan Jacoby</span>
-										<p>Nargis left 30 mins ago</p>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="card-footer"></div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="notes">
-				<div class="card mb-sm-3 mb-md-0 note_card">
-					<div class="card-header chat-list-header text-center">
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/><rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/></g></svg></a>
-						<div>
-							<h6 class="mb-1">Notes</h6>
-							<p class="mb-0">Add New Nots</p>
-						</div>
-						<a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/><path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"/></g></svg></a>
-					</div>
-					<div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body2">
-						<ul class="contacts">
-							<li class="active">
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>New order placed..</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>Youtube, a video-sharing website..</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>john just buy your product..</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="d-flex bd-highlight">
-									<div class="user_info">
-										<span>Athan Jacoby</span>
-										<p>10 Aug 2020</p>
-									</div>
-									<div class="ms-auto">
-										<a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-										<a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
 <!--**********************************
 	Chat box End
 ***********************************-->        <!--**********************************
@@ -604,7 +115,7 @@ $userEmail = $_SESSION['email'];
 			<div class="collapse navbar-collapse justify-content-between">
 				<div class="header-left">
 					<div class="dashboard_bar">
-					Select2					</div>
+					Insulation Team	</div>
 				</div>
 				<ul class="navbar-nav header-right">
 					<!-- <li class="nav-item">
@@ -888,26 +399,26 @@ $userEmail = $_SESSION['email'];
                     <i class="flaticon-381-controls-3"></i>
                     <span class="nav-text">Gas Engineers</span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="flot.php">Flot</a></li>
-					<li><a href="morris.php">Morris</a></li> 
-					<li><a href="chartjs.php">Chartjs</a></li>
-					<li><a href="chartist.php">Chartist</a></li>
-					<li><a href="sparkline.php">Sparkline</a></li>
-					<li><a href="peity.php">Peity</a></li>
-                </ul> -->
+                <ul aria-expanded="false">
+                    <li><a href="flot.php">Gas Engineers Register</a></li>
+					<li><a href="morris.php">Gas Engineer Works</a></li> 
+					<li><a href="chartjs.php">Gas Engineer list</a></li>
+					<li><a href="chartist.php">Documents Upload</a></li>
+					<!-- <!-- <li><a href="sparkline.php">Sparkline</a></li>
+					<li><a href="peity.php">Peity</a></li> --> -->
+                </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-internet"></i>
                     <span class="nav-text">Installation Team
 </span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="accordion.php">Accordion</a></li>
-					<li><a href="alert.php">Alert</a></li>
-					<li><a href="badge.php">Badge</a></li>
-					<li><a href="button.php">Button</a></li>
-					<li><a href="modal.php">Modal</a></li>
+                <ul aria-expanded="false">
+                    <li><a href="accordion.php">Installation Team Register</a></li>
+					<li><a href="alert.php">Installation Team Works</a></li>
+					<li><a href="badge.php">Installation Team list</a></li>
+					<li><a href="button.php">Documents Upload</a></li>
+					<!-- <li><a href="modal.php">Modal</a></li>
                     <li><a href="button_group.php">Button Group</a></li>
                     <li><a href="list_group.php">List Group</a></li>
                     <li><a href="media_object.php">Media Object</a></li>
@@ -919,36 +430,36 @@ $userEmail = $_SESSION['email'];
                     <li><a href="tab.php">Tab</a></li>
                     <li><a href="typography.php">Typography</a></li>
                     <li><a href="pagination.php">Pagination</a></li>
-                    <li><a href="grid.php">Grid</a></li>
+                    <li><a href="grid.php">Grid</a></li> -->
 
-                </ul> -->
+                </ul> 
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-heart"></i>
                     <span class="nav-text"> Insulation Team
 </span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="select2.php">Select 2</a></li> 
-					<li><a href="nestable.php">Nestable</a></li>
-					<li><a href="noui_slider.php">Noui Slider</a></li>
-					<li><a href="sweetalert.php">Sweet Alert</a></li>
-					<li><a href="toastr.php">Toastr</a></li>
+               <ul aria-expanded="false">
+                    <li><a href="select2.php">Insulation Team Register</a></li> 
+					<li><a href="nestable.php">Insulation Team Works</a></li>
+					<li><a href="noui_slider.php">Insulation Team list</a></li>
+					<li><a href="sweetalert.php">Documents Upload</a></li>
+					<!-- <li><a href="toastr.php">Toastr</a></li>
 					<li><a href="map_jqvmap.php">Jqv Map</a></li>
-					<li><a href="lightgallery.php">Light Gallery</a></li>
-                </ul> -->
+					<li><a href="lightgallery.php">Light Gallery</a></li> -->
+                </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Sub Admins</span>
                 </a>
-                <!-- <ul aria-expanded="false">
-                    <li><a href="form_element.php">Form Elements</a></li>
-                    <li><a href="form_wizard.php">Wizard</a></li>   
-                    <li><a href="form_editor.php">Editor</a></li>
+                <ul aria-expanded="false">
+                    <li><a href="form_element.php">Sub Admins Register</a></li>
+                    <li><a href="form_wizard.php">Sub Admins Manage</a></li>   
+                    <!-- <li><a href="form_editor.php">Editor</a></li>
 					<li><a href="form_pickers.php">Pickers</a></li>
-					<li><a href="form_validation_jquery.php">Form Validate</a></li>
-                </ul> -->
+					<li><a href="form_validation_jquery.php">Form Validate</a></li> -->
+                </ul> 
             </li>
 			<li><a href="widget_basic.php" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -962,7 +473,7 @@ $userEmail = $_SESSION['email'];
                 <!-- <ul aria-expanded="false">
                     <li><a href="table_bootstrap.php">Bootstrap</a></li>
 					<li><a href="table_datatable.php">Datatable</a></li>
-                </ul> -->
+                </ul> --> 
             </li>
            <!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-layer-1"></i>
@@ -1002,692 +513,292 @@ $userEmail = $_SESSION['email'];
 ***********************************-->
 <div class="content-body default-height">
     <div class="container-fluid">
-        <div class="page-titles">
+        <!-- <div class="page-titles">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">plugins</a></li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">Select2</a></li>
             </ol>
-        </div>
+        </div> -->
         <div class="row">
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Single select boxes</h4>
-                            <p>Select2 can take a regular select box like this...</p>
-                        </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">New Insulation Team Register</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-validation">
+                                    <form class="needs-validation">
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <div class="mb-3 row">
+                                                    <label class="col-lg-4 col-form-label" for="validationCustom01">Full
+                                                        name
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" name="f1-full-name"
+                                                            placeholder="Full name..." required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a username.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label class="col-lg-4 col-form-label">Email <span
+                                                            class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" name="f1-email"
+                                                            placeholder="Email..." id="f1-emails" required>
 
-                        <select id="single-select" style="width:100%;">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Multi-select boxes</h4>
-                            <p>Select2 also supports multi-value select boxes. The select below is declared with the multiple <mark class="text-secondary">attribute</mark>.</p>
-                        </div>
-                        <select class="multi-select" style="width:100%;" name="states[]" multiple="multiple">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                            <option value="UI">dlf</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Dropdown option groups</h4>
-                            <p>In HTML, <code>&lt;option&gt;</code> elements can be grouped by wrapping them with in <br> an <code>&lt;optgroup&gt;</code> element: </p>
-                        </div>
-
-                        <select class="dropdown-groups" style="width:100%;">
-                            <optgroup label="Group Name">
-                                <option>Nested option 1</option>
-                                <option>Nested option 2</option>
-                                <option>Nested option 3</option>
-                            </optgroup>
-                            <optgroup label="Another Group Name">
-                                <option>Nested option 1</option>
-                                <option>Nested option 2</option>
-                                <option>Nested option 3</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Disabling options</h4>
-                            <p>Select2 will correctly handle disabled options when <code>disabled</code> attribute is set) and from remote srouces where the object has <code>disabled:
-                                    true</code> set.</p>
-                        </div>
-                        <select class="disabling-options" style="width:100%;">
-                            <option value="one">First</option>
-                            <option value="two" disabled="disabled">Second (disabled)</option>
-                            <option value="three">Third</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Disabling a Select2 control</h4>
-                            <p>Select2 will respond to the <code>disabled</code> attribute on
-                                <code>&lt;select&gt;</code> elements. You can also initialize Select2 with
-                                <code>disabled: true</code> to get the same effect.</p>
-                        </div>
-
-                        <div class="mb-3">
-                            <select class="js-example-disabled" style="width:100%;">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <select class="js-example-disabled-multi" style="width:100%;" name="states[]" multiple="multiple">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-
-                        <button class="btn btn-primary me-2" id="js-programmatic-enable">Enable</button>
-                        <button class="btn btn-danger light" id="js-programmatic-disable">Disable</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Select2 With Labels</h4>
-                            <p>You can, and should, use a <code>&lt;label&gt;</code> with Select2, just like any other <code>&lt;select&gt;</code> element.</p>
-                        </div>
-
-                        <label class="mb-4 select2-label" for="id_label_single">
-                            Click this to highlight the single select element <br>
-
-                            <select class="select2-with-label-single js-states d-block" style="width:100%;" id="id_label_single">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </label>
-
-                        <label class="select2-label" for="id_label_multiple">
-                            Click this to highlight the multiple select element <br>
-
-                            <select class="select2-with-label-multiple js-states" style="width:100%;" id="id_label_multiple"
-                                multiple="multiple">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Container Width</h4>
-                            <p>The two Select2 boxes below are styled to <code>50%</code> and <code>75%</code> width respectively to support responsive design:</p>
-                        </div>
-
-                        <div class="mb-3">
-                            <select class="select2-width-50" style="width: 50%">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <select class="select2-width-75" multiple="multiple" style="width: 75%">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Themes</h4>
-                            <p>Select2 supports custom themes using the <code>theme</code> option so you can style Select2 to match the rest of your application.</p>
-                        </div>
-
-                        <div class="mb-4">
-                            <select class="js-example-theme-single" style="width:100%;">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-
-                        <div class="">
-                            <select class="js-example-theme-multiple" style="width:100%;" name="states[]" multiple="multiple">
-                                <option value="AL">Alabama</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Ajax (remote data)</h4>
-                            <p>Select2 comes with AJAX support built in, using jQuery's AJAX methods. In this example, we can search for repositories using GitHub's API:</p>
-                        </div>
-
-                        <select class="js-data-example-ajax w-100">
-
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Loading array data</h4>
-                            <p>You may use the <code>data</code> configuration option to load dropdown options from a local array.</p>
-                        </div>
-
-                        <select class="js-example-data-array" style="width:100%;">
-
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Automatic Selection</h4>
-                            <p>Select2 can be configured to automatically select the currently highlighted result when the dropdown is btn-closed by using the <code>selectOnbtn-close</code> option:
-                            </p>
-                        </div>
-
-                        <select id="automatic-selection" style="width:100%;">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Remain open after selection</h4>
-                            <p>Select2 will automatically btn-close the dropdown when an element is selected, similar to what is done with a normal select box. You may use the
-                                <code>btn-closeOnSelect</code> option to prevent the dropdown from closing when a result is selected:</p>
-                        </div>
-
-                        <select id="remain-open" style="width:100%;">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Dropdown placement</h4>
-                            <p>The <code>dropdownParent</code> option allows you to pick an alternative element for the dropdown to be appended to:</p>
-                        </div>
-
-                        <select id="dropdown-placement" style="width:100%;">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                        </select>
-                        <div id="select2-modal">
-
+                                                        <div class="invalid-feedback">
+                                                            Please enter a Email.
+                                                        </div>
+                                                        <div id="email-status"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label class="col-lg-4 col-form-label"
+                                                        for="validationCustom03">Password
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="password" class="form-control" name="f1-password"
+                                                            placeholder="Password..." required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a password.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom04">Suggestions <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <textarea class="form-control" id="validationCustom04"  rows="5" placeholder="What would you like to see?" required></textarea>
+                                                <div class="invalid-feedback">
+                                                    Please enter a Suggestions.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom05">Best Skill
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <select class="default-select wide form-control" id="validationCustom05">
+                                                    <option  data-display="Select">Please select</option>
+                                                    <option value="html">HTML</option>
+                                                    <option value="css">CSS</option>
+                                                    <option value="javascript">JavaScript</option>
+                                                    <option value="angular">Angular</option>
+                                                    <option value="angular">React</option>
+                                                    <option value="vuejs">Vue.js</option>
+                                                    <option value="ruby">Ruby</option>
+                                                    <option value="php">PHP</option>
+                                                    <option value="asp">ASP.NET</option>
+                                                    <option value="python">Python</option>
+                                                    <option value="mysql">MySQL</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    Please select a one.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom06">Currency
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom06" placeholder="$21.60" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a Currency.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom07">Website
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom07"  placeholder="http://example.com" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a url.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                                <div class="mb-3 row">
+                                                    <label class="col-lg-4 col-form-label"
+                                                        for="validationCustom08">Phone Number
+                                                        <!-- <span class="text-danger">*</span> -->
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" name="f1-phone"
+                                                            placeholder="Phone Number...">
+                                                        <div class="invalid-feedback">
+                                                            Please enter a phone no.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label class="col-lg-4 col-form-label"
+                                                        for="validationCustom09">About Surveyor
+                                                        <!-- <span
+                                                    class="text-danger">*</span> -->
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" name="f1-details"
+                                                            placeholder="details...">
+                                                        <div class="invalid-feedback">
+                                                            Please enter a digits.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom10">Number <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom10" placeholder="5.0" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a num.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                                <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label" for="validationCustom11">Range [1, 5]
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="validationCustom11" placeholder="4" required>
+                                                <div class="invalid-feedback">
+                                                    Please select a range.
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                                <!-- <div class="mb-3 row">
+                                            <label class="col-lg-4 col-form-label"><a
+                                                    href="javascript:void(0);">Terms &amp; Conditions</a> <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-8">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="validationCustom12" required>
+                                                    <label class="form-check-label" for="validationCustom12">
+                                                    Agree to terms and conditions
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>  -->
+                                                <div class="mb-3 row">
+                                                    <div class="col-lg-8 ms-auto">
+                                                        <button type="submit"
+                                                            onclick="confirmcreateserveyor(event, this.form)"
+                                                            class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
+
                 </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Limiting the number of selections</h4>
-                            <p>Select2 multi-value select boxes can set restrictions regarding the maximum number of options that can be selected. The select below is declared with the
-                                <code>multiple</code> attribute with <code>maximumSelectionLength</code> in the select2 options.</p>
-                        </div>
-
-                        <select id="limit-selection" name="states[]" style="width:100%;" multiple="multiple">
-                            <option value="AL">Alabama</option>
-                            <option value="WY">Wyoming</option>
-                            <option value="BY">Lorem</option>
-                            <option value="DY">Ipsum</option>
-                            <option value="MY">Dolor</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Dynamic option creation</h4>
-                            <p>In addition to a prepopulated menu of options, Select2 can dynamically create new options from text input by the user in the search box. This feature is called "tagging". To enable tagging, set the <code>tags</code>                                        option to
-                                <code>true</code>:</p>
-                        </div>
-                        <select id="dynamic-option-creation" style="width:100%;">
-                            <option value="AL">Red</option>
-                            <option value="WY">Green</option>
-                            <option value="BY">Yellow</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Tagging with multi-value select boxes</h4>
-                            <p>Tagging can also be used in multi-value select boxes. In the example below, we set the <code>multiple="multiple"</code> attribute on a Select2 control that also has <code>tags: true</code> enabled:</p>
-                        </div>
-
-                        <select id="multi-value-select" style="width:100%;" multiple="multiple">
-                            <option selected="selected">orange</option>
-                            <option>white</option>
-                            <option selected="selected">purple</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Single select placeholders</h4>
-                            <p>Select2 supports displaying a placeholder value using the
-                                <code>placeholder</code> configuration option. The placeholder value will be displayed until a selection is made.</p>
-                        </div>
-
-                        <select class="single-select-placeholder js-states" style="width:100%;">
-
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Multi-select placeholders</h4>
-                            <p>For multi-selects, you must <strong>not</strong> have an empty
-                                <code>&lt;option&gt;</code>element:</p>
-                        </div>
-
-                        <select class="multi-select-placeholder js-states" style="width:100%;" multiple="multiple">
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Default selection placeholders</h4>
-                            <p>Alternatively, the value of the <code>placeholder</code> option can be a data object representing a default selection (<code>&lt;option&gt;</code>). In this case the <code>id</code> of the data object should match the
-                                <code>value</code> of the corresponding default selection.</p>
-                        </div>
-
-                        <select class="default-placeholder" style="width:100%;">
-
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Customizing how results are matched</h4>
-                            <p>When users filter down the results by entering search terms into the search box, Select2 uses an internal "matcher" to match search terms to results. You may customize the way that Select2 matches search terms by specifying
-                                a callback for the <code>matcher</code> configuration option.</p>
-                        </div>
-
-                        <select class="customize-result" style="width:100%;">
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Matching grouped options</h4>
-                            <p>Only first-level objects will be passed in to the <code>matcher</code> callback. If you are working with nested data, you must iterate through the
-                                <code>children</code> array and match them individually. This allows for more advanced matching when working with nested objects, allowing you to handle them however you want.</p>
-                        </div>
-
-                        <select class="match-grouped-options" style="width:100%;">
-                            <optgroup label="Alaskan/Hawaiian Time Zone">
-                                <option>Alaska</option>
-                                <option>Hawaii</option>
-                            </optgroup>
-                            <optgroup label="Pacific Time Zone">
-                                <option>California</option>
-                                <option>Nevada</option>
-                                <option>Oregon</option>
-                                <option>Washington</option>
-                            </optgroup>
-                            <optgroup label="Mountain Time Zone">
-                                <option>Arizona</option>
-                                <option>Colorado</option>
-                                <option>Idaho</option>
-                                <option>Mountana</option>
-                                <option>Nebraska</option>
-                                <option>New Mexico</option>
-                                <option>Utah</option>
-                                <option>Wyoming</option>
-                            </optgroup>
-                            <optgroup label="Central Time Zone">
-                                <option>Alabama</option>
-                                <option>Arkansas</option>
-                                <option>Illinois</option>
-                                <option>Lowa</option>
-                                <option>Kansas</option>
-                            </optgroup>
-                            <optgroup label="Eastern Time Zone">
-                                <option>Connecticut</option>
-                                <option>Delaware</option>
-                                <option>Florida</option>
-                                <option>Georgia</option>
-                                <option>Indiana</option>
-                                <option>Maine</option>
-                                <option>Maryland</option>
-                                <option>Massachusetts</option>
-                                <option>Michigan</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Minumum search term length</h4>
-                            <p>You may set a minimum search term length by using the
-                                <code>minimumInputLength</code> option:</p>
-                        </div>
-
-                        <select class="minimum-search-length" style="width:100%;">
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Maximum search term length</h4>
-                            <p>You may limit the maximum length of search terms by using the
-                                <code>maximumInputLength</code> option:</p>
-                        </div>
-
-                        <select class="maximum-search-length" style="width:100%;">
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Programmatically add new options</h4>
-                            <p>New options can be added to a Select2 control programmatically by creating a new Javascript <code>Option</code> object and appending it to the control:</p>
-                        </div>
-
-                        <select class="add-new-options" style="width:100%;">
-
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Create if not exists</h4>
-                            <p>You can use <code>.find</code> to select the option if it already exists, and create it otherwise:</p>
-                        </div>
-
-                        <select class="create-if-not-exists" style="width:100%;">
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Using jQuery selector</h4>
-                            <p>Selected items can also be accessed via the <code>:selected</code> jQuery selector:
-                            </p>
-                        </div>
-
-                        <select class="jquery-selector" style="width:100%;">
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">RTL support</h4>
-                            <p>Select2 will work on RTL websites if the <code>dir</code> attribute is set on the
-                                <code>&lt;select&gt;</code><span class="copy-to-clipboard" title="Copy to clipboard"></span> or any parents of it. You can also initialize Select2 with the <code>dir: "rtl"</code><span class="copy-to-clipboard"
-                                    title="Copy to clipboard"></span> configuration option.
-                            </p>
-                        </div>
-
-                        <select class="rtl-select2" style="width:100%;">
-                            <option value="Alaska">Alaska</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="California">California</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Destroying the Select2 control</h4>
-                            <p>The <code>destroy</code> method will remove the Select2 widget from the target element. It will revert back to a standard <code>select</code> control:</p>
-                        </div>
-
-                        <div class="mb-4">
-                            <select class="destroy-selector" style="width:100%;">
-                                <option value="Alaska">Alaska</option>
-                                <option value="Hawaii">Hawaii</option>
-                                <option value="California">California</option>
-                            </select>
-                        </div>
-                        <button id="destroy-selector-trigger" class="btn btn-danger">Destroy Select2</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Opening the dropdown</h4>
-                            <p>Select2 will trigger a few different events when different actions are taken using the component, allowing you to add custom hooks and perform actions.</p>
-                        </div>
-
-                        <div class="mb-4">
-                            <select class="opening-dropdown" style="width:100%;">
-                                <option value="Alaska">Alaska</option>
-                                <option value="Hawaii">Hawaii</option>
-                                <option value="California">California</option>
-                            </select>
-                        </div>
-                        <button id="dropdown-trigger-open" class="btn btn-primary">Open Dropdown</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Opening/Closing the dropdown</h4>
-                            <p>Select2 will trigger a few different events when different actions are taken using the component, allowing you to add custom hooks and perform actions.</p>
-                        </div>
-                        <button id="opening-dropdown-trigger" class="btn btn-primary mb-2">Open
-                            Dropdown</button>
-                        <button id="closing-dropdown-trigger" class="btn btn-primary mb-2">btn-close
-                            Dropdown</button>
-                        <div class="mt-4">
-                            <select class="open-close-dropdown" style="width:100%;">
-                                <option value="Alaska">Alaska</option>
-                                <option value="Hawaii">Hawaii</option>
-                                <option value="California">California</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Select2 methods</h4>
-                            <p>Select2 has several built-in methods that allow programmatic control of the component. </p>
-                        </div>
-
-                        <label class="select2-label form-label">Single select</label> <br>
-                        <button class="js-programmatic-set-val btn btn-primary mb-2" aria-label="Set Select2 option">
-                            Set "California"
-                        </button>
-
-                        <button class="js-programmatic-open btn btn-primary mb-2">
-                            Open
-                        </button>
-
-                        <button class="js-programmatic-btn-close btn btn-primary mb-2">
-                            btn-close
-                        </button>
-
-                        <button class="js-programmatic-destroy btn btn-primary mb-2">
-                            Destroy
-                        </button>
-
-                        <button class="js-programmatic-init btn btn-primary mb-2">
-                            Re-initialize
-                        </button>
-
-                        <div class="mt-4">
-                            <select class="single-event-unbind" style="width:100%;">
-                                <option value="AL">Alaska</option>
-                                <option value="HA">Hawaii</option>
-                                <option value="CA">California</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h4 class="card-title">Select2 methods</h4>
-                            <p>Select2 has several built-in methods that allow programmatic control of the component. </p>
-                        </div>
-
-                        <label class="select2-label form-label">Multiple select</label> <br>
-                        <button class="js-programmatic-multi-set-val btn btn-primary mb-2" aria-label="Set Select2 option">
-                            Set to Hawaii and California
-                        </button>
-
-                        <button class="js-programmatic-multi-clear btn btn-primary mb-2">
-                            Clear
-                        </button>
-
-                        <div class="mt-4">
-                            <select class="js-example-programmatic-multi" style="width:100%;" multiple="multiple">
-                                <option value="AL">Alaska</option>
-                                <option value="HA">Hawaii</option>
-                                <option value="CA">California</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+
+
+<script>
+        function confirmcreateserveyor(event, form) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Please Confirm to create a new Insulation Team!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, Create it!",
+                cancelButtonText: "No, cancel plx",
+                allowEnterKey: false,
+                allowEscapeKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send an AJAX request to create the new surveyor
+                    $.ajax({
+                        type: "POST",
+                        url: "php/createinsulationteam.php",
+                        data: $(form).serialize(), // Serialize the form data
+                        success: function(response) {
+                            if (response === "success") {
+                                Swal.fire("Created!", "New Insulation Team Registered Successfully.",
+                                    "success").then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire("Error", "Failed to Register New Insulation Team.", "error");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log("AJAX Error: " + error); // Log the error to the console
+                            Swal.fire("Error",
+                                "Failed to Register New Installation Team. Please check the console for more details.",
+                                "error");
+                        },
+                    });
+                }
+            });
+        }
+        </script>
+
+        <script>
+        $(document).ready(function() {
+            // Add event listeners to the email and password fields
+            $("#f1-emails").on("keyup", function() {
+                console.log('hi');
+                checkEmailAvailability($(this).val());
+
+            });
+
+            function checkEmailAvailability(email) {
+                $.ajax({
+                    type: "POST",
+                    url: "php/checkemail.php", // Adjust the URL to your email availability check script
+                    data: {
+                        email: email
+                    },
+                    success: function(response) {
+                        // Update an element to provide feedback to the user
+                        var emailStatusDiv = $("#email-status");
+                        if (response == 'Email is available') {
+
+                            $("#email-status").text(response);
+                            emailStatusDiv.css('color', 'green');
+                            $("button[type='submit']").prop('disabled', false);
+
+                        } else {
+
+                            $("#email-status").text(response);
+                            $("button[type='submit']").prop('disabled', true);
+                            emailStatusDiv.css('color', 'red');
+                            toastr.error('Duplicate value not allowed');
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.log(error); // Log the error for debugging
+                    },
+                });
+            }
+        });
+        </script>
 <!--**********************************
     Content body end
 ***********************************-->
@@ -1704,6 +815,7 @@ $userEmail = $_SESSION['email'];
 ***********************************-->        
 		
 	</div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 			<script src="public/assets/vendor/global/global.min.js"></script>
 			<script src="public/assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
 		

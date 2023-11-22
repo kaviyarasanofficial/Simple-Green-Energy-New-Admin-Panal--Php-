@@ -72,9 +72,9 @@
             <option value="admin_login.php">Admin</option>
             <option value="customer_logins.php">Customer</option>
             <option value="teamlogins.php">Surveyors</option>
-            <option value="teamlogin.php">Gas Engineers</option>
-            <option value="teamlogin.php">Installation Team</option>
-            <option value="teamlogin.php">Insulation Team</option>
+            <option value="teamlogins.php">Gas Engineers</option>
+            <option value="teamlogins.php">Installation Team</option>
+            <option value="teamlogins.php">Insulation Team</option>
         </select>
     </form>
 </div>
