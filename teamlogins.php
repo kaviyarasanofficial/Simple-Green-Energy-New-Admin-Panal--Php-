@@ -49,16 +49,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         header("Location: surveyor/index.php");
                         exit();
                     } elseif ($role === 'Gas_engineers') {
-                        header("Location: Gas_engineers.php");
+                        header("Location: gasengineer/index.php");
                         exit();
                     } elseif ($role === 'Installation_team') {
-                        header("Location: Installation_team.php");
+                        header("Location: installer/index.php");
                         exit();
                     } elseif ($role === 'Insulation_team') {
-                        header("Location: Insulation_team.php");
+                        header("Location: insulator/index.php");
                         exit();
                     } elseif ($role === 'Sub_Admin') {
-                        header("Location: Sub_Admin.php");
+                        header("Location: subadmin/index.php");
                         exit();
                       
                     } else {

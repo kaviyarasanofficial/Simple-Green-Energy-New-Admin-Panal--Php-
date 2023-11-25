@@ -1344,23 +1344,18 @@ include('php/userleads.php');
 
                     buttons.forEach(button => {
                         button.addEventListener('click', function() {
+                           
+
                             const email = this.getAttribute('data-email');
                             const recordId = this.getAttribute('data-record-id');
 
-                            if (this.innerText === 'Notify') {
-                                // Change button text to "Notified" and disable it
-                                this.innerText = 'Notified';
-                                this.classList.remove('btn-primary');
-                                this.classList.add('btn-info');
-                                this.disabled = true;
-
-                                // Send an AJAX request to a PHP script to send the email
-                                sendEmail(email, recordId);
-                            }
+sendEmail(email, recordId);
+                           
                         });
                     });
 
                     function sendEmail(email, recordId) {
+                        console.log('11');
                         const xhr = new XMLHttpRequest();
                         xhr.open('POST', 'requestdocmail.php', true);
                         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -1387,17 +1382,8 @@ include('php/userleads.php');
                         button.addEventListener('click', function() {
                             const email = this.getAttribute('data-email');
                             const recordId = this.getAttribute('data-record-id');
-
-                            if (this.innerText === 'Reject') {
-                                // Change button text to "Notified" and disable it
-                                this.innerText = 'Rejected';
-                                this.classList.remove('btn-primary');
-                                this.classList.add('btn-danger');
-                                this.disabled = true;
-
-                                // Send an AJAX request to a PHP script to send the email
-                                sendEmail(email, recordId);
-                            }
+                            
+sendEmail(email, recordId);
                         });
                     });
 
@@ -1429,16 +1415,8 @@ include('php/userleads.php');
                             const email = this.getAttribute('data-email');
                             const recordId = this.getAttribute('data-record-id');
 
-                            if (this.innerText === 'Approve') {
-                                // Change button text to "Notified" and disable it
-                                this.innerText = 'Approved';
-                                this.classList.remove('btn-primary');
-                                this.classList.add('btn-success');
-                                this.disabled = true;
-
-                                // Send an AJAX request to a PHP script to send the email
-                                sendEmail(email, recordId);
-                            }
+                            
+                            sendEmail(email, recordId);
                         });
                     });
 
